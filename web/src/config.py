@@ -18,4 +18,8 @@ if(not os.path.exists(config_dir+os.sep+"web.json")):
     WebUrl = input("Webが動作するURLを入力してください (例:https://example.com ) > ")
     ApiUrl = input("APIが動作しているURLを入力してください (例: https://api.example.com ) > ")
     WebPort = input("Webが動作するポートを入力してください (例:8080) > ")
-    
+    web={
+        "url":WebUrl,
+        "port":WebPort,
+        "api":ApiUrl
+    }
