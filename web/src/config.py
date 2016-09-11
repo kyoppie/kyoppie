@@ -3,10 +3,16 @@ import os
 import sys
 import re
 config_dir = os.path.abspath(os.path.dirname(__file__)+os.sep+".."+os.sep+"config"+os.sep)
+web={}
+api={}
 # APIのコンフィグがあるか確認
 if(not os.path.exists(config_dir+os.sep+"api.json")):
     print("APIのコンフィグ(config/api.json)が存在しません。APIのweb_config.jsonをconfig/api.jsonにコピーしてください。")
     sys.exit(1)
+else:
+    f = open(config_dir+os.sep+"api.json","r")
+    api = json.load(f)
+    f.close()
 # Web特有コンフィグがあるか確認
 if(not os.path.exists(config_dir+os.sep+"web.json")):
     print("設定ファイルが存在しません。対話モードで設定ファイルを作成します！")
@@ -23,3 +29,10 @@ if(not os.path.exists(config_dir+os.sep+"web.json")):
         "port":WebPort,
         "api":ApiUrl
     }
+    f = open(config_dir+os.sep+"web.json","w")
+    json.dump(web,f)
+    f.close()
+else:
+    f = open(config_dir+os.sep+"web.json","r")
+    web = json.load(f)
+    f.close()
