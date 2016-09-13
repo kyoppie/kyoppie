@@ -2,6 +2,7 @@ import os.path
 import os
 import sys
 import re
+import json
 config_dir = os.path.abspath(os.path.dirname(__file__)+os.sep+".."+os.sep+"config"+os.sep)
 web={}
 api={}
@@ -26,7 +27,7 @@ if(not os.path.exists(config_dir+os.sep+"web.json")):
     WebPort = input("Webが動作するポートを入力してください (例:8080) > ")
     web={
         "url":WebUrl,
-        "port":WebPort,
+        "port":int(WebPort),
         "api":ApiUrl
     }
     f = open(config_dir+os.sep+"web.json","w")
