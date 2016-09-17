@@ -1,8 +1,20 @@
 extends ./base
+block header
+    script.
+        $(function(){
+            $("#loginForm").submit(function(ev){
+                ev.preventDefault();
+                $.post("/_/ajax/login",$(this).serialize()).then(function(res){
+                    alert(res);
+                },function(err){
+                    console.log(arguments)
+                })
+            })
+        })
 block content
     .panel
         h1 kyoppie
-        form(method="POST",action="/_/login")
+        form#loginForm(action="/error/nojs")
             label
                 input(type="text",name="screenName",placeholder="スクリーンネーム")
             label
