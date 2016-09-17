@@ -23,7 +23,7 @@ label{
     display:block;
     position:relative;
     height:2em;
-    margin-bottom:1em;
+    margin-bottom:1.5em;
 }
 input[type="submit"],button{
     font-size:1.1em;
@@ -35,4 +35,5 @@ input[type="submit"],button{
     display:block;
     width:100%;
     border-radius:0.5em;
+    -webkit-appearance:none;
 }
