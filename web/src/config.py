@@ -83,3 +83,5 @@ for question in configSchema:
     f = open(config_dir+os.sep+"web.json","w")
     json.dump(web,f)
     f.close()
+public = dict(web)
+del public["port"]
