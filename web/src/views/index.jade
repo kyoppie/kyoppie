@@ -1,3 +1,10 @@
 extends ./base
 block content
-    h1 hello kyoppie
+    .panel
+        h1 kyoppie
+        form(method="POST",action="/_/login")
+            label
+                input(type="text",name="screenName",placeholder="スクリーンネーム")
+            label
+                input(type="password",name="password",placeholder="パスワード")
+            input.block(type="submit",value="ログイン")
