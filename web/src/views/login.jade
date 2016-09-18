@@ -1,5 +1,6 @@
 extends ./base
 block header
+    script(src="/static/query_string.js")
     script.
         $(function(){
             $("#loginForm").submit(function(ev){
@@ -8,9 +9,32 @@ block header
                 $this.find('[type="submit"]').prop("disabled",true);
                 $.post("/_/ajax/login",$(this).serialize()).then(function(res){
                     $this.find('[type="submit"]').prop("disabled",false);
-                    alert(res);
+                     if(!res.status){
+                        alert("未知のレスポンスです。\nリロードしてみてください");
+                    } else if(res.status == "ng"){
+                        var message = res.message;
+                        switch(res.message){
+                            case 'user-not-found':
+                                message="ユーザー名が間違っています";
+                                break;
+                            case 'invalid-password':
+                                message="パスワードが間違っています";
+                                break;
+                        }
+                        alert(message);
+                    } else if(res.status != "ok"){
+                        alert("未知のレスポンスです。\nリロードしてみてください");
+                    } else {
+                        // 絶対にOK
+                        var nextUrl = $.getUrlVar("next");
+                        if(nextUrl) {
+                            location.href=nextUrl;
+                        } else {
+                            location.href="/";
+                        }
+                    }
                 },function(err){
-                    console.log(arguments)
+                    alert("サーバーでエラーが発生しました。\nしばらく待ってからもう一度ログインしてみてください。");
                 })
             })
         })
@@ -19,11 +43,11 @@ block content
         h1 kyoppie
         form#loginForm(action="/error/nojs")
             label
-                input(type="text",name="screenName",placeholder="スクリーンネーム")
+                input(type="text",name="screenName",placeholder="スクリーンネーム",required)
             label
-                input(type="password",name="password",placeholder="パスワード")
+                input(type="password",name="password",placeholder="パスワード",required)
             button.block(type="submit")
-                span.no_disabled
+                span.no_disabled#login_default
                     i.fa.fa-sign-in
                     |  ログイン
                 span.yes_disabled
