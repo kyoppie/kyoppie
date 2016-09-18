@@ -37,3 +37,9 @@ input[type="submit"],button{
     border-radius:0.5em;
     -webkit-appearance:none;
 }
+[type="submit"]:disabled > .no_disabled{
+    display:none;
+}
+[type="submit"]:enabled > .yes_disabled{
+    display:none;
+}

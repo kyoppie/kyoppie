@@ -4,7 +4,10 @@ block header
         $(function(){
             $("#loginForm").submit(function(ev){
                 ev.preventDefault();
+                var $this = $(this);
+                $this.find('[type="submit"]').prop("disabled",true);
                 $.post("/_/ajax/login",$(this).serialize()).then(function(res){
+                    $this.find('[type="submit"]').prop("disabled",false);
                     alert(res);
                 },function(err){
                     console.log(arguments)
@@ -19,4 +22,10 @@ block content
                 input(type="text",name="screenName",placeholder="スクリーンネーム")
             label
                 input(type="password",name="password",placeholder="パスワード")
-            input.block(type="submit",value="ログイン")
+            button.block(type="submit")
+                span.no_disabled
+                    i.fa.fa-sign-in
+                    |  ログイン
+                span.yes_disabled
+                    i.fa.fa-spinner.fa-pulse
+                    |  ログイン中...
