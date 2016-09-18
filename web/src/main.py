@@ -17,6 +17,7 @@ app.register_blueprint(ajax.app)
 @utils.login_required
 def indexPage():
     return render_template("index.jade")
+
 @app.route('/login')
 def loginPage():
     return render_template("login.jade")
