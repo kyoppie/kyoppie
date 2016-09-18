@@ -3,6 +3,7 @@ import os
 import sys
 import re
 import json
+import base64
 config_dir = os.path.abspath(os.path.dirname(__file__)+os.sep+".."+os.sep+"config"+os.sep)
 web={}
 api={}
@@ -41,8 +42,6 @@ questionFlag = False
 if(not os.path.exists(config_dir+os.sep+"web.json")):
     print("設定ファイルが存在しません。対話モードで設定ファイルを作成します！")
     print("※URLを入力する場合、最後に/はいりません！")
-    for question in configSchema:
-        print(question)
     web={}
     f = open(config_dir+os.sep+"web.json","w")
     json.dump(web,f)
@@ -83,5 +82,12 @@ for question in configSchema:
     f = open(config_dir+os.sep+"web.json","w")
     json.dump(web,f)
     f.close()
+if(web.get("secret_key") == None):
+    import os
+    web["secret_key"]=base64.b64encode(os.urandom(24)).decode("utf-8")
+    f = open(config_dir+os.sep+"web.json","w")
+    json.dump(web,f)
+    f.close()
 public = dict(web)
 del public["port"]
+del public["secret_key"]
