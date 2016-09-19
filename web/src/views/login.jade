@@ -9,7 +9,7 @@ block header
                 $this.find('[type="submit"]').prop("disabled",true);
                 $.post("/_/ajax/login",$(this).serialize()).then(function(res){
                     $this.find('[type="submit"]').prop("disabled",false);
-                     if(!res.status){
+                    if(!res.status){
                         alert("未知のレスポンスです。\nリロードしてみてください");
                     } else if(res.status == "ng"){
                         var message = res.message;
@@ -34,6 +34,7 @@ block header
                         }
                     }
                 },function(err){
+                    $this.find('[type="submit"]').prop("disabled",false);
                     alert("サーバーでエラーが発生しました。\nしばらく待ってからもう一度ログインしてみてください。");
                 })
             })
