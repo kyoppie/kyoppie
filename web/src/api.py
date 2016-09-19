@@ -16,4 +16,6 @@ def login(userName,password):
     sigKey = r["response"]["sigKey"]
     appSecretHash = hashlib.sha256((config.api["appSecret"]+r["response"]["sigHash"]).encode("utf-8")).hexdigest()
     r = requests.post(config.web["api"]+"/auth/get_access_token",data={"appKey":config.api["appKey"],"appSecret":appSecretHash,"sigKey":sigKey,"pinCode":pinCode,"requestToken":requestToken}).json()
+    if(r.get("response")):
+        r["response"]["token"] = hashlib.sha256((config.api["appKey"]+r["response"]["token"]+config.api["appSecret"]).encode("utf-8")).hexdigest()
     return r
