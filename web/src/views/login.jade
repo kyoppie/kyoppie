@@ -38,9 +38,20 @@ block header
                 })
             })
         })
+    style.
+        #mainPanel{
+            text-align:center;
+        }
+        #mainPanel > div{
+            margin-bottom:2em;
+        }
+        #loginForm{
+            text-align:left;
+        }
 block content
-    .panel
+    .panel#mainPanel
         h1 kyoppie
+        div kyoppieはオープンソースなゆるーいSNSです。
         form#loginForm(action="/error/nojs")
             label
                 input(type="text",name="screenName",placeholder="スクリーンネーム",required)
