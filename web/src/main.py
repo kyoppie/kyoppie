@@ -2,7 +2,7 @@ import config
 import json
 import ajax
 import utils
-from flask import Flask,render_template
+from flask import Flask,render_template,redirect,session,request
 app = Flask(__name__)
 app.template_folder = "views"
 app.jinja_env.add_extension("pyjade.ext.jinja.PyJadeExtension")
@@ -20,6 +20,8 @@ def indexPage():
 
 @app.route('/login')
 def loginPage():
+    if(session.get("access_token")):
+        return redirect(request.args.get("next","/"))
     return render_template("login.jade")
 
 if(__name__ == "__main__"):

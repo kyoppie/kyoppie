@@ -28,6 +28,7 @@ block header
                         // 絶対にOK
                         var nextUrl = $.getUrlVar("next");
                         if(nextUrl) {
+                            nextUrl=decodeURIComponent(nextUrl);
                             location.href=nextUrl;
                         } else {
                             location.href="/";
@@ -43,16 +44,20 @@ block header
         #mainPanel{
             text-align:center;
         }
-        #mainPanel > div{
+        .container > div{
             margin-bottom:2em;
         }
         #loginForm{
             text-align:left;
         }
+        .container{
+            text-align:center;
+        }
 block content
+    h1 kyoppie
+    div kyoppieはオープンソースなゆるーいSNSです。
     .panel#mainPanel
-        h1 kyoppie
-        div kyoppieはオープンソースなゆるーいSNSです。
+        h2 ログイン
         form#loginForm(action="/error/nojs")
             label
                 input(type="text",name="screenName",placeholder="スクリーンネーム",required)

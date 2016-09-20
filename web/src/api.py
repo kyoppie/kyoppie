@@ -19,3 +19,21 @@ def login(userName,password):
     if(r.get("response")):
         r["response"]["token"] = hashlib.sha256((config.api["appKey"]+r["response"]["token"]+config.api["appSecret"]).encode("utf-8")).hexdigest()
     return r
+def get(endpoint,params={},token=None):
+    header={}
+    if(token):
+        header["X-Kyoppie-Access-Token"]=token
+    return requests.get(
+        config.web["api"]+"/"+endpoint,
+        params=params,
+        headers=header
+    ).json()
+def post(endpoint,params={},token=None):
+    header={}
+    if(token):
+        header["X-Kyoppie-Access-Token"]=token
+    return requests.get(
+        config.web["api"]+"/"+endpoint,
+        params=params,
+        headers=header
+    ).json()
