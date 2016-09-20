@@ -1,5 +1,19 @@
 extends ./base
 block header
     script(src="/static/js/api.js")
+    script.
+        $(function(){
+            $("#postForm").submit(function(ev){
+                ev.preventDefault();
+                $.api.post("posts/create",$(this).serialize()).then(function(post_obj){
+                    console.log(post_obj)
+                })
+            })
+        })
 block content
-    h1 hoge
+    .panel
+        form#postForm
+            textarea(name="text",placeholder="ねえねえ、今どんな気持ち？")
+            button(type="submit")
+                i.fa.fa-paper-plane
+                |  投稿
