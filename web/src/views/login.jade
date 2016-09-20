@@ -60,9 +60,9 @@ block content
         h2 ログイン
         form#loginForm(action="/error/nojs")
             label
-                input(type="text",name="screenName",placeholder="スクリーンネーム",required)
+                input.input(type="text",name="screenName",placeholder="スクリーンネーム",required)
             label
-                input(type="password",name="password",placeholder="パスワード",required)
+                input.input(type="password",name="password",placeholder="パスワード",required)
             button.block(type="submit")
                 span.no_disabled#login_default
                     i.fa.fa-sign-in

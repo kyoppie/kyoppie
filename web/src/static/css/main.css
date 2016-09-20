@@ -11,13 +11,14 @@ body{
         margin:1em 15vw;
     }
 }
-label>input[type="text"],label>input[type="password"] {
+.input {
     font-size:1.05em;
     border:1px solid #f76;
     padding:0.5em;
     border-radius:0.25em;
     width:100%;
     box-sizing:border-box;
+    resize:vertical;
 }
 label{
     display:block;
