@@ -1,3 +1,4 @@
+# coding: utf-8
 import os.path
 import os
 import sys
@@ -58,7 +59,10 @@ for question in configSchema:
             questionFlag = False
         while(True):
             print("")
-            _i = input(question["text"])
+            try:
+                _i = raw_input(question["text"])
+            except:
+                _i = input(question["text"])
             if(question["type"] == "text"):
                 web[question["name"]] = _i
                 break
