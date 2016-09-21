@@ -7,19 +7,13 @@ block header
                 ev.preventDefault();
                 var $this = $(this);
                 $this.find('[type="submit"]').prop("disabled",true);
-                $.post("/_/ajax/login",$(this).serialize()).then(function(res){
+                $.post("/_/ajax/register",$(this).serialize()).then(function(res){
                     $this.find('[type="submit"]').prop("disabled",false);
                     if(!res.status){
                         alert("未知のレスポンスです。\nリロードしてみてください");
                     } else if(res.status == "ng"){
                         var message = res.message;
                         switch(res.message){
-                            case 'user-not-found':
-                                message="ユーザー名が間違っています";
-                                break;
-                            case 'invalid-password':
-                                message="パスワードが間違っています";
-                                break;
                         }
                         alert(message);
                     } else if(res.status != "ok"){
@@ -57,7 +51,7 @@ block content
     h1 kyoppie
     div kyoppieはオープンソースなゆるーいSNSです。
     .panel#mainPanel
-        h2 ログイン
+        h2 アカウント作成
         form#loginForm(action="/error/nojs")
             label
                 input.input(type="text",name="screenName",placeholder="スクリーンネーム",required)
@@ -66,10 +60,10 @@ block content
             button.block(type="submit")
                 span.no_disabled#login_default
                     i.fa.fa-sign-in
-                    |  ログイン
+                    |  新規登録
                 span.yes_disabled
                     i.fa.fa-spinner.fa-pulse
-                    |  ログイン中...
+                    |  登録中...
         br
         | もしくは、
-        a(href="/register") アカウントを作成する
+        a(href="/login") ログインする

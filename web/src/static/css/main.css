@@ -44,3 +44,6 @@ input[type="submit"],button{
 [type="submit"]:enabled > .yes_disabled{
     display:none;
 }
+a{
+    color:#f40;
+}

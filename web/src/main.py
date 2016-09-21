@@ -24,6 +24,12 @@ def loginPage():
         return redirect(request.args.get("next","/"))
     return render_template("login.jade")
 
+@app.route('/register')
+def registerPage():
+    if(session.get("access_token")):
+        return redirect(request.args.get("next","/"))
+    return render_template("register.jade")
+
 if(__name__ == "__main__"):
     app.run(
         port=config.web["port"]
