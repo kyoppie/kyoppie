@@ -1,0 +1,59 @@
+extends ./base
+block header
+    meta(name="user-id",content=user.id)
+    script(src="/_/tojinja/post")
+    script.
+        $(function(){
+            /*
+            function newWebSocketConnection(){
+                $.showNotify("ストリーミングに接続しています...");
+                var ws = $.api.websocket("posts/timeline");
+                ws.onopen = function(){
+                    $.showNotify("ストリーミングに接続しました！")
+                    setTimeout(function(){
+                        $.hideNotify();
+                    },500)
+                }
+                ws.onmessage = function(e){
+                    e = JSON.parse(e.data);
+                    var post = e.response;
+                    console.log(post)
+                    $("#timeline").prepend(template_post(post));
+                }
+                ws.onclose = function(){
+                    newWebSocketConnection();
+                }
+            }
+            newWebSocketConnection();
+            */
+            $.api.get("users/timeline",{id:$("meta[name='user-id']").attr("content")}).then(function(res){
+                res = res.response;
+                res.forEach(function(post){
+                    $("#timeline").append(template_post(post));
+                })
+            })
+            $("#follow").click(function(){
+                $.api.post("users/follow",{id:$("meta[name='user-id']").attr("content")}).then(function(res){
+                    alert("フォローしました！")
+                },function(_){
+                    console.log(arguments)
+                    alert(_.responseJSON.error)
+                })
+            })
+        })
+    style.
+        #userInfo{
+            text-align:center;
+        }
+        .tabs{
+            text-align:left;
+        }
+block content
+    .panel#userInfo
+        h1= user.name
+        small @#{user.screenName}
+        button#follow(style="width:auto;") フォローする
+        .tabs
+            a(href="/u/"+user.screenName) 投稿(#{user.postsCount})
+    br
+    .posts#timeline

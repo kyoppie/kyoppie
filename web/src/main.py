@@ -45,6 +45,13 @@ def devShow(id):
     res = api.get("applications/show",{"id":id},token=session["access_token"])["response"]
     return render_template("dev/show.jade",app=res)
 
+@app.route('/u/<screenName>')
+@utils.login_required
+def userShow(screenName):
+    res = api.get("users/show",{"screenName":screenName},token=session["access_token"])["response"]
+    return render_template("user.jade",user=res)
+
+
 if(__name__ == "__main__"):
     app.run(
         port=config.web["port"]

@@ -5,6 +5,6 @@ block content
         h2= app.name
         dl
             dt appKey
-            dd: input.input(value=app.appKey)
+            dd: input.input(value=app.appKey,readonly)
             dt appSecret
             dd: button(onclick="prompt('please copy and paste!','"+app.appSecret+"')") Please Click
