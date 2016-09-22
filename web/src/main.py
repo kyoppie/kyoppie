@@ -58,6 +58,10 @@ def settingsPassword():
 @utils.login_required
 def menuPage():
     return render_template("menu.jade")
+@app.route('/users')
+def usersPage():
+    res = api.get("users/list")["response"]
+    return render_template("users.jade",users=res)
 
 if(__name__ == "__main__"):
     app.run(
