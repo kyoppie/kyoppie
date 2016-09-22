@@ -27,7 +27,7 @@ block header
             $.api.get("posts/timeline").then(function(res){
                 res = res.response;
                 res.forEach(function(post){
-                    // $("#timeline").append(template_post(post));
+                    $("#timeline").append(template_post(post));
                 })
             })
             $("#postForm").submit(function(ev){
