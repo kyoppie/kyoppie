@@ -1,0 +1,9 @@
+$.extend({
+    showNotify:function(str){
+        $("#notify").text(str);
+        $("#notify").addClass("active");
+    },
+    hideNotify:function(){
+        $("#notify").removeClass("active");
+    }
+})

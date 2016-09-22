@@ -1,6 +1,7 @@
 import config
 import json
 import ajax
+import tojinja
 import utils
 from flask import Flask,render_template,redirect,session,request
 app = Flask(__name__)
@@ -12,6 +13,7 @@ app.config["web_config_json"]=json.dumps(config.public)
 app.secret_key=config.web["secret_key"]
 
 app.register_blueprint(ajax.app)
+app.register_blueprint(tojinja.app)
 
 @app.route('/')
 @utils.login_required

@@ -1,11 +1,40 @@
 extends ./base
 block header
+    link(rel="stylesheet",href="/static/css/main.css")
+    script(src="/_/tojinja/post")
     script.
         $(function(){
+            function newWebSocketConnection(){
+                $.showNotify("ストリーミングに接続しています...");
+                var ws = $.api.websocket("posts/timeline");
+                ws.onopen = function(){
+                    $.showNotify("ストリーミングに接続しました！")
+                    setTimeout(function(){
+                        $.hideNotify();
+                    },500)
+                }
+                ws.onmessage = function(e){
+                    e = JSON.parse(e.data);
+                    var post = e.response;
+                    console.log(post)
+                    $("#timeline").prepend(template_post(post));
+                }
+                ws.onclose = function(){
+                    newWebSocketConnection();
+                }
+            }
+            newWebSocketConnection();
+            $.api.get("posts/timeline").then(function(res){
+                res = res.response;
+                res.forEach(function(post){
+                    // $("#timeline").append(template_post(post));
+                })
+            })
             $("#postForm").submit(function(ev){
                 ev.preventDefault();
                 $.api.post("posts/create",$(this).serialize()).then(function(post_obj){
-                    console.log(post_obj)
+                    post_obj = post_obj.response
+                    $("#postForm textarea").val("");
                 })
             })
         })
@@ -16,3 +45,5 @@ block content
             button(type="submit")
                 i.fa.fa-paper-plane
                 |  投稿
+    br
+    .posts#timeline

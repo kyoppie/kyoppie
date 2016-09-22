@@ -18,6 +18,9 @@ $.extend({
         },
         post:function(endpoint,params){
             return $.api.request("POST",endpoint,params);
-        }
+        },
+        websocket:function(endpoint){
+            return new WebSocket(CONFIG.api.replace("http","ws")+"/"+endpoint+"?access_token="+$.api.get_access_token());
+         }
     }
 })

@@ -8,7 +8,7 @@ body{
 }
 @media screen and (min-width:640px) {
     .container{
-        margin:1em 15vw;
+        margin:1em 10vw;
     }
 }
 .input {
@@ -46,4 +46,19 @@ input[type="submit"],button{
 }
 a{
     color:#f40;
+}
+#notify{
+    position:fixed;
+    bottom:-5em;
+    margin:2em;
+    background:black;
+    background:rgba(0,0,0,0.5);
+    transition:all 0.25s;
+    padding:0.5em;
+    color:white;
+    right:0;
+}
+#notify.active{
+    bottom:0;
+    transition:all 0.25s;
 }

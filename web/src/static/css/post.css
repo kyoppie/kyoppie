@@ -1,0 +1,14 @@
+.post-user > small{
+    color:#888;
+    margin-left:0.25em;
+}
+.post{
+    background:white;
+    background:rgba(255,255,255,0.9);
+    padding:1em;
+    margin-bottom:1px;
+}
+.post:first-child{
+    margin-top:0;
+    border-radius:1em 1em 0 0;
+}

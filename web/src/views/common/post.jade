@@ -1,0 +1,5 @@
+.post
+    span.post-user
+        a(href="/u/{{user.screenName|escape}}")= user.name
+        small @#{user.screenName}
+    div.post-text= text
