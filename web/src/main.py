@@ -3,6 +3,7 @@ import json
 import ajax
 import tojinja
 import utils
+import api
 from flask import Flask,render_template,redirect,session,request
 app = Flask(__name__)
 app.template_folder = "views"
@@ -31,6 +32,18 @@ def registerPage():
     if(session.get("access_token")):
         return redirect(request.args.get("next","/"))
     return render_template("register.jade")
+
+@app.route('/dev/')
+@utils.login_required
+def devIndex():
+    res = api.get("applications/my",token=session["access_token"])["response"]
+    return render_template("dev/index.jade",apps=res)
+
+@app.route('/dev/app/<id>')
+@utils.login_required
+def devShow(id):
+    res = api.get("applications/show",{"id":id},token=session["access_token"])["response"]
+    return render_template("dev/show.jade",app=res)
 
 if(__name__ == "__main__"):
     app.run(

@@ -1,0 +1,10 @@
+extends ./base
+block content
+    h1 アプリ管理
+    .panel
+        h2= app.name
+        dl
+            dt appKey
+            dd: input.input(value=app.appKey)
+            dt appSecret
+            dd: button(onclick="prompt('please copy and paste!','"+app.appSecret+"')") Please Click

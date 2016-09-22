@@ -1,0 +1,31 @@
+extends ./base
+block header
+    script.
+        $(function(){
+            $("#appForm").submit(function(ev){
+                ev.preventDefault();
+                $.api.post("applications/create",$(this).serialize()).then(function(res){
+                    app = res.response;
+                    location.href="/dev/app/"+app.id;
+                })
+            })
+        })
+block content
+    h1 Application Center
+    .panel
+        h2 Your Applications
+        ul#apps
+            for app in apps
+                li
+                    a(href="/dev/app/"+app.id)= app.name
+    .panel
+        h2 Create Application
+        form#appForm
+            input.input(name="name",placeholder="アプリ名")
+            button(type="submit")
+                .no_disabled
+                    i.fa.fa-paper-plane
+                    | 作成
+                .yes_disabled
+                    i.fa.fa-spinner.fa-pulse
+                    | 作成中
