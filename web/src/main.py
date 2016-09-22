@@ -50,7 +50,14 @@ def devShow(id):
 def userShow(screenName):
     res = api.get("users/show",{"screenName":screenName},token=session["access_token"])["response"]
     return render_template("user.jade",user=res)
-
+@app.route('/settings/password')
+@utils.login_required
+def settingsPassword():
+    return render_template("settings/password.jade")
+@app.route('/menu')
+@utils.login_required
+def menuPage():
+    return render_template("menu.jade")
 
 if(__name__ == "__main__"):
     app.run(
