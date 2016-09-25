@@ -5,6 +5,7 @@ html
         meta(name="viewport",content="width=device-width")
         meta(http-equiv="X-UA-Compatible",content="IE=edge")
         link(rel="stylesheet",href="/static/css/main.css")
+        link(rel="stylesheet",href="/static/css/header_bar.css")
         link(rel="stylesheet",href="/static/css/post.css")
         link(rel="stylesheet",href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css")
         if session["access_token"]
@@ -20,6 +21,9 @@ html
         script(src="/static/libs/nunjucks.min.js")
         block header
     body
+        #headerBar
+            ul#headerBarLeftItems
+                li: a(href="/"): i.fa.fa-home
         .container
             block content
         #notify
