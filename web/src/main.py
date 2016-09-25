@@ -46,10 +46,9 @@ def devShow(id):
     return render_template("dev/show.jade",app=res)
 
 @app.route('/u/<screenName>')
-@utils.login_required
 def userShow(screenName):
     res = api.get("users/show",{"screenName":screenName},token=session["access_token"])["response"]
-    return render_template("user.jade",user=res)
+    return render_template("user-profile/index.jade",user=res)
 @app.route('/settings/password')
 @utils.login_required
 def settingsPassword():
