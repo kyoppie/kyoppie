@@ -48,12 +48,23 @@ block header
         .tabs{
             text-align:left;
         }
+        .tabs a{
+            margin-right:0.2em;
+        }
+        .tabs small{
+            margin-right:0.3em;
+        }
 block content
     .panel#userInfo
         h1= user.name
         small @#{user.screenName}
         button#follow(style="width:auto;") フォローする
         .tabs
-            a(href="/u/"+user.screenName) 投稿(#{user.postsCount})
+            a(href="/u/"+user.screenName) 投稿
+            small= user.postsCount
+            a(href="/u/"+user.screenName+"/following") フォロー
+            small= user.followingCount
+            a(href="/u/"+user.screenName+"/followers") フォロワー
+            small= user.followersCount
     br
     .posts#timeline
