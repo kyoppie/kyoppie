@@ -49,6 +49,17 @@ def devShow(id):
 def userShow(screenName):
     res = api.get("users/show",{"screenName":screenName},token=session["access_token"])["response"]
     return render_template("user-profile/index.jade",user=res)
+@app.route('/u/<screenName>/following')
+def userFollowingShow(screenName):
+    res = api.get("users/show",{"screenName":screenName},token=session["access_token"])["response"]
+    res2 = api.get("users/following",{"screenName":screenName},token=session["access_token"])["response"]
+    return render_template("user-profile/following.jade",user=res,users=res2)
+@app.route('/u/<screenName>/followers')
+def userFollowersShow(screenName):
+    res = api.get("users/show",{"screenName":screenName},token=session["access_token"])["response"]
+    res2 = api.get("users/followers",{"screenName":screenName},token=session["access_token"])["response"]
+    return render_template("user-profile/followers.jade",user=res,users=res2)
+
 @app.route('/settings/password')
 @utils.login_required
 def settingsPassword():

@@ -1,0 +1,41 @@
+extends ./base
+block header
+    meta(name="user-id",content=user.id)
+    script(src="/_/tojinja/post")
+    script.
+        $(function(){
+            $("#follow").click(function(){
+                $.api.post("users/follow",{id:$("meta[name='user-id']").attr("content")}).then(function(res){
+                    alert("フォローしました！")
+                },function(_){
+                    console.log(arguments)
+                    alert(_.responseJSON.error)
+                })
+            })
+        })
+    style.
+        #userInfo{
+            text-align:center;
+        }
+        .tabs{
+            text-align:left;
+        }
+        .tabs a{
+            margin-right:0.2em;
+        }
+        .tabs small{
+            margin-right:0.3em;
+        }
+block content
+    .panel#userInfo
+        h1= user.name
+        small @#{user.screenName}
+        button#follow(style="width:auto;") フォローする
+        .tabs
+            a(href="/u/"+user.screenName) 投稿
+            small= user.postsCount
+            a(href="/u/"+user.screenName+"/following") フォロー
+            small= user.followingCount
+            a(href="/u/"+user.screenName+"/followers") フォロワー
+            small= user.followersCount
+    br

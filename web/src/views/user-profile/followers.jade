@@ -1,0 +1,9 @@
+extends user-profile/base
+append content
+    .panel
+        h2 フォロワー
+        ul
+            for _user in users
+                li
+                    a(href="/u/"+_user.screenName)= _user.name
+                        small &nbsp;@#{_user.screenName}
