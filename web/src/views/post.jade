@@ -1,0 +1,31 @@
+extends ./base
+block header
+    style.
+        .user{
+            text-decoration:none;
+        }
+        .user-name{
+            display:block;
+            color:black;
+        }
+        .user-screenName{
+            color:#888;
+        }
+        .panel{
+            padding:2vw 4vw;
+        }
+        .post-text{
+            margin:0.5em 0;
+            font-size:1.5em;
+            font-weight:400;
+        }
+        .post time{
+            position:static;
+        }
+block content
+    .panel.post
+        a.user(href="/u/"+post.user.screenName)
+            strong.user-name= post.user.name
+            span.user-screenName @#{post.user.screenName}
+        div.post-text= post.text
+        time= post.createdAt

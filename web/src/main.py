@@ -73,6 +73,10 @@ def usersPage():
     res = api.get("users/list")["response"]
     return render_template("users.jade",users=res)
 
+@app.route('/p/<postId>')
+def postShow(postId):
+    res = api.get("posts/show",{"id":postId})["response"]
+    return render_template("post.jade",post=res)
 if(__name__ == "__main__"):
     app.run(
         port=config.web["port"]
