@@ -12,7 +12,9 @@ $(function(){
             target_time += offset;
             var sabun = f(now_time-target_time);
             var text = "";
-            if(sabun < 120) {
+            if(sabun < 0){
+                text = (-sabun)+"秒後";
+            } else if(sabun < 120) {
                 text = sabun+"秒前";
             } else if(sabun < 60*60) {
                 text = f(sabun/60)+"分前";
