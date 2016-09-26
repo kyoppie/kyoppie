@@ -19,7 +19,7 @@ $(function(){
             } else if(sabun < 120*60) {
                 text = f(sabun/60/60)+"時間と"+f(sabun/60)+"分前";
             } else if(sabun < 24*60*60) {
-                text = "今日の"+ssf(target_time/60/60)+":"+ssf(target_time/60%60)
+                text = "今日の"+ssf(target_time/60/60%24)+":"+ssf(target_time/60%60)
             } else if(sabun < 30*24*60*60) {
                 text = f(sabun / (24*60*60))+"日前の"+ssf(target_time/60/60%24)+":"+ssf(target_time/60%60)
             } else {
