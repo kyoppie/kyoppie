@@ -7,6 +7,7 @@
     background:rgba(255,255,255,0.9);
     padding:1em;
     margin-bottom:1px;
+    position:relative;
 }
 .post:first-child{
     margin-top:0;
@@ -14,4 +15,9 @@
 }
 .post-text{
     white-space:pre-wrap;
+}
+.post time{
+    position:absolute;
+    right:1em;
+    color:#888;
 }

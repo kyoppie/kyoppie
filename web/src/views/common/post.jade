@@ -2,4 +2,6 @@
     span.post-user
         a(href="/u/{{user.screenName|escape}}")= user.name
         small @#{user.screenName}
+    a(href="/p/{{id}}")
+        time.relative_time(datetime="{{createdAt}}",title="{{createdAt}}")= createdAt
     div.post-text= text
