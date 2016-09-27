@@ -61,15 +61,16 @@ def userFollowersShow(screenName):
     res = api.get("users/show",{"screenName":screenName})["response"]
     res2 = api.get("users/followers",{"screenName":screenName})["response"]
     return render_template("user-profile/followers.jade",user=res,users=res2)
-
+### 設定 ###
 @app.route('/settings/password')
 @utils.login_required
 def settingsPassword():
     return render_template("settings/password.jade")
+
 @app.route('/menu')
-@utils.login_required
 def menuPage():
     return render_template("menu.jade")
+
 @app.route('/users')
 def usersPage():
     res = api.get("users/list")["response"]
