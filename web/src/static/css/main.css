@@ -62,3 +62,6 @@ a{
     bottom:0;
     transition:all 0.25s;
 }
+.panel li{
+    margin:5px 0;
+}

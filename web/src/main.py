@@ -62,6 +62,11 @@ def userFollowersShow(screenName):
     res2 = api.get("users/followers",{"screenName":screenName})["response"]
     return render_template("user-profile/followers.jade",user=res,users=res2)
 ### 設定 ###
+@app.route('/settings/name')
+@utils.login_required
+def settingsName():
+    res = api.get("account/show",token=session["access_token"])["response"]
+    return render_template("settings/name.jade",user=res)
 @app.route('/settings/password')
 @utils.login_required
 def settingsPassword():
