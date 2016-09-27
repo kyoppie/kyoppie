@@ -13,6 +13,10 @@
     margin-top:0;
     border-radius:1em 1em 0 0;
 }
+.post-user{
+    margin-bottom:0.5em;
+    display:inline-block;
+}
 .post-text{
     white-space:pre-wrap;
 }

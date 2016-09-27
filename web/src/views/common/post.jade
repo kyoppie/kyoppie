@@ -4,4 +4,4 @@
         small @#{post.user.screenName}
     a(href="/p/{{post.id}}")
         time.relative_time(datetime="{{post.createdAt}}",title="{{post.createdAt}}")= post.createdAt
-    div.post-text= post.text
+    div.post-text!= post.text
