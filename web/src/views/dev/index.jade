@@ -11,15 +11,15 @@ block header
             })
         })
 block content
-    h1 Application Center
+    h1 開発者センター
     .panel
-        h2 Your Applications
+        h2 あなたが作成したアプリケーション
         ul#apps
             for app in apps
                 li
                     a(href="/dev/app/"+app.id)= app.name
     .panel
-        h2 Create Application
+        h2 アプリケーションを作成する
         form#appForm
             input.input(name="name",placeholder="アプリ名")
             button(type="submit")

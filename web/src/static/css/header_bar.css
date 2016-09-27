@@ -11,19 +11,27 @@
 body{
     padding-top:40px;
 }
-#headerBarLeftItems{
+#headerBar ul{
+    display:inline-block;
     padding:0;
     margin:0;
 }
-#headerBarLeftItems li{
+#headerBar ul li{
     display:inline-block;
     font-size:20px;
     padding:0;
 }
-#headerBarLeftItems li a{
+#headerBar ul li a{
     display:inline-block;
     padding:10px;
 }
 #headerBarLeftItems li:first-child{
     padding-left:10px;
+}
+#headerBarRightItems {
+    position:absolute;
+    right:0;
+}
+#headerBarRightItems li:first-child{
+    padding-right:10px;
 }
