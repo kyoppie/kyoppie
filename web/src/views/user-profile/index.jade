@@ -16,7 +16,7 @@ append header
                     e = JSON.parse(e.data);
                     var post = e.response;
                     console.log(post)
-                    $("#timeline").prepend(template_post(post));
+                    $("#timeline").prepend(template_post({post:post}));
                 }
                 ws.onclose = function(){
                     newWebSocketConnection();
@@ -24,12 +24,8 @@ append header
             }
             newWebSocketConnection();
             */
-            $.api.get("users/timeline",{id:$("meta[name='user-id']").attr("content")}).then(function(res){
-                res = res.response;
-                res.forEach(function(post){
-                    $("#timeline").append(template_post(post));
-                })
-            })
         })
 append content
     .posts#timeline
+        for post in posts
+            include ./common/post

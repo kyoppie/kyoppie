@@ -1,7 +1,7 @@
 .post
     span.post-user
-        a(href="/u/{{user.screenName|escape}}")= user.name
-        small @#{user.screenName}
-    a(href="/p/{{id}}")
-        time.relative_time(datetime="{{createdAt}}",title="{{createdAt}}")= createdAt
-    div.post-text= text
+        a(href="/u/{{post.user.screenName|escape}}")= post.user.name
+        small @#{post.user.screenName}
+    a(href="/p/{{post.id}}")
+        time.relative_time(datetime="{{post.createdAt}}",title="{{post.createdAt}}")= post.createdAt
+    div.post-text= post.text

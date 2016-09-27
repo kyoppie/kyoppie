@@ -19,7 +19,8 @@ app.register_blueprint(tojinja.app)
 @app.route('/')
 @utils.login_required
 def indexPage():
-    return render_template("index.jade")
+    res = api.get("posts/timeline",token=session["access_token"])["response"]
+    return render_template("index.jade",posts=res)
 
 @app.route('/login')
 def loginPage():
@@ -44,11 +45,12 @@ def devIndex():
 def devShow(id):
     res = api.get("applications/show",{"id":id},token=session["access_token"])["response"]
     return render_template("dev/show.jade",app=res)
-
+### ユーザーページ ###
 @app.route('/u/<screenName>')
 def userShow(screenName):
     res = api.get("users/show",{"screenName":screenName})["response"]
-    return render_template("user-profile/index.jade",user=res)
+    res2 = api.get("users/timeline",{"screenName":screenName})["response"]
+    return render_template("user-profile/index.jade",user=res,posts=res2)
 @app.route('/u/<screenName>/following')
 def userFollowingShow(screenName):
     res = api.get("users/show",{"screenName":screenName})["response"]

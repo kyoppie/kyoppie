@@ -16,19 +16,13 @@ block header
                     e = JSON.parse(e.data);
                     var post = e.response;
                     console.log(post)
-                    $("#timeline").prepend(template_post(post));
+                    $("#timeline").prepend(template_post({post:post}));
                 }
                 ws.onclose = function(){
                     newWebSocketConnection();
                 }
             }
             newWebSocketConnection();
-            $.api.get("posts/timeline").then(function(res){
-                res = res.response;
-                res.forEach(function(post){
-                    $("#timeline").append(template_post(post));
-                })
-            })
             $("#postForm").submit(function(ev){
                 ev.preventDefault();
                 $.api.post("posts/create",$(this).serialize()).then(function(post_obj){
@@ -46,3 +40,5 @@ block content
                 |  投稿
     br
     .posts#timeline
+        for post in posts
+            include ./common/post
