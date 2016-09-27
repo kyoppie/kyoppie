@@ -6,7 +6,8 @@ block header
         $(function(){
             $("#follow").click(function(){
                 $.api.post("users/follow",{id:$("meta[name='user-id']").attr("content")}).then(function(res){
-                    alert("フォローしました！")
+                    $.showNotify("フォローしました！");
+                    setTimeout($.hideNotify,1500)
                 },function(_){
                     console.log(arguments)
                     alert(_.responseJSON.error)
