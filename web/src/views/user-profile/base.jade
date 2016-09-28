@@ -1,4 +1,6 @@
 extends ./base
+block title
+    title #{user.name}@#{user.screenName}さんのプロフィール - kyoppie
 block header
     meta(name="user-id",content=user.id)
     script(src="/_/tojinja/post")

@@ -1,4 +1,7 @@
 extends ./base
+block title
+    title #{post.user.name}@#{post.user.screenName}さんの投稿 - kyoppie
+    meta(name="description",content='“'+post.text+'”')
 block header
     style.
         .user{
