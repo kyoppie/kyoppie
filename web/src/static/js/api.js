@@ -20,7 +20,14 @@ $.extend({
             return $.api.request("POST",endpoint,params);
         },
         websocket:function(endpoint){
-            return new WebSocket(CONFIG.api.replace("http","ws")+"/"+endpoint+"?access_token="+$.api.get_access_token());
+            var ws = new WebSocket(CONFIG.api.replace("http","ws")+"/"+endpoint+"?access_token="+$.api.get_access_token());
+            var wsTimer = setInterval(function(){
+                ws.send(JSON.stringify({type:"ping"}))
+            },20*1000);
+            ws.addEventListener("close",function(){
+                clearInterval(wsTimer);
+            })
+            return ws
          }
     }
 })
