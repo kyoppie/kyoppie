@@ -28,7 +28,6 @@ $(function(){
                 text = "むっちゃ前";
             }
             if(this.innerText != text) this.innerText = text;
-            console.log(sabun)
         })
     },1000)
 })
