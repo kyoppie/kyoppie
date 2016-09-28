@@ -14,7 +14,7 @@ $(function(){
             var text = "";
             if(sabun < 0){
                 text = (-sabun)+"秒後";
-            } else if(sabun < 120) {
+            } else if(sabun < 60) {
                 text = sabun+"秒前";
             } else if(sabun < 60*60) {
                 text = f(sabun/60)+"分前";
