@@ -31,7 +31,6 @@ block header
                 })
             })
             $("#postForm>textarea").keydown(function(event){
-                console.log(event)
                 if(event.keyCode !== 13) return;
                 if(event.ctrlKey){
                     $("#postForm").submit();
