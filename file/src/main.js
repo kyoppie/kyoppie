@@ -62,6 +62,7 @@ function getNewPath(dir,ext){
 app.post("/api/v1/upload",upload.single('file'),function(req,res){
     var file = req.file;
     console.log(file)
+    if(!req.body.ext) return res.send({error:"ext-is-required"});
     if(!req.body.type) return res.send({error:"type-is-required"});
     switch(req.body.type){
         case 'image':
