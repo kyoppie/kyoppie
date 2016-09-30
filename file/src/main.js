@@ -69,6 +69,7 @@ app.post("/api/v1/upload",upload.single('file'),function(req,res){
                 return getNewPath(dir,req.body.ext);
             }).then(function(path){
                 fs.createReadStream(file.path).pipe(fs.createWriteStream(path))
+                fs.unlink(file.path)
                 res.send({url:path.replace(save_dir,"")})
             });
             break;
