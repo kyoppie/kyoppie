@@ -1,6 +1,7 @@
 import requests
 import config
 import hashlib
+from flask import session
 
 def login(userName,password):
     r = requests.post(config.web["api"]+"/auth/get_sigkey",data={"appKey":config.api["appKey"]}).json()
@@ -38,8 +39,10 @@ def register(userName,password):
     if(r.get("response")):
         r["response"]["token"] = hashlib.sha256((config.api["appKey"]+r["response"]["token"]+config.api["appSecret"]).encode("utf-8")).hexdigest()
     return r
-def get(endpoint,params={},token=None):
+def get(endpoint,params={},token=None,login=False):
     header={}
+    if(login):
+        token=session["access_token"]
     if(token):
         header["X-Kyoppie-Access-Token"]=token
     return requests.get(
@@ -47,8 +50,10 @@ def get(endpoint,params={},token=None):
         params=params,
         headers=header
     ).json()
-def post(endpoint,params={},token=None):
+def post(endpoint,params={},token=None,login=False):
     header={}
+    if(login):
+        token=session["access_token"]
     if(token):
         header["X-Kyoppie-Access-Token"]=token
     return requests.get(

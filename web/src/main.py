@@ -1,9 +1,13 @@
 import config
 import json
-import ajax
-import tojinja
 import utils
 import api
+import controllers._.ajax
+import controllers._.tojinja
+import controllers.dev
+import controllers.user
+import controllers.settings
+import controllers.admin
 from flask import Flask,render_template,redirect,session,request
 app = Flask(__name__)
 app.template_folder = "views"
@@ -13,13 +17,17 @@ app.debug=config.web["is_debug"]
 app.config["web_config_json"]=json.dumps(config.public)
 app.secret_key=config.web["secret_key"]
 
-app.register_blueprint(ajax.app)
-app.register_blueprint(tojinja.app)
+app.register_blueprint(controllers._.ajax.app)
+app.register_blueprint(controllers._.tojinja.app)
 
+app.register_blueprint(controllers.dev.app)
+app.register_blueprint(controllers.user.app)
+app.register_blueprint(controllers.settings.app)
+app.register_blueprint(controllers.admin.app)
 @app.route('/')
 @utils.login_required
 def indexPage():
-    res = api.get("posts/timeline",token=session["access_token"])["response"]
+    res = api.get("posts/timeline",login=True)["response"]
     return render_template("index.jade",posts=res)
 
 @app.route('/login')
@@ -34,44 +42,6 @@ def registerPage():
         return redirect(request.args.get("next","/"))
     return render_template("register.jade")
 
-@app.route('/dev/')
-@utils.login_required
-def devIndex():
-    res = api.get("applications/my",token=session["access_token"])["response"]
-    return render_template("dev/index.jade",apps=res)
-
-@app.route('/dev/app/<id>')
-@utils.login_required
-def devShow(id):
-    res = api.get("applications/show",{"id":id},token=session["access_token"])["response"]
-    return render_template("dev/show.jade",app=res)
-### ユーザーページ ###
-@app.route('/u/<screenName>')
-def userShow(screenName):
-    res = api.get("users/show",{"screenName":screenName})["response"]
-    res2 = api.get("users/timeline",{"screenName":screenName})["response"]
-    return render_template("user-profile/index.jade",user=res,posts=res2)
-@app.route('/u/<screenName>/following')
-def userFollowingShow(screenName):
-    res = api.get("users/show",{"screenName":screenName})["response"]
-    res2 = api.get("users/following",{"screenName":screenName})["response"]
-    return render_template("user-profile/following.jade",user=res,users=res2)
-@app.route('/u/<screenName>/followers')
-def userFollowersShow(screenName):
-    res = api.get("users/show",{"screenName":screenName})["response"]
-    res2 = api.get("users/followers",{"screenName":screenName})["response"]
-    return render_template("user-profile/followers.jade",user=res,users=res2)
-### 設定 ###
-@app.route('/settings/name')
-@utils.login_required
-def settingsName():
-    res = api.get("account/show",token=session["access_token"])["response"]
-    return render_template("settings/name.jade",user=res)
-@app.route('/settings/password')
-@utils.login_required
-def settingsPassword():
-    return render_template("settings/password.jade")
-
 @app.route('/menu')
 def menuPage():
     return render_template("menu.jade")
@@ -85,6 +55,7 @@ def usersPage():
 def postShow(postId):
     res = api.get("posts/show",{"id":postId})["response"]
     return render_template("post.jade",post=res)
+
 if(__name__ == "__main__"):
     app.run(
         port=config.web["port"]
