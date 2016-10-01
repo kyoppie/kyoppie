@@ -4,7 +4,7 @@ import api
 app = Blueprint(__name__,"admin",url_prefix="/admin")
 
 ## 管理画面
-@app.route('/admin/')
+@app.route('/')
 @utils.login_required
 def adminIndex():
     res = api.get("account/show",login=True)
