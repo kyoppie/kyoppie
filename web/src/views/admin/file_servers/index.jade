@@ -1,7 +1,29 @@
 extends ./base
+block header
+    script.
+        $(function(){
+            $("#addForm").submit(function(ev){
+                ev.preventDefault();
+                $.api.post("admin/file_servers/add",$(this).serialize()).then(function(res){
+                    location.href="/admin/file_servers/"+res.response.id;
+                })
+            })
+        })
 block content
     .panel
         h1 ファイルサーバー
         ul
             for server in servers
                 li: a(href="/admin/file_servers/"+server.id)= server.name
+    .panel
+        h2 追加
+        form#addForm
+            input.input(name="name",placeholder="名前")
+            input.input(name="url",placeholder="URL")
+            button(type="submit")
+                .no_disabled
+                    i.fa.fa-plus
+                    | 追加
+                .yes_disabled
+                    i.fa.fa-spinner.fa-pulse
+                    | 追加中

@@ -1,0 +1,8 @@
+extends ./base
+block content
+    h1 ファイルサーバー
+    .panel
+        h2= server.name
+        dl
+            dt key
+            dd: button(onclick="prompt('please copy and paste!','"+server.secretKey+"')") Please Click

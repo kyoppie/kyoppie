@@ -1,7 +1,7 @@
-extends ../base
+extends ./base
 block content
     .panel
         h1 admin
         ul
-            if 
-            li: a(href="/admin/file_servers") ファイルサーバー
+            if user.adminFlag.fileServer
+                li: a(href="/admin/file_servers") ファイルサーバー
