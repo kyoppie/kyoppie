@@ -29,6 +29,10 @@ app.register_blueprint(controllers.admin.app)
 def indexPage():
     res = api.get("posts/timeline",login=True)["response"]
     return render_template("index.jade",posts=res)
+@app.route('/public')
+def publicTimeline():
+    res = api.get("posts/public_timeline")["response"]
+    return render_template("public.jade",posts=res)
 
 @app.route('/login')
 def loginPage():

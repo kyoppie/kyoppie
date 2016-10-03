@@ -1,0 +1,20 @@
+.panel
+    form#postForm
+        textarea.input(name="text",placeholder="ねえねえ、今どんな気持ち？",rows=5)
+        button(type="submit")
+            i.fa.fa-paper-plane
+            |  投稿
+    script.
+        $("#postForm").submit(function(ev){
+            ev.preventDefault();
+            $.api.post("posts/create",$(this).serialize()).then(function(post_obj){
+                post_obj = post_obj.response
+                $("#postForm textarea").val("");
+            })
+        })
+        $("#postForm>textarea").keydown(function(event){
+            if(event.keyCode !== 13) return;
+            if(event.ctrlKey){
+                $("#postForm").submit();
+            }
+        })

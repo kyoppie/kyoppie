@@ -5,7 +5,7 @@ block header
         $(function(){
             function newWebSocketConnection(){
                 $.showNotify("ストリーミングに接続しています...");
-                var ws = $.api.websocket("posts/timeline");
+                var ws = $.api.websocket("posts/public_timeline");
                 ws.onopen = function(){
                     $.showNotify("ストリーミングに接続しました！")
                     setTimeout(function(){
