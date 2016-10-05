@@ -17,8 +17,11 @@
   },
   "homepage": "https://github.com/kyoppie/kyoppie-file#readme",
   "dependencies": {
+    "easyimage": "^2.1.0",
     "express": "^4.14.0",
+    "file-type": "^3.8.0",
     "multer": "^1.2.0",
+    "read-chunk": "^2.0.0",
     "readline-sync": "^1.4.4",
     "rndstr": "^1.0.0"
   }

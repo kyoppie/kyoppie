@@ -5,6 +5,9 @@ var fs = require("fs");
 var app = express();
 var config = require("./config")
 var rndstr = require("rndstr");
+var fileType = require("file-type");
+var readChunk = require("read-chunk");
+var easyimage = require("easyimage")
 var save_dir = __dirname+"/../files";
 app.get("/",function(req,res){
     res.send("kyoppie file server");
@@ -25,9 +28,8 @@ function getDir(){
     return new Promise(function(resolve,reject){
         var daypath = save_dir + "/" + getDayStr();
         fs.stat(daypath,function(err,_){
-            console.log(arguments)
             if(err){
-                if(err.code == "ENOENT") {
+                if(err.code === "ENOENT") {
                     fs.mkdir(daypath,function(err){
                         if(err) reject(err)
                         resolve(daypath)
@@ -48,7 +50,7 @@ function getNewPath(dir,ext){
         })+"."+ext
         fs.stat(s,function(err,_){
             if(err){
-                if(err.code == "ENOENT") {
+                if(err.code === "ENOENT") {
                     resolve(s)
                 } else {
                     reject(err)
@@ -58,27 +60,66 @@ function getNewPath(dir,ext){
         })
     })
 }
-
 app.post("/api/v1/upload",upload.single('file'),function(req,res){
     var file = req.file;
+    var info = {};
+    var orig_ext = "";
+    var ext = ""
+    var url = ""
+    var type = ""
     console.log(file)
-    if(!req.body.ext) return res.send({error:"ext-is-required"});
-    if(!req.body.type) return res.send({error:"type-is-required"});
-    switch(req.body.type){
-        case 'image':
-            getDir().then(function(dir){
-                return getNewPath(dir,req.body.ext);
-            }).then(function(path){
-                fs.createReadStream(file.path).pipe(fs.createWriteStream(path))
-                fs.unlink(file.path)
-                res.send({url:path.replace(save_dir,"")})
-            });
-            break;
-        default:
-            fs.unlink(file.path)
-            res.send({error:"invalid-type"})
-            break;
-    } 
+    // MIMEタイプを推定
+    readChunk(file.path,0,256).then(function(chunk){
+        info = fileType(chunk)
+        if(!info){
+            return Promise.reject("invalid-file");
+        }
+        ext = info.ext;
+        orig_ext = ext;
+        type = info.mime.split("/")[0];
+        if(
+            type !== "image" && 
+            type !== "movie"
+        ) return Promise.reject("invalid-file")
+        if(type === "image"){
+            return easyimage.info(file.path).then(function(info){
+                if(!info) return Promise.reject("invalid-image-info")
+                console.log(info)
+                ext = "png";
+                if(info.type === "jpeg") ext="jpg";
+            })
+        }
+    }).then(function(){
+        return getDir()
+    }).then(function(dir){
+        return getNewPath(dir,ext);
+    }).then(function(path){
+        url = path.replace(save_dir,"")
+        if(type === "image"){
+            var convert_option = {
+                src:file.path,
+                dst:path,
+            }
+            if(ext == "png") convert_option.quality=10;
+            if(ext == "jpg") convert_option.quality=80;
+            return easyimage.convert(convert_option)
+        } else {
+            fs.createReadStream(file.path).pipe(fs.createWriteStream(path))
+        }
+    }).then(function(){
+        fs.unlink(file.path)
+        res.send({url})
+    }).catch(function(err){
+        if(typeof err === "string")
+            if(err.indexOf("invalid") !== -1)
+                res.status(400).send({result:false,error:err})
+            else
+                res.status(500).send({result:false,error:err})
+        else{
+            res.status(500).send({result:false,error:"server-side-error"})
+            console.log(err)
+        }
+    })
 })
 
 app.listen(4009,function(){
