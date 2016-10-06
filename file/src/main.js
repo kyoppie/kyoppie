@@ -140,7 +140,6 @@ app.post("/api/v1/upload",upload.single('file'),function(req,res){
                 "-b:a","128k",
                 "-ar","44100",
                 "-r","30",
-                "-vf","scale=640:-1",
                 "'"+path+"'"
             ].join(" ")
             var thumbnailCommand = [
@@ -176,7 +175,7 @@ app.post("/api/v1/upload",upload.single('file'),function(req,res){
         }
     }).then(function(){
         var thumbnailUrl = url+".thumbnail.jpg";
-        var return_obj = {url}
+        var return_obj = {type,url}
         if(type === "video") return_obj.thumbnail = thumbnailUrl;
         res.send(return_obj)
     }).catch(function(err){
