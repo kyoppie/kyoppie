@@ -164,7 +164,6 @@ app.post("/api/v1/upload",upload.single('file'),function(req,res){
             }).then(function(){
                 return execPromise(thumbnailCommand).then(function(){
                 },function(){
-                    fs.unlink(path)
                     return Promise.reject("thumbnail-create-failed")
                 })
             },function(){
@@ -180,6 +179,7 @@ app.post("/api/v1/upload",upload.single('file'),function(req,res){
         if(type === "video") return_obj.thumbnail = thumbnailUrl;
         res.send(return_obj)
     }).catch(function(err){
+        fs.unlink(path)
         if(typeof err === "string")
             if(err.indexOf("invalid") !== -1)
                 res.status(400).send({result:false,error:err})
