@@ -3,3 +3,4 @@ npm-debug.log
 upload_tmp/*
 files/*
 !.gitkeep
+config.json

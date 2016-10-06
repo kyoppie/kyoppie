@@ -70,6 +70,10 @@ function execPromise(command){
     })
 }
 app.post("/api/v1/upload",upload.single('file'),function(req,res){
+    if(req.headers["x-kyoppie-file-key"] !== config.file_key){
+        res.status(403).send({error:"invalid-file-key"})
+        return;
+    }
     var file = req.file;
     var info = {};
     var orig_ext = "";
@@ -97,7 +101,7 @@ app.post("/api/v1/upload",upload.single('file'),function(req,res){
                 console.log(info)
                 ext = "png";
                 if(info.type === "jpeg") ext="jpg";
-                if(info.name.split(" ").length >= 2 && info.type == "gif"){ //うわ、アニメーションGIFだ
+                if(info.name.split(" ").length >= 2 && info.type == "gif"){ //アニメーションGIF
                     type="video";
                     ext="mp4";
                 }
@@ -105,6 +109,7 @@ app.post("/api/v1/upload",upload.single('file'),function(req,res){
         } else if (type === "video") {
             ext = "mp4";
         }
+        if(req.body.image_only && type !== "image") return res.status(400).send({error:"invalid-image"})
     }).then(function(){
         return getDir()
     }).then(function(dir){
@@ -150,7 +155,11 @@ app.post("/api/v1/upload",upload.single('file'),function(req,res){
             console.log(encodeCommand)
             return execPromise(checkCommand).then(function(){
                 console.log(file.size,orig_ext)
-                if((orig_ext == "mp4" || orig_ext == "mov") && file.size >= (10*1000*1000)) return execPromise(encodeCommand)
+                var encodeFlag = (
+                    (/* orig_ext == "mp4" || */orig_ext == "mov") && // 動画のタイプがあっているかつ
+                    file.size <= (10*1000*1000) // ファイルがそれほど大きくない(〜10MB)なら
+                ) // エンコードしない
+                if(!encodeFlag) return execPromise(encodeCommand)
                 fs.createReadStream(file.path).pipe(fs.createWriteStream(path))
             }).then(function(){
                 return execPromise(thumbnailCommand).then(function(){

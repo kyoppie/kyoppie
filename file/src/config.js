@@ -4,10 +4,9 @@ var config_json={};
 try{
     config_json = require(__dirname+"/../config.json");
 } catch(e) {
-    /*
     console.log("設定ファイルが存在しません！")
     console.log("コンフィグファイルを作成します。\n")
     config_json.file_key = readlineSync.question("File Server Keyを入力してください\n無い場合、管理画面から作成してください > ")
-    */
+    fs.writeFileSync(__dirname+"/../config.json",JSON.stringify(config_json))
 }
 module.exports = config_json
