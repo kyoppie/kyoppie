@@ -194,6 +194,6 @@ app.post("/api/v1/upload",upload.single('file'),function(req,res){
     })
 })
 
-app.listen(4009,function(){
+app.listen(config.port,function(){
     console.log("listen for 4009 port");
 })
