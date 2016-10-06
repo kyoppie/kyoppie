@@ -4,3 +4,4 @@
 - Node.js
 - npm
 - imagemagick
+- ffmpeg
