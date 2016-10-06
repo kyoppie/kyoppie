@@ -109,7 +109,7 @@ app.post("/api/v1/upload",upload.single('file'),function(req,res){
         } else if (type === "video") {
             ext = "mp4";
         }
-        if(req.body.image_only && type !== "image") return res.status(400).send({error:"invalid-image"})
+        if(req.body.image_only && type !== "image") return Promise.reject("invalid-image")
     }).then(function(){
         return getDir()
     }).then(function(dir){
