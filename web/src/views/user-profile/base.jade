@@ -3,6 +3,13 @@ block title
     title #{user.name}@#{user.screenName}さんのプロフィール - kyoppie
 block header
     meta(name="user-id",content=user.id)
+    meta(name="twitter:card",content="summary")
+    meta(name="twitter:site",content="@kyoppieofficial")
+    meta(name="twitter:title",content=user.name+"(@"+user.screenName+")さんのプロフィール - kyoppie")
+    if(user.description)
+        meta(name="twitter:description",content=user.description)
+    else
+        meta(name="twitter:description",content=user.name+"さんはkyoppieを利用しています。kyoppieにアクセスして、"+user.name+"さんのプロフィールを閲覧しましょう。")
     script(src="/_/tojinja/post")
     script.
         $(function(){
