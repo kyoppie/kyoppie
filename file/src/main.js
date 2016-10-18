@@ -132,7 +132,7 @@ app.post("/api/v1/upload",upload.single('file'),function(req,res){
                 var thumbnail_command = [
                     "convert",
                     file.path,
-                    "-thumbnaill 300x300",
+                    "-thumbnaill 640x640",
                     path+".thumbnail.jpg"
                 ].join(" ");
                 return execPromise(thumbnail_command);
