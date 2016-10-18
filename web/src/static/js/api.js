@@ -30,27 +30,31 @@ $.extend({
             return ws
         },
         upload:function(file){
+            if(!window.FormData) {
+                alert("もうちょっと新しいブラウザを使ってください。。。");
+                return;
+            }
             // ファイルがどのタイプかを判別
-            if(file instanceof HTMLFormElement){ // [name="file"]が付いたform
-                if(!window.FormData) {
-                    alert("もうちょっと新しいブラウザを使ってください。。。");
-                    return;
-                }
-                // ファイルのinputがなかったら帰る
-                if(!file.file) return;
-                var fd = new FormData(file);
+            if(file instanceof FormData) {
                 return $.ajax({
                     url:CONFIG.api+"/files/upload",
                     type:"POST",
-                    data:fd,
+                    data:file,
                     processData:false,
                     contentType:false,
                     headers:{
                         "X-Kyoppie-Access-Token":$.api.get_access_token()
                     }
                 })
+            } else if(file instanceof HTMLFormElement){ // [name="file"]が付いたform
+                // ファイルのinputがなかったら帰る
+                if(!file.file) return;
+                var fd = new FormData(file);
+                return $.api.upload(fd);
             } else if(file instanceof Blob){ // blob
-                alert("todo");
+                var fd = new FormData();
+                fd.append("file",file);
+                return $.api.upload(fd);
             } else {
                 console.error("invalid file");
             }

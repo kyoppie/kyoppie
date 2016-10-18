@@ -35,7 +35,15 @@
         }
     script.
         $(function(){
-            $("#postForm").submit(function(ev){
+            var $form = $("#postForm");
+            function fileUpload(file,filename="貼り付けたファイル"){
+                $("#postFileName").html('<i class="fa fa-spin"></i>アップロード中...');
+                $.api.upload(file).then(function(res){
+                    $("#postForm input[name='files']").val(res.response.id);
+                    $("#postFileName").text(filename);
+                })
+            }
+            $form.submit(function(ev){
                 ev.preventDefault();
                 $.api.post("posts/create",$(this).serialize()).then(function(post_obj){
                     post_obj = post_obj.response
@@ -48,7 +56,7 @@
                 // Ctrl+Enter判定
                 if(event.keyCode !== 13) return;
                 if(event.ctrlKey){
-                    $("#postForm").submit();
+                    $form.submit();
                 }
             })
             $("#postAddFile").click(function(e){
@@ -58,10 +66,24 @@
             $("#postFile").change(function(){
                 if(!this.value) return;
                 var filename = this.value.split("\\").pop();
-                $("#postFileName").html('<i class="fa fa-spin"></i>アップロード中...');
-                $.api.upload($("#postFileForm").get(0)).then(function(res){
-                    $("#postForm input[name='files']").val(res.response.id);
-                    $("#postFileName").text(filename);
-                })
+                fileUpload($("#postFileForm").get(0),filename);
+            })
+            // 以下ドラッグアンドドロップ受け入れ用
+            $form.on("dragstart",function(e){
+                e = e.originalEvent;
+                e.dataTransfer.effectAllowed = "copy";
+                e.preventDefault();
+            });
+            $form.on("dragover",function(e){
+                e = e.originalEvent;
+                if(!e.files) return;
+                e.preventDefault();
+            })
+            $form.on("drop",function(e){
+                e = e.originalEvent;
+                if(!e.dataTransfer.files) return;
+                e.preventDefault();
+                var file = e.dataTransfer.files[0];
+                fileUpload(file,file.name);
             })
         })
