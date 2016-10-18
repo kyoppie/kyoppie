@@ -132,14 +132,17 @@ app.post("/api/v1/upload",upload.single('file'),function(req,res){
                 path
             ].join(" ");
             return execPromise(convert_command).then(function(){
-                var thumbnail_command = [
-                    "convert",
-                    file.path,
-                    "-thumbnail 640x640",
-                    path+".thumbnail."+ext
-                ].join(" ");
-                thumbnailUrl=path+".thumbnail."+ext;
-                return execPromise(thumbnail_command);
+                if(file.size >= (1000*1000)){ // ファイルがでかい(1MB以上)
+                    var thumbnail_command = [
+                        "convert",
+                        file.path,
+                        "-thumbnail 640x640",
+                        path+".thumbnail."+ext
+                    ].join(" ");
+                    thumbnailUrl=url+".thumbnail."+ext;
+                    return execPromise(thumbnail_command);
+                }
+                thumbnailUrl=url;
             })
         } else if(type === "video") {
             var checkCommand = [
@@ -167,7 +170,7 @@ app.post("/api/v1/upload",upload.single('file'),function(req,res){
                 "-f","image2",
                 "'"+path+".thumbnail.jpg'"
             ].join(" ")
-            thumbnailUrl = path+".thumbnail.jpg"
+            thumbnailUrl = url+".thumbnail.jpg"
             if(file.path.indexOf("'") != -1) return Promise.reject("invalid-filename")
             if(path.indexOf("'") != -1) return Promise.reject("invalid-filename")
             console.log(encodeCommand)
