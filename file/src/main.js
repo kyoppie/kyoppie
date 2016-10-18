@@ -157,7 +157,7 @@ app.post("/api/v1/upload",upload.single('file'),function(req,res){
                 console.log(file.size,orig_ext)
                 var encodeFlag = (
                     (/* orig_ext == "mp4" || */orig_ext == "mov") && // 動画のタイプがあっているかつ
-                    file.size <= (10*1000*1000) // ファイルがそれほど大きくない(〜10MB)なら
+                    file.size <= (15*1000*1000) // ファイルがそれほど大きくない(〜15MB)なら
                 ) // エンコードしない
                 if(!encodeFlag) return execPromise(encodeCommand)
                 fs.createReadStream(file.path).pipe(fs.createWriteStream(path))
