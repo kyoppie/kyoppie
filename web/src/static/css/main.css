@@ -66,3 +66,6 @@ a{
 .panel li{
     margin:5px 0;
 }
+.hidden{
+    display:none;
+}

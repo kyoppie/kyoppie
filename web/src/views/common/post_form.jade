@@ -1,20 +1,61 @@
 .panel
     form#postForm
         textarea.input(name="text",placeholder="ねえねえ、今どんな気持ち？",rows=5)
+        input.hidden(name="files")
+        button#postAddFile
+            i.fa.fa-image
+        span#postFileName
         button(type="submit")
             i.fa.fa-paper-plane
             |  投稿
+    form.hidden#postFileForm
+        input#postFile.hidden(name="file",type="file",accept="image/jpeg,image/png,image/gif,image/bmp,video/mp4")
+    style.
+        #postForm button{
+            width:initial;
+        }
+        #postForm{
+            position:relative;
+        }
+        #postForm button[type="submit"]{
+            position:absolute;
+            bottom:0;
+            right:0;
+            width:8em;
+        }
+        #postForm .postButtonYoko{
+            display:inline-block;
+            width:68.5%;
+            margin:0;
+            padding:0;
+        }
     script.
-        $("#postForm").submit(function(ev){
-            ev.preventDefault();
-            $.api.post("posts/create",$(this).serialize()).then(function(post_obj){
-                post_obj = post_obj.response
-                $("#postForm textarea").val("");
+        $(function(){
+            $("#postForm").submit(function(ev){
+                ev.preventDefault();
+                $.api.post("posts/create",$(this).serialize()).then(function(post_obj){
+                    post_obj = post_obj.response
+                    $("#postForm textarea").val("");
+                })
             })
-        })
-        $("#postForm>textarea").keydown(function(event){
-            if(event.keyCode !== 13) return;
-            if(event.ctrlKey){
-                $("#postForm").submit();
-            }
+            $("#postForm>textarea").keydown(function(event){
+                // Ctrl+Enter判定
+                if(event.keyCode !== 13) return;
+                if(event.ctrlKey){
+                    $("#postForm").submit();
+                }
+            })
+            $("#postAddFile").click(function(e){
+                e.preventDefault();
+                $("#postFile").click();
+            })
+            $("#postFile").change(function(){
+                if(!this.value) return;
+                var filename = this.value;
+                $("#postFileName").html('<i class="fa fa-spin"></i>アップロード中...');
+                $.api.upload($("#postFileForm").get(0)).then(function(res){
+                    $("#postForm input[name='files']").val(res.response.id);
+                    $("#postFileName").text(filename);
+                })
+            })
         })

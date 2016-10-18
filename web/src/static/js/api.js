@@ -28,6 +28,32 @@ $.extend({
                 clearInterval(wsTimer);
             })
             return ws
-         }
+        },
+        upload:function(file){
+            // ファイルがどのタイプかを判別
+            if(file instanceof HTMLFormElement){ // [name="file"]が付いたform
+                if(!window.FormData) {
+                    alert("もうちょっと新しいブラウザを使ってください。。。");
+                    return;
+                }
+                // ファイルのinputがなかったら帰る
+                if(!file.file) return;
+                var fd = new FormData(file);
+                return $.ajax({
+                    url:CONFIG.api+"/files/upload",
+                    type:"POST",
+                    data:fd,
+                    processData:false,
+                    contentType:false,
+                    headers:{
+                        "X-Kyoppie-Access-Token":$.api.get_access_token()
+                    }
+                })
+            } else if(file instanceof Blob){ // blob
+                alert("todo");
+            } else {
+                console.error("invalid file");
+            }
+        }
     }
 })
