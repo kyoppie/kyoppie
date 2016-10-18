@@ -40,6 +40,8 @@
                 $.api.post("posts/create",$(this).serialize()).then(function(post_obj){
                     post_obj = post_obj.response
                     $("#postForm textarea").val("");
+                    $("#postForm [name='files']").val("");
+                    $("#postFileName").text("");
                 })
             })
             $("#postForm>textarea").keydown(function(event){
