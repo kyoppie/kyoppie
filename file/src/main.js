@@ -22,7 +22,7 @@ function getDayStr(){
         return ""+(n<10 ? "0"+n : n);
     }
     var day = new Date;
-    var daystr = day.getFullYear()+s(day.getMonth()+1)+s(day.getDay())
+    var daystr = day.getFullYear()+s(day.getMonth()+1)+s(day.getDate())
     return daystr;
 }
 function getDir(){
