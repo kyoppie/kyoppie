@@ -121,13 +121,14 @@ app.post("/api/v1/upload",upload.single('file'),function(req,res){
     }).then(function(path){
         url = path.replace(save_dir,"")
         if(type === "image"){
-            var convert_option = {
-                src:file.path,
-                dst:path,
-            }
-            if(ext == "png") convert_option.quality=10;
-            if(ext == "jpg") convert_option.quality=80;
-            return easyimage.convert(convert_option)
+            var convert_command = [
+                "convert",
+                file.path,
+                "-strip",
+                "-quality 80",
+                path
+            ].join(" ");
+            return execPromise(convert_command)
         } else if(type === "video") {
             var checkCommand = [
                 "ffprobe",
