@@ -9,7 +9,8 @@ body{
 }
 @media screen and (min-width:640px) {
     .container{
-        margin:1em 10vw;
+        margin:1em auto;
+        max-width:640px;
     }
 }
 .input {
