@@ -32,7 +32,7 @@
 }
 .post-files img{
     max-height:10em;
-    max-width:10em;
+    max-width:80vw;
 }
 .post-files video{
     max-width:240px;
@@ -41,6 +41,9 @@
 }
 @media screen and (min-width:640px) {
     .post-files video{
+        max-width:600px;
+    }
+    .post-files img{
         max-width:600px;
     }
 }
