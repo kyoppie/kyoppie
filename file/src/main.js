@@ -81,7 +81,7 @@ app.post("/api/v1/upload",upload.single('file'),function(req,res){
     var url = ""
     var type = ""
     if(file.size > (15*1024*1024)){
-        res.status(400).sned({error:"too-big-file"})
+        res.status(400).send({error:"too-big-file"})
         return;
     }
     console.log(file)
