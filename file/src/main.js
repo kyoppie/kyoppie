@@ -80,6 +80,8 @@ app.post("/api/v1/upload",upload.single('file'),function(req,res){
     var ext = ""
     var url = ""
     var type = ""
+    var _path
+    var thumbnailUrl
     if(file.size > (15*1024*1024)){
         res.status(400).send({error:"too-big-file"})
         return;
@@ -119,6 +121,7 @@ app.post("/api/v1/upload",upload.single('file'),function(req,res){
     }).then(function(dir){
         return getNewPath(dir,ext);
     }).then(function(path){
+        _path=path
         url = path.replace(save_dir,"")
         if(type === "image"){
             var convert_command = [
@@ -132,9 +135,10 @@ app.post("/api/v1/upload",upload.single('file'),function(req,res){
                 var thumbnail_command = [
                     "convert",
                     file.path,
-                    "-thumbnaill 640x640",
-                    path+".thumbnail.jpg"
+                    "-thumbnail 640x640",
+                    path+".thumbnail."+ext
                 ].join(" ");
+                thumbnailUrl=path+".thumbnail."+ext;
                 return execPromise(thumbnail_command);
             })
         } else if(type === "video") {
@@ -163,6 +167,7 @@ app.post("/api/v1/upload",upload.single('file'),function(req,res){
                 "-f","image2",
                 "'"+path+".thumbnail.jpg'"
             ].join(" ")
+            thumbnailUrl = path+".thumbnail.jpg"
             if(file.path.indexOf("'") != -1) return Promise.reject("invalid-filename")
             if(path.indexOf("'") != -1) return Promise.reject("invalid-filename")
             console.log(encodeCommand)
@@ -186,12 +191,11 @@ app.post("/api/v1/upload",upload.single('file'),function(req,res){
             fs.createReadStream(file.path).pipe(fs.createWriteStream(path))
         }
     }).then(function(){
-        var thumbnailUrl = url+".thumbnail.jpg";
         var return_obj = {type,url}
         if(type === "video" || type === "image") return_obj.thumbnail = thumbnailUrl;
         res.send(return_obj)
     }).catch(function(err){
-        fs.unlink(path)
+        if(_path) fs.unlink(_path)
         if(typeof err === "string")
             if(err.indexOf("invalid") !== -1)
                 res.status(400).send({result:false,error:err})
@@ -203,6 +207,8 @@ app.post("/api/v1/upload",upload.single('file'),function(req,res){
         }
     }).then(function(){
         fs.unlink(file.path)
+    }).catch(function(err){
+        console.log(err)
     })
 })
 
