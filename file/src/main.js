@@ -128,7 +128,15 @@ app.post("/api/v1/upload",upload.single('file'),function(req,res){
                 "-quality 80",
                 path
             ].join(" ");
-            return execPromise(convert_command)
+            return execPromise(convert_command).then(function(){
+                var thumbnail_command = [
+                    "convert",
+                    file.path,
+                    "-thumbnaill 300x300",
+                    path+".thumbnail.jpg"
+                ].join(" ");
+                return execPromise(thumbnail_command);
+            })
         } else if(type === "video") {
             var checkCommand = [
                 "ffprobe",
@@ -180,7 +188,7 @@ app.post("/api/v1/upload",upload.single('file'),function(req,res){
     }).then(function(){
         var thumbnailUrl = url+".thumbnail.jpg";
         var return_obj = {type,url}
-        if(type === "video") return_obj.thumbnail = thumbnailUrl;
+        if(type === "video" || type === "image") return_obj.thumbnail = thumbnailUrl;
         res.send(return_obj)
     }).catch(function(err){
         fs.unlink(path)
