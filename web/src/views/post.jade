@@ -29,5 +29,5 @@ block content
         a.user(href="/u/"+post.user.screenName)
             strong.user-name= post.user.name
             span.user-screenName @#{post.user.screenName}
-        div.post-text!= post.text_html
+        div.post-text!= post.html
         time= post.createdAt

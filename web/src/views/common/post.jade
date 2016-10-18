@@ -4,4 +4,12 @@
         small @#{post.user.screenName}
     a(href="/p/{{post.id}}")
         time.relative_time(datetime="{{post.createdAt}}",title="{{post.createdAt}}")= post.createdAt
-    div.post-text!= post.text_html
+    div.post-text!= post.html
+    div.post-files
+        | {% for file in post.files %}
+        if file.type == "image"
+            a(href="{{file.url}}",target="_blank")
+                img(src="{{file.url}}")
+        if file.type == "video"
+            video(src="{{file.url}}",controls,preload="metadata",poster="{{file.thumbnailUrl}}")
+        - endfor
