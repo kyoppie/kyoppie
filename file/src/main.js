@@ -80,6 +80,10 @@ app.post("/api/v1/upload",upload.single('file'),function(req,res){
     var ext = ""
     var url = ""
     var type = ""
+    if(file.size > (15*1024*1024)){
+        res.status(400).sned({error:"too-big-file"})
+        return;
+    }
     console.log(file)
     // MIMEタイプを推定
     readChunk(file.path,0,256).then(function(chunk){
@@ -156,10 +160,9 @@ app.post("/api/v1/upload",upload.single('file'),function(req,res){
             return execPromise(checkCommand).then(function(){
                 console.log(file.size,orig_ext)
                 var encodeFlag = (
-                    (/* orig_ext == "mp4" || */orig_ext == "mov") && // 動画のタイプがあっているかつ
-                    file.size <= (15*1000*1000) // ファイルがそれほど大きくない(〜15MB)なら
+                    (/* orig_ext == "mp4" || */orig_ext == "mov") // 動画のタイプがあっているなら
                 ) // エンコードしない
-                if(!encodeFlag) return execPromise(encodeCommand)
+                if(!encodeFlag) return Promise.reject("invalid-file-type") // 再エンコードはやめました
                 fs.createReadStream(file.path).pipe(fs.createWriteStream(path))
             }).then(function(){
                 return execPromise(thumbnailCommand).then(function(){
