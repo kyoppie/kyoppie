@@ -61,6 +61,10 @@ def postShow(postId):
     res = api.get("posts/show",{"id":postId})["response"]
     return render_template("post.jade",post=res)
 
+@app.route('/rules')
+def rulesShow():
+    return render_template("rules.jade")
+
 if(__name__ == "__main__"):
     app.run(
         port=config.web["port"]
