@@ -8,12 +8,8 @@ block header
     meta(name="twitter:description",content='“'+post.text+'”')
     if post.files|length != 0
         meta(name="twitter:card",content="summary_large_image")
-        if post.files[0].type == "video"
-            meta(name="twitter:image",content=post.files[0].thumbnailUrl)
-            link(rel="image_src",href=post.files[0].thumbnailUrl)
-        else
-            meta(name="twitter:image",content=post.files[0].url)
-            link(rel="image_src",href=post.files[0].url)
+        meta(name="twitter:image",content=post.files[0].thumbnailUrl)
+        link(rel="image_src",href=post.files[0].thumbnailUrl)
     else
         meta(name="twitter:card",content="summary")
     style.
@@ -47,7 +43,7 @@ block content
             | {% for file in post.files %}
             if file.type == "image"
                 a(href="{{file.url}}",target="_blank")
-                    img(src="{{file.url}}")
+                    img(src="{{file.thumbnailUrl}}",data-original-url="{{file.url}}")
             if file.type == "video"
                 video(src="{{file.url}}",controls,preload="metadata",poster="{{file.thumbnailUrl}}")
             - endfor
