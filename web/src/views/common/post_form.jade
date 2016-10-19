@@ -36,7 +36,8 @@
     script.
         $(function(){
             var $form = $("#postForm");
-            function fileUpload(file,filename="貼り付けたファイル"){
+            function fileUpload(file,filename){
+                if(filename === undefined) filename="貼り付けたファイル";
                 $("#postFileName").html('<i class="fa fa-spin"></i>アップロード中...');
                 $.api.upload(file).then(function(res){
                     $("#postForm input[name='files']").val(res.response.id);
@@ -85,5 +86,21 @@
                 e.preventDefault();
                 var file = e.dataTransfer.files[0];
                 fileUpload(file,file.name);
+            })
+            // 以下ファイルペースト用
+            $form.find("textarea").on("paste",function(e){
+                var clipboardData = e.clipboardData || e.originalEvent.clipboardData || window.clipboardData;
+                if(!clipboardData && !clipboardData.items && !clipboardData.items.length) return;
+                e.preventDefault();
+                console.log(clipboardData);
+                var item;
+                Array.prototype.forEach.call(clipboardData.items,function(item_){
+                    if(item_.kind != "file") return;
+                    item = item_;
+                })
+                if(!item) return;
+                var file = item.getAsFile();
+                console.log(file)
+                fileUpload(file);
             })
         })
