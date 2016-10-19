@@ -54,6 +54,8 @@ block content
         h2 アカウント作成
         form#loginForm(action="/error/nojs")
             label
+                input.input(type="texxt",name="name",placeholder="名前",required)
+            label
                 input.input(type="text",name="screenName",placeholder="スクリーンネーム",required)
             label
                 input.input(type="password",name="password",placeholder="パスワード",required)
