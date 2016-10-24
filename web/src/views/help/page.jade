@@ -1,0 +1,18 @@
+doctype html
+html
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport",content="width=device-width")
+        link(rel="stylesheet",href="//cdn.honokak.osaka/honoka/3.3.7/css/bootstrap.min.css")
+    body
+        nav.navbar.navbar-default
+            .container
+                .navbar-header
+                    a.navbar-brand(href="/help/") kyoppie ヘルプセンター
+        .container
+            ol.breadcrumb
+                li: a(href="/help/") Home
+                li.active #{title}
+            .panel.panel-default
+                .panel-body
+                    block content

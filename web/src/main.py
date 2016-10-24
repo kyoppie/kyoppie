@@ -8,6 +8,7 @@ import controllers.dev
 import controllers.user
 import controllers.settings
 import controllers.admin
+import controllers.help
 from flask import Flask,render_template,redirect,session,request
 app = Flask(__name__)
 app.template_folder = "views"
@@ -25,6 +26,7 @@ app.register_blueprint(controllers.dev.app)
 app.register_blueprint(controllers.user.app)
 app.register_blueprint(controllers.settings.app)
 app.register_blueprint(controllers.admin.app)
+app.register_blueprint(controllers.help.app)
 @app.route('/')
 @utils.login_required
 def indexPage():
@@ -64,6 +66,10 @@ def postShow(postId):
 @app.route('/rules')
 def rulesShow():
     return render_template("rules.jade")
+
+@app.route('/suspend')
+def suspendPage():
+    return render_template("suspend.jade")
 
 if(__name__ == "__main__"):
     app.run(
