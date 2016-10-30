@@ -69,6 +69,16 @@ function execPromise(command){
         })
     })
 }
+function copyPromise(src,dist){
+    return new Promise(function(resolve,reject){
+        var r = fs.createReadStream(src);
+        var w = fs.createWriteStream(dist);
+        r.on("error",(e) => reject(e));
+        w.on("error",(e) => reject(e));
+        w.on("close",() => resolve());
+        r.pipe(w);
+    })
+}
 app.post("/api/v1/upload",upload.single('file'),function(req,res){
     if(req.headers["x-kyoppie-file-key"] !== config.file_key){
         res.status(403).send({error:"invalid-file-key"})
@@ -178,17 +188,18 @@ app.post("/api/v1/upload",upload.single('file'),function(req,res){
             return execPromise(checkCommand).then(function(){
                 console.log(file.size,orig_ext)
                 var encodeFlag = (
-                    (/* orig_ext == "mp4" || */orig_ext == "mov") // 動画のタイプがあっているなら
+                    (orig_ext == "mp4" || orig_ext == "mov") // 動画のタイプがあっているなら
                 ) // エンコードしない
                 if(!encodeFlag) return Promise.reject("invalid-file-type") // 再エンコードはやめました
-                fs.createReadStream(file.path).pipe(fs.createWriteStream(path))
+                return copyPromise(file.path,path)
             }).then(function(){
                 return execPromise(thumbnailCommand).then(function(){
                 },function(){
                     return Promise.reject("thumbnail-create-failed")
                 })
-            },function(){
-                fs.unlink(path)
+            },function(e){
+                if(typeof e === "string") return Promise.reject(e)
+                fs.unlink(path,function(){});
                 return Promise.reject("encode-failed")
             })
         } else {
