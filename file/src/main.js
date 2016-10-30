@@ -143,14 +143,15 @@ app.post("/api/v1/upload",upload.single('file'),function(req,res){
             ].join(" ");
             return execPromise(convert_command).then(function(){
                 // TODO: 変換後のファイルサイズを見る
-                if(file.size >= (1000*1000)){ // ファイルがでかい(1MB以上)
+                if(file.size >= (500*1000)){ // ファイルがでかい(500KB以上)
                     var thumbnail_command = [
                         "convert",
                         file.path,
                         "-thumbnail 640x640",
-                        path+".thumbnail."+ext
+                        "-quality 60",
+                        path+".thumbnail.jpg"
                     ].join(" ");
-                    thumbnailUrl=url+".thumbnail."+ext;
+                    thumbnailUrl=url+".thumbnail.jpg";
                     return execPromise(thumbnail_command);
                 }
                 thumbnailUrl=url;
