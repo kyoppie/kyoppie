@@ -12,3 +12,7 @@ def settingsName():
 @utils.login_required
 def settingsPassword():
     return render_template("settings/password.jade")
+@app.route('/avatar')
+@utils.login_required
+def settingsAvatar():
+    return render_template("settings/avatar.jade")

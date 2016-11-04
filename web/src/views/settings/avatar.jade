@@ -1,0 +1,26 @@
+extends ./base
+block header
+    script.
+        $(function(){
+            $("#changeForm").submit(function(ev){
+                ev.preventDefault();
+                $.api.upload($("#changeForm").get(0)).then(function(res){
+                    res = res.response;
+                    return $.api.post("account/update/avatar",{file:res.id})
+                }).then(function(res){
+                    location.href="/";
+                })
+            })
+        })
+block content
+    h1 名前変更
+    .panel
+        form#changeForm
+            input.input#file(name="file",type="file")
+            button(type="submit")
+                .no_disabled
+                    i.fa.fa-paper-plane
+                    | 変更
+                .yes_disabled
+                    i.fa.fa-spinner.fa-pulse
+                    | 変更中
