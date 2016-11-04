@@ -1,13 +1,14 @@
 .post
-    span.post-user
+    img.post-user-icon(src="{{post.user.avatarThumbnailUrl}}")
+    .post-user
         a(href="/u/{{post.user.screenName|escape}}")= post.user.name
             if post.user.isVerified
                 i.fa.fa-check-circle(title="本人確認済みマーク")
         small @#{post.user.screenName}
     a(href="/p/{{post.id}}")
         time.relative_time(datetime="{{post.createdAt}}",title="{{post.createdAt}}")= post.createdAt
-    div.post-text!= post.html
-    div.post-files
+    .post-text!= post.html
+    .post-files
         | {% for file in post.files %}
         if file.type == "image"
             a(href="{{file.url}}",target="_blank")
