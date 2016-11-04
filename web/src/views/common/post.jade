@@ -1,6 +1,8 @@
 .post
     span.post-user
         a(href="/u/{{post.user.screenName|escape}}")= post.user.name
+            if post.user.isVerified
+                i.fa.fa-check-circle(title="本人確認済みマーク")
         small @#{post.user.screenName}
     a(href="/p/{{post.id}}")
         time.relative_time(datetime="{{post.createdAt}}",title="{{post.createdAt}}")= post.createdAt
