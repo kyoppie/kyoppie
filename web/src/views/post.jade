@@ -12,6 +12,7 @@ block header
         link(rel="image_src",href=post.files[0].thumbnailUrl)
     else
         meta(name="twitter:card",content="summary")
+        meta(name="twitter:image",content=post.user.avatarThumbnailUrl)
     style.
         .user{
             text-decoration:none;
