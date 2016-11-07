@@ -1,5 +1,6 @@
 .post
-    img.post-user-icon(src="{{post.user.avatarThumbnailUrl}}",alt="@{{post.user.screenName}}",title="@{{post.user.screenName}}")
+    a(href="/u/{{post.user.screenName|escape}}")
+        img.post-user-icon(src="{{post.user.avatarThumbnailUrl}}",alt="@{{post.user.screenName}}",title="@{{post.user.screenName}}")
     .post-user
         a(href="/u/{{post.user.screenName|escape}}")= post.user.name
             if post.user.isVerified
