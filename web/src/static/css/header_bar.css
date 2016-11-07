@@ -22,9 +22,13 @@ body{
     font-size:20px;
     padding:0;
 }
-#headerBar ul li a{
+#headerBar a{
     display:inline-block;
     padding:10px;
+    text-decoration:none !important;
+}
+#headerBar ul li a span{
+    display:none;
 }
 #headerBarLeftItems li:first-child{
     padding-left:10px;
@@ -35,4 +39,15 @@ body{
 }
 #headerBarRightItems li:first-child{
     padding-right:10px;
+}
+@media (min-width:640px){
+    #headerBar ul li a span{
+        display:inline-block;
+        font-size:0.75em;
+        margin-left:0.25em;
+        text-transform:uppercase;
+    }
+    #headerBar ul li a span::first-letter{
+        font-size:1.125em;
+    }
 }
