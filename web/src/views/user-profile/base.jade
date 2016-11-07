@@ -36,9 +36,25 @@ block header
         .tabs small{
             margin-right:0.3em;
         }
+        .user-name-with-icon {
+            margin:0.6em;
+        }
+        .user-name-with-icon img{
+            width:6em;
+            height:6em;
+            border-radius:3em;
+        }
+        .user-name-with-icon h1{
+            margin:0;
+        }
 block content
     .panel#userInfo
-        h1= user.name
+        if user.avatarUrl
+            div.user-name-with-icon
+                img(src=user.avatarThumbnailUrl)
+                h1= user.name
+        else
+            h1= user.name
         small @#{user.screenName}
         button#follow(style="width:auto;") フォローする
         .tabs
