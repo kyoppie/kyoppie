@@ -1,4 +1,29 @@
 extends ./base
+block header
+    meta(name="app-id",content=app.id)
+    style.
+        dt{
+            margin-top:1em;
+            margin-bottom:0.5em;
+        }
+        dd{
+            margin-left:0;
+        }
+    script.
+        $(function(){
+            var appId = $('meta[name="app-id"]').attr("content")
+            $("#getMyAccessToken").click(function(){
+                var $this = $(this)
+                $this.prop("disabled",true);
+                $.api.post("applications/get_my_access_token",{id:appId}).then(function(res){
+                    prompt("コピーしてください",res.response)
+                },function(err){
+                    console.log(err)
+                }).then(function(){
+                    $this.prop("disabled",false)
+                })
+            })
+        })
 block content
     h1 アプリ管理
     .panel
@@ -7,4 +32,6 @@ block content
             dt appKey
             dd: input.input(value=app.appKey,readonly)
             dt appSecret
-            dd: button(onclick="prompt('please copy and paste!','"+app.appSecret+"')") Please Click
+            dd: button(onclick="prompt('please copy and paste!','"+app.appSecret+"')") クリックで表示
+            dt あなたのアクセストークン
+            dd: button#getMyAccessToken クリックで取得
