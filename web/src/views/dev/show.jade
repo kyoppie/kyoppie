@@ -2,13 +2,6 @@ extends ./base
 block header
     meta(name="app-id",content=app.id)
     style.
-        dt{
-            margin-top:1em;
-            margin-bottom:0.5em;
-        }
-        dd{
-            margin-left:0;
-        }
     script.
         $(function(){
             var appId = $('meta[name="app-id"]').attr("content")

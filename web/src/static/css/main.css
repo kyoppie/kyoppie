@@ -70,3 +70,10 @@ a{
 .hidden{
     display:none;
 }
+dt{
+    margin-top:1em;
+    margin-bottom:0.5em;
+}
+dd{
+    margin-left:0;
+}
