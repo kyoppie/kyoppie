@@ -23,6 +23,13 @@ block header
                     $this.prop("disabled",false)
                 })
             })
+            $("#resetKey").click(function(){
+                if(confirm("appKey/appSecretをリセットします。\nこれを実行すると、同時に現在このアプリに割り当てられているすべてのアクセストークンも失効します。よろしいですか？")){
+                    $.api.post("applications/change_key",{id:appId}).then(function(){
+                        location.reload(true);
+                    })
+                }
+            })
         })
 block content
     h1 アプリ管理
@@ -35,3 +42,5 @@ block content
             dd: button(onclick="prompt('please copy and paste!','"+app.appSecret+"')") クリックで表示
             dt あなたのアクセストークン
             dd: button#getMyAccessToken クリックで取得
+            dt appKey/appSecretをリセット
+            dd: button#resetKey 実行する(1回のみ確認あり)
