@@ -21,3 +21,14 @@ def fileserverIndex():
 def fileserverShow(id):
     res = api.get("admin/file_servers/show",{"id":id},login=True)["response"]
     return render_template("admin/file_servers/show.jade",server = res)
+
+@app.route('/users')
+def userIndex():
+    res = api.get("admin/users/list",login=True)["response"]
+    return render_template("admin/users/index.jade",users = res)
+
+@app.route('/users/<id>')
+@utils.login_required
+def userShow(id):
+    res = api.get("admin/users/show",{"id":id},login=True)["response"]
+    return render_template("admin/users/show.jade",user = res)

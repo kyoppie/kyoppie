@@ -1,0 +1,20 @@
+extends ./base
+block content
+    .panel
+        h1 ユーザー管理
+        .table_container: table
+            tr
+                th ユーザー名
+                th スクリーンネーム
+                th following
+                th followers
+                th 状態
+            for user in users
+                tr
+                    td: a(href="/admin/users/"+user.id)= user.name
+                    td: small(style="color:#888;padding-left:0.25em;")= "@"+user.screenName
+                    td= user.followingCount
+                    td= user.followersCount
+                    td
+                        if user.isSuspended
+                            | 凍結

@@ -5,3 +5,5 @@ block content
         ul
             if user.adminFlag.fileServer
                 li: a(href="/admin/file_servers") ファイルサーバー
+            if user.adminFlag.userMng
+                li: a(href="/admin/users") ユーザー管理

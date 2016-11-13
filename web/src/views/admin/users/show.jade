@@ -1,0 +1,55 @@
+extends ./base
+block header
+    meta(name="user_id",content=user.id)
+    meta(name="user_sn",content=user.screenName)
+    script.
+        $(function(){
+            var id = $("meta[name=user_id]").attr("content")
+            var sn = $("meta[name=user_sn]").attr("content")
+            $("#passwordChange").click(function(){
+                var password = $("#passwordText").val();
+                var passwordRetype = $("#passwordRetypeText").val();
+                if(password !== passwordRetype) return alert("パスワードが一致していません！");
+                if(!confirm("@"+sn+"のパスワードを変更します。よろしいですか？")) return;
+                $.api.post("admin/users/change_password",{id:id,password:password}).then(function(){
+                    location.reload(true);
+                })
+            })
+            $("#iconDeleteButton").click(function(){
+                if(!confirm("@"+sn+"のアイコンを削除します。よろしいですか？")) return;
+                $.api.post("admin/users/remove_icon",{id:id}).then(function(res){
+                    location.reload(true)
+                })
+            })
+            $("#suspendButton").click(function(){
+                if(!confirm("@"+sn+"を凍結します。よろしいですか？")) return;
+                $.api.post("admin/users/suspend",{id:id}).then(function(res){
+                    location.reload(true)
+                })
+            })
+            $("#unSuspendButton").click(function(){
+                if(!confirm("@"+sn+"の凍結を解除します。よろしいですか？")) return;
+                $.api.post("admin/users/unsuspend",{id:id}).then(function(res){
+                    location.reload(true)
+                })
+            })
+        })
+block content
+    h1 ユーザー操作
+    .panel
+        h2= user.name
+        span= "@"+user.screenName
+        dl
+            dt パスワード変更
+            dd
+                input.input#passwordText(type="password",placeholder="パスワード")
+                input.input#passwordRetypeText(type="password",placeholder="パスワード(それじゃあ霊夢にもういっか〜い)")
+                button#passwordChange 変更する
+            dt アイコン削除
+            dd: button#iconDeleteButton アイコン削除する(未実装)
+            if not user.isSuspended
+                dt 凍結
+                dd: button#suspendButton 凍結する
+            else
+                dt 凍結解除
+                dd: button#unSuspendButton 凍結解除する

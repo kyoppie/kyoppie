@@ -77,3 +77,6 @@ dt{
 dd{
     margin-left:0;
 }
+.table_container{
+    overflow-x:scroll;
+}
