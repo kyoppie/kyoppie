@@ -26,6 +26,7 @@ block header
     style.
         #userInfo{
             text-align:center;
+            position:relative;
         }
         .tabs{
             text-align:left;
@@ -47,16 +48,25 @@ block header
         .user-name-with-icon h1{
             margin:0;
         }
+        .user-name{
+            position:relative;
+        }
+        #follow{
+            position:absolute;
+            right:0;
+            bottom:0;
+        }
 block content
     .panel#userInfo
-        if user.avatarUrl
-            div.user-name-with-icon
-                img(src=user.avatarThumbnailUrl)
+        .user-name
+            if user.avatarUrl
+                div.user-name-with-icon
+                    img(src=user.avatarThumbnailUrl)
+                    h1= user.name
+            else
                 h1= user.name
-        else
-            h1= user.name
-        small @#{user.screenName}
-        button#follow(style="width:auto;") フォローする
+            small @#{user.screenName}
+            button#follow(style="width:auto;") フォローする
         .tabs
             a(href="/u/"+user.screenName) 投稿
             small= user.postsCount
