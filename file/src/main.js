@@ -10,6 +10,7 @@ var readChunk = require("read-chunk");
 var easyimage = require("easyimage")
 var exec = require("child_process").exec
 var save_dir = __dirname+"/../files";
+app.disable('x-powered-by');
 app.get("/",function(req,res){
     res.send("kyoppie file server");
 });
