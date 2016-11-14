@@ -13,7 +13,17 @@ var save_dir = __dirname+"/../files";
 app.get("/",function(req,res){
     res.send("kyoppie file server");
 });
-app.use(express.static(save_dir));
+app.get("/:day/:file",function(req,res){
+    var path = req.params.day+"/"+req.params.file
+    console.log(req.ip,req.ips,path)
+    res.sendFile(path,{
+        root:save_dir
+    },function(err){
+        if(err){
+            res.status(403).send("403 Forbidden");
+        }
+    })
+})
 
 // utils function
 
