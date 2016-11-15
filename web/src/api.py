@@ -58,6 +58,6 @@ def post(endpoint,params={},token=None,login=False):
         header["X-Kyoppie-Access-Token"]=token
     return requests.post(
         config.web["api"]+"/"+endpoint,
-        params=params,
+        data=params,
         headers=header
     ).json()
