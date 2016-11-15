@@ -56,7 +56,7 @@ def post(endpoint,params={},token=None,login=False):
         token=session["access_token"]
     if(token):
         header["X-Kyoppie-Access-Token"]=token
-    return requests.get(
+    return requests.post(
         config.web["api"]+"/"+endpoint,
         params=params,
         headers=header
