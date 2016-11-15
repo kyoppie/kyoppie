@@ -20,8 +20,8 @@ app.get("/:day/:file",function(req,res){
     res.sendFile(path,{
         root:save_dir
     },function(err){
-        console.log(err)
         if(err){
+            console.log(err)
             res.status(403).send("403 Forbidden");
         }
     })
