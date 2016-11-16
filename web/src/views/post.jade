@@ -25,7 +25,7 @@ block header
             color:#888;
         }
         .panel{
-            padding:2vw 4vw;
+            padding:1vw 2vw;
         }
         .post-text{
             margin:0.5em 0;
@@ -34,9 +34,21 @@ block header
         .post time{
             position:static;
         }
+        .user{
+            line-height:1.25em;
+        }
+        .icon{
+            float:left;
+            height:2.7em;
+            border-radius:0.5em;
+            margin-top:-0.2em;
+            margin-right:0.5em;
+        }
 block content
     .panel.post
         a.user(href="/u/"+post.user.screenName)
+            if post.user.avatarThumbnailUrl
+                img.icon(src=post.user.avatarThumbnailUrl)
             strong.user-name= post.user.name
             span.user-screenName @#{post.user.screenName}
         div.post-text!= post.html
