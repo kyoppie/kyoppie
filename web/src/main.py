@@ -9,6 +9,7 @@ import controllers.user
 import controllers.settings
 import controllers.admin
 import controllers.help
+import controllers.notifications
 from flask import Flask,render_template,redirect,session,request
 app = Flask(__name__)
 app.template_folder = "views"
@@ -27,6 +28,7 @@ app.register_blueprint(controllers.user.app)
 app.register_blueprint(controllers.settings.app)
 app.register_blueprint(controllers.admin.app)
 app.register_blueprint(controllers.help.app)
+app.register_blueprint(controllers.notifications.app)
 @app.route('/')
 @utils.login_required
 def indexPage():
