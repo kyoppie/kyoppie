@@ -21,6 +21,7 @@ body{
     width:100%;
     box-sizing:border-box;
     resize:vertical;
+    margin-bottom:0.5em;
 }
 label{
     display:block;
