@@ -29,16 +29,38 @@ block header
             position:relative;
         }
         .tabs{
-            text-align:left;
+            padding: 0 0.25em;
         }
         .tabs a{
-            margin-right:0.2em;
+            display:inline-block;
+            text-align:center;
+            padding:0.25em 0.25em;
+            font-size:0.8em;
+            color:rgba(0,0,0,0.6);
+            text-decoration:none;
+            min-width:5em;
         }
-        .tabs small{
-            margin-right:0.3em;
+        .tabs a span{
+            display:block;
+            font-size:1.55em;
+            color:black;
+        }
+        @media screen and (max-width:640px) {
+            .tabs{
+                text-align:left;
+                padding:0;
+            }
+            .tabs a{
+                min-width:3em;
+                font-size:0.7em;
+            }
+            #userInfo button{
+                font-size:0.95em;
+            }
         }
         .user-name-with-icon {
             margin:0.6em;
+            margin-bottom:0;
         }
         .user-name-with-icon img{
             width:6em;
@@ -50,11 +72,12 @@ block header
         }
         .user-name{
             position:relative;
+            margin-bottom:0.5em;
         }
         #follow{
             position:absolute;
-            right:0;
-            bottom:0;
+            right:0.5em;
+            bottom:0.5em;
         }
 block content
     .panel#userInfo
@@ -66,12 +89,12 @@ block content
             else
                 h1= user.name
             small @#{user.screenName}
-            button#follow(style="width:auto;") フォローする
         .tabs
             a(href="/u/"+user.screenName) 投稿
-            small= user.postsCount
+                span= user.postsCount
             a(href="/u/"+user.screenName+"/following") フォロー
-            small= user.followingCount
+                span= user.followingCount
             a(href="/u/"+user.screenName+"/followers") フォロワー
-            small= user.followersCount
+                span= user.followersCount
+        button#follow(style="width:auto;") フォローする
     br
