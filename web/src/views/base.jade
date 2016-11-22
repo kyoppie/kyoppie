@@ -4,6 +4,9 @@ html
         meta(charset="UTF-8")
         meta(name="viewport",content="width=device-width")
         meta(http-equiv="X-UA-Compatible",content="IE=edge")
+        link(rel="dns-prefetch",href=config.web_config.api)
+        link(rel="dns-prefetch",href="//maxcdn.bootstrapcdn.com")
+        link(rel="dns-prefetch",href="//ajax.googleapis.com")
         link(rel="stylesheet",href="/static/css/main.css")
         link(rel="stylesheet",href="/static/css/header_bar.css")
         link(rel="stylesheet",href="/static/css/post.css")
@@ -19,7 +22,6 @@ html
         script(src="/static/js/relative-time.js")
         script(src="/static/libs/nunjucks.min.js")
         script(src="/static/js/nunjucks-config.js")
-        link(rel="dns-prefetch",href=config.web_config.api)
         block header
     body
         #headerBar
