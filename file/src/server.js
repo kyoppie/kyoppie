@@ -169,19 +169,15 @@ app.post("/api/v1/upload",upload.single('file'),function(req,res){
                 path
             ].join(" ");
             return execPromise(convert_command).then(function(){
-                // TODO: 変換後のファイルサイズを見る
-                if(file.size >= (500*1000)){ // ファイルがでかい(500KB以上)
-                    var thumbnail_command = [
-                        "convert",
-                        file.path,
-                        "-thumbnail 640x640",
-                        "-quality 60",
-                        path+".thumbnail.jpg"
-                    ].join(" ");
-                    thumbnailUrl=url+".thumbnail.jpg";
-                    return execPromise(thumbnail_command);
-                }
-                thumbnailUrl=url;
+                var thumbnail_command = [
+                    "convert",
+                    file.path,
+                    "-thumbnail 300x300",
+                    "-quality 60",
+                    path+".thumbnail.jpg"
+                ].join(" ");
+                thumbnailUrl=url+".thumbnail.jpg";
+                return execPromise(thumbnail_command);
             })
         } else if(type === "video") {
             var checkCommand = [
