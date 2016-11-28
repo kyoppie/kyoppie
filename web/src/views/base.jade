@@ -22,6 +22,8 @@ html
         script(src="/static/js/relative-time.js")
         script(src="/static/libs/nunjucks.min.js")
         script(src="/static/js/nunjucks-config.js")
+        script(src="/static/js/fuck-ie.js",async)
+        != "<!--[if IE]><style>#fuckie{dislay:block !important;}</style><![endif]-->"
         block header
     body
         #headerBar
@@ -35,5 +37,9 @@ html
             ul#headerBarRightItems
                 li: a(href="/menu"): i.fa.fa-bars
         .container
+            noscript: a(href="/help/noscript").top-notify-bar
+                | kyoppieはJavaScriptが有効なブラウザーでないとご利用いただけません。詳しくはここをクリックしてください。
+            a(href="/help/internet-explorer")#fuckie.top-notify-bar
+                | kyoppieはInternet Explorerをサポートしていません。詳しくはここをクリックしてください。
             block content
         #notify
