@@ -1,6 +1,6 @@
 extends ./base
 block title
-    title #{post.user.name}@#{post.user.screenName}さんの投稿 - kyoppie
+    title #{post.user.name}@#{post.user.screenName}さんの投稿 - “#{post.text}” - kyoppie
     meta(name="description",content='“'+post.text+'”')
 block header
     meta(name="twitter:site",content="@kyoppieofficial")

@@ -6,7 +6,7 @@
             if post.user.isVerified
                 i.fa.fa-check-circle(title="本人確認済みマーク")
         small @#{post.user.screenName}
-    a(href="/p/{{post.id}}",title="{{post.user.name|escape}}@{{post.user.screenName|escape}}さんの投稿 - kyoppie")
+    a(href="/p/{{post.id}}",title="{{post.user.name|escape}}@{{post.user.screenName|escape}}さんの投稿 - “{{post.text|escape}}” -kyoppie")
         time.relative_time(datetime="{{post.createdAt}}",title="{{post.createdAt}}")= post.createdAt
     .post-text!= post.html
     .post-files
