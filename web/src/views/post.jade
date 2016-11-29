@@ -7,7 +7,11 @@ block header
     meta(name="twitter:title",content=post.user.name+"@"+post.user.screenName+"さんの投稿 - kyoppie")
     meta(name="twitter:description",content='“'+post.text+'”')
     if post.files|length != 0
-        meta(name="twitter:card",content="summary_large_image")
+        if post.files[0].type == "video"
+            meta(name="twitter:card",content="player")
+            meta(name="twitter:player",content=post.files[0].url)
+        else
+            meta(name="twitter:card",content="summary_large_image")
         meta(name="twitter:image",content=post.files[0].thumbnailUrl)
         link(rel="image_src",href=post.files[0].thumbnailUrl)
     else
