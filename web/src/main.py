@@ -11,6 +11,7 @@ import controllers.admin
 import controllers.help
 import controllers.notifications
 from flask import Flask,render_template,redirect,session,request
+from datetime import timedelta
 app = Flask(__name__)
 app.template_folder = "views"
 app.jinja_env.add_extension("pyjade.ext.jinja.PyJadeExtension")
@@ -19,6 +20,7 @@ app.debug=config.web["is_debug"]
 app.config["web_config"]=config.public
 app.config["web_config_json"]=json.dumps(config.public)
 app.secret_key=config.web["secret_key"]
+app.permanent_session_lifetime = timedelta(days=365) # 1 year
 
 app.register_blueprint(controllers._.ajax.app)
 app.register_blueprint(controllers._.tojinja.app)
@@ -29,6 +31,9 @@ app.register_blueprint(controllers.settings.app)
 app.register_blueprint(controllers.admin.app)
 app.register_blueprint(controllers.help.app)
 app.register_blueprint(controllers.notifications.app)
+@app.before_request
+def beforeRequest():
+        session.permanent = True
 @app.route('/')
 @utils.login_required
 def indexPage():
