@@ -73,6 +73,11 @@ def rulesShow():
 def suspendPage():
     return render_template("suspend.jade")
 
+@app.route('/logout')
+def logout():
+    session.clear()
+    return utils.redirect("/")
+
 if(__name__ == "__main__"):
     app.run(
         port=config.web["port"]
