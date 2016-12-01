@@ -75,4 +75,4 @@ def apiV1Upload():
         res_obj["thumbnail"] = new_filename+".thumbnail.jpg"
     return res_obj,200
     
-app.run(port=config.file["port"],threaded=True,debug=config.file["is_debug"])
+app.run(host="0.0.0.0",port=config.file["port"],threaded=True,debug=config.file["is_debug"])
