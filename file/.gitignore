@@ -4,3 +4,4 @@ upload_tmp/*
 files/*
 !.gitkeep
 config.json
+*.pyc
