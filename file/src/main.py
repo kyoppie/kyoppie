@@ -30,7 +30,9 @@ def fileShow(filename):
     f = open(path,"rb")
     d = f.read()
     f.close()
-    return d
+    r = flask.Response(d)
+    r.headers["Content-Type"] = mimetypes.guess_type(filename)
+    return r
 @app.route('/api/v1/upload',methods=["POST"])
 @api
 def apiV1Upload():
