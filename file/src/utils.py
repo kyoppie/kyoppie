@@ -19,7 +19,7 @@ def get_filename(ext):
     filename = dirname+"/"+get_random_str(16)+"."+ext
     if(os.path.exists(path+filename)):
         return get_filename(ext)
-    return filename
+    return "/"+filename
 def get_resize_size(orig,max=480):
     if(orig[0] > orig[1]):
         if(orig[0] < max):
