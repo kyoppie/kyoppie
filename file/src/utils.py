@@ -20,7 +20,7 @@ def get_filename(ext):
     if(os.path.exists(path+filename)):
         return get_filename(ext)
     return "/"+filename
-def get_resize_size(orig,max=480):
+def get_resize_size(orig,max=640):
     if(orig[0] > orig[1]):
         if(orig[0] < max):
             return orig
