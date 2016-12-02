@@ -81,3 +81,12 @@ dd{
 .table_container{
     overflow-x:scroll;
 }
+@media screen and (max-width:480px) {
+    .panel{
+        margin:0.5em -0.5em;
+        border-radius:0;
+    }
+    .post:first-child{
+        border-radius:0;
+    }
+}

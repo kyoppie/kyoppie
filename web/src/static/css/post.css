@@ -55,3 +55,13 @@
     border-radius:0.25em;
     margin-left:-3em;
 }
+
+@media screen and (max-width:480px) {
+    .posts{
+        margin:0.5em -0.5em;
+        border-radius:0;
+    }
+    .post:first-child, .post:last-child{
+        border-radius:0;
+    }
+}
