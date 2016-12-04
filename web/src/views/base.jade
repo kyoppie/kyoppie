@@ -23,6 +23,8 @@ html
         script(src="/static/libs/nunjucks.min.js")
         script(src="/static/js/nunjucks-config.js")
         script(src="/static/js/fuck-ie.js",async)
+        script(src="/static/js/git-commit.js",async)
+        script(src="/static/js/top-bar.js")
         != "<!--[if IE]><style>#fuckie{dislay:block !important;}</style><![endif]-->"
         block header
     body
@@ -41,5 +43,7 @@ html
                 | kyoppieはJavaScriptが有効なブラウザーでないとご利用いただけません。詳しくはここをクリックしてください。
             a(href="/help/internet-explorer")#fuckie.top-notify-bar
                 | kyoppieはInternet Explorerをサポートしていません。詳しくはここをクリックしてください。
+            a(href="/rules_agree")#rulesagree.top-notify-bar
+                | 2016年12月5日から利用規約に則った運用が開始されます。ご確認ください。
             block content
         #notify

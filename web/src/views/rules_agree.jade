@@ -1,0 +1,22 @@
+extends ./base
+block header
+    script.
+        $(function(){
+            $("#agreeForm").submit(function(e){
+                e.preventDefault();
+                $.api.post("web/rules_agree",$(this).serialize()).then(function(){
+                    alert("利用規約に同意しました :D")
+                    location.href="/";
+                })
+            })
+        })
+block content
+    .panel
+        h1 利用規約について
+        p 2016年12月5日から利用規約に則った運用が開始されます。
+        p それに伴い、2016年12月5日から利用規約に同意していないアカウントは利用規約に同意しないとkyoppieを利用できなくなります。
+        a(href="/rules") 利用規約
+        p 上のリンクから利用規約をお読みいただき、同意できる場合はパスワードを入力した上で下のボタンを押してください。
+        form#agreeForm
+            input.input(type="password",name="password",placeholder="パスワード")
+            button.block(type="submit") 利用規約に同意

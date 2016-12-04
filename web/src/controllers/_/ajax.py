@@ -18,3 +18,10 @@ def register():
         return jsonify(status="ng",message=res["error"])
     session["access_token"] = res["response"]["token"]
     return jsonify(status="ok")
+
+@app.route('/get_commit')
+def get_commit():
+    f = open("../.git/FETCH_HEAD","r")
+    d = f.read()
+    f.close()
+    return d[:40]

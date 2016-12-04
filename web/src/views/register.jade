@@ -59,6 +59,10 @@ block content
                 input.input(type="text",name="screenName",placeholder="スクリーンネーム",required)
             label
                 input.input(type="password",name="password",placeholder="パスワード",required)
+            p
+                a(href="/rules") 利用規約
+                | に同意した上で、
+            br
             button.block(type="submit")
                 span.no_disabled#login_default
                     i.fa.fa-sign-in

@@ -83,6 +83,9 @@ def logout():
     session.clear()
     return utils.redirect("/")
 
+@app.route('/rules_agree')
+def rulesAgreePage():
+    return render_template("rules_agree.jade")
 if(__name__ == "__main__"):
     app.run(
         port=config.web["port"]
