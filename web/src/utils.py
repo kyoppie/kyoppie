@@ -5,6 +5,8 @@ import urllib.parse
 def redirect(path,next_path=None):
     print(next_path)
     if(next_path):
+        if(next_path[-1]=="?"):
+            next_path = next_path[:-1]
         next_path = urllib.parse.quote(next_path)
         path += "?next=" + next_path
     res = Response("Redirect...")
