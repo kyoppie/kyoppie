@@ -27,12 +27,24 @@ def fileShow(filename):
     path = "../files/"+filename
     if(not os.path.exists(path)):
         return "Not Found",404
-    f = open(path,"rb")
-    d = f.read()
-    f.close()
-    r = flask.Response(d)
+    sc = 200
+    sb = 0
+    all_l = None
+    if(flask.request.headers.get("Range")):
+        all_l = os.path.getsize(path)
+        sb,eb = utils.range_header(all_l,flask.request.headers)
+        print(sb,eb,all_l)
+        sb = int(sb)
+        eb = int(eb)
+        sc = 206
+    r = flask.Response(open(path,"rb").read()[sb:])
     r.headers["Content-Type"] = mimetypes.guess_type(filename)[0]
-    return r
+    r.headers["Accept-Ranges"] = "bytes"
+    r.headers["Content-Transfer-Encoding"] = "binary"
+    if(sc == 206):
+        r.headers["Content-Range"] = "bytes "+str(sb)+"-"+str(eb)+"/"+str(all_l)
+        r.headers["Content-Length"] = str(eb-sb+1)
+    return r,sc
 @app.route('/api/v1/upload',methods=["POST"])
 @api
 def apiV1Upload():

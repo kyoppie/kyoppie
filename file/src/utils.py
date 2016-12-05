@@ -123,4 +123,11 @@ def video_encode(filename):
         return
     return new_filename,PIL.Image.open(thumb_tori)
     print(output)
-    
+def range_header(l,headers):
+    range_header = headers.get("Range")
+    matches = re.findall("[0-9]+",range_header)
+    if(len(matches) == 0):
+        matches.append(0)
+    if(len(matches) == 1):
+        matches.append(l-1)
+    return matches
