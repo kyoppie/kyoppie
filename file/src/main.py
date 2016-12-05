@@ -33,7 +33,6 @@ def fileShow(filename):
     if(flask.request.headers.get("Range")):
         all_l = os.path.getsize(path)
         sb,eb = utils.range_header(all_l,flask.request.headers)
-        print(sb,eb,all_l)
         sb = int(sb)
         eb = int(eb)
         sc = 206
