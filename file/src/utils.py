@@ -85,17 +85,20 @@ def video_encode(filename):
         args.append("libx264")
         args.append("-b")
         args.append("1000k")
+        args.append("-pix_fmt")
+        args.append("yuv420p")
         args.append("-r")
-        args.append(str(min(30,calc_framerate(video["r_frame_rate"]))))
+        args.append("30")
     else:
         args.append("-vcodec")
         args.append("copy")
-    if(audio_re_encode_flag):
-        args.append("-acodec")
-        args.append("aac")
-    else:
-        args.append("-acodec")
-        args.append("copy")
+    if(audio):
+        if(audio_re_encode_flag):
+            args.append("-acodec")
+            args.append("aac")
+        else:
+            args.append("-acodec")
+            args.append("copy")
     args.append("../files"+new_filename)
     res = subprocess.run(args)
     if(res.returncode != 0):
