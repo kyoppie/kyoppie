@@ -89,6 +89,10 @@ def video_encode(filename):
         args.append("yuv420p")
         args.append("-r")
         args.append("30")
+        args.append("-profile:v")
+        args.append("baseline")
+        args.append("-level:v")
+        args.append("4.0")
     else:
         args.append("-vcodec")
         args.append("copy")
