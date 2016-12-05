@@ -27,11 +27,7 @@ def fileShow(filename):
     path = "../files/"+filename
     if(not os.path.exists(path)):
         return "Not Found",404
-    f = open(path,"rb")
-    d = f.read()
-    f.close()
-    r = flask.Response(d)
-    r.headers["Content-Type"] = mimetypes.guess_type(filename)[0]
+    r = flask.send_file(path,mimetype=mimetypes.guess_type(filename)[0])
     return r
 @app.route('/api/v1/upload',methods=["POST"])
 @api
