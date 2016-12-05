@@ -8,7 +8,7 @@ import magic
 import PIL.Image
 import config
 app = flask.Flask(__name__)
-app.config["MAX_CONTENT_LENGTH"] = 16*1024*1024 #16M
+app.config["MAX_CONTENT_LENGTH"] = 40*1024*1024 #40M
 def api(f):
     def wrap():
         r = f()
@@ -57,15 +57,27 @@ def apiV1Upload():
     }
     if(mimetype == "image/png" or mimetype == "image/bmp"): #可逆圧縮な画像ファイル
         new_filename = utils.get_filename("png")
-        print(new_filename)
         img = PIL.Image.open(filename)
         img.save(path+new_filename,"png")
         res_obj["url"] = new_filename
     elif(mimetype == "image/jpeg" or mimetype == "image/jpg"):
         new_filename = utils.get_filename("jpg")
-        print(new_filename)
         img = PIL.Image.open(filename)
         img.save(path+new_filename,"jpeg",quality=80)
+        res_obj["url"] = new_filename
+    elif(mimetype == "image/gif"):
+        new_filename = utils.get_filename("png")
+        img = PIL.Image.open(filename)
+        try:
+            img.seek(1)
+        except EOFError:
+            img.save(path+new_filename,"png")
+            res_obj["url"] = new_filename
+        else:
+            new_filename,img = utils.video_encode(filename)
+            res_obj["url"] = new_filename
+    elif(mimetype == "video/mp4" or mimetype == "video/quicktime"):
+        new_filename,img = utils.video_encode(filename)
         res_obj["url"] = new_filename
     else:
         return {"result":False,"error":"invalid-file"},400
