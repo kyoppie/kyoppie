@@ -47,6 +47,13 @@ block header
             margin-top:-0.2em;
             margin-right:0.5em;
         }
+        .post-bottom{
+            color:#888;
+            margin-left:-0.5em;
+        }
+        .post-bottom > *{
+            margin:0 0.5em;
+        }
 block content
     .panel.post
         a.user(href="/u/"+post.user.screenName)
@@ -63,4 +70,6 @@ block content
             if file.type == "video"
                 video(src="{{file.url}}",controls,preload="metadata",poster="{{file.thumbnailUrl}}")
             - endfor
-        time= post.createdAt
+        .post-bottom
+            time= post.createdAt
+            span.post-via= "via "+post.app.name
