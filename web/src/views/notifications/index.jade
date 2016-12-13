@@ -78,17 +78,16 @@ block content
                     i.fa.fa-user-plus
                     a(href="/notifications/"+notification.id+"/user") #{notification.targetUser.name}
                     | さんにフォローされました。
-                else: if notification.type == "reply"
-                    i.fa.fa-reply
-                    a(href="/u/"+notification.targetUser.screenName)= notification.targetUser.name
-                    | さんからのリプライです:
-                    a(href="/notifications/"+notification.id+"/post").notification_post
-                        strong= notification.targetUser.name
-                        |  @#{notification.targetUser.screenName}
-                        time.relative_time(datetime=notification.targetPost.createdAt,title=notification.targetPost.createdAt)= notification.targetPost.createdAt
-                        br
-                        = notification.targetPost.text
                 else
-                    i.fa.fa-question-circle
-                    | 未知の通知:#{notification.type}
-                button.readflag(data-id=notification.id): i.fa.fa-check
+                    if notification.type == "reply"
+                        i.fa.fa-reply
+                        a(href="/u/"+notification.targetUser.screenName)= notification.targetUser.name
+                        | さんからのリプライです:
+                        a(href="/notifications/"+notification.id+"/post").notification_post
+                            strong= notification.targetUser.name
+                            |  @#{notification.targetUser.screenName}
+                            time.relative_time(datetime=notification.targetPost.createdAt,title=notification.targetPost.createdAt)= notification.targetPost.createdAt
+                            br
+                            = notification.targetPost.text
+                button.readflag(data-id=notification.id)
+                    i.fa.fa-check
