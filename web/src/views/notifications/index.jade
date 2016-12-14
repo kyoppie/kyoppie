@@ -100,5 +100,8 @@ block content
                                 time.relative_time(datetime=notification.targetPost.createdAt,title=notification.targetPost.createdAt)= notification.targetPost.createdAt
                                 br
                                 = notification.targetPost.text
+                        else
+                            i.fa.fa-question
+                            | 不明な通知(type:#{notification.type})
                 button.readflag(data-id=notification.id)
                     i.fa.fa-check
