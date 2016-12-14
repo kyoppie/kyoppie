@@ -17,3 +17,17 @@
         if file.type == "video"
             video(src="{{file.url}}",controls,preload="metadata",poster="{{file.thumbnailUrl}}")
         - endfor
+    .post-actions
+        button.post-reply(data-post-id="{{post.id}}"): i.fa.fa-reply
+        span.post-count
+        if post.isReposted
+            button.post-repost.post-reposted(data-post-id="{{post.id}}"): i.fa.fa-retweet
+        else
+            button.post-repost(data-post-id="{{post.id}}"): i.fa.fa-retweet
+        span.post-count
+        if post.isFavorited
+            button.post-favorite.post-favorited(data-post-id="{{post.id}}"): i.fa.fa-star
+        else
+            button.post-favorite(data-post-id="{{post.id}}"): i.fa.fa-star-o
+
+        span.post-count= post.favoriteCount

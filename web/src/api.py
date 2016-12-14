@@ -41,7 +41,7 @@ def register(name,userName,password):
     return r
 def get(endpoint,params={},token=None,login=False):
     header={}
-    if(login):
+    if(session.get("access_token")):
         token=session["access_token"]
     if(token):
         header["X-Kyoppie-Access-Token"]=token
@@ -52,7 +52,7 @@ def get(endpoint,params={},token=None,login=False):
     ).json()
 def post(endpoint,params={},token=None,login=False):
     header={}
-    if(login):
+    if(session.get("access_token")):
         token=session["access_token"]
     if(token):
         header["X-Kyoppie-Access-Token"]=token

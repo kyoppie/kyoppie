@@ -9,6 +9,7 @@
     margin-bottom:1px;
     position:relative;
     padding-left:4em;
+    padding-bottom:2em;
 }
 .post:first-child{
     margin-top:0;
@@ -64,4 +65,30 @@
     .post:first-child, .post:last-child{
         border-radius:0;
     }
+}
+.post-actions{
+    position:absolute;
+    right:0.5em;
+    left:5em;
+    bottom:0.5em;
+    text-align:left;
+    font-size:0.85em;
+}
+.post-actions button{
+    display:inline;
+    background:none;
+    color:rgba(0,0,0,0.25);
+    padding:0;
+    width:1em;
+}
+.post-actions .post-favorited{
+    color:rgb(255,205,79);
+}
+.post-actions .post-count{
+    display:inline-block;
+    color:rgba(0,0,0,0.5);
+    text-align:left;
+    min-width:1em;
+    padding-left:0.5em;
+    padding-right:2em;
 }
