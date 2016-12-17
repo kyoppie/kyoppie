@@ -7,7 +7,7 @@ app = Blueprint(__name__,"tojinja",url_prefix="/_/tojinja")
 def tojinja(name):
     path = "./views/common/"+name+".jade"
     html = pyjade.utils.process(
-        open(path,"r").read(),
+        open(path,"r",encoding="utf-8").read(),
         compiler=pyjade.ext.jinja.Compiler,
         staticAttrs=True
     )
