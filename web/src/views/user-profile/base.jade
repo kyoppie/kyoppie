@@ -45,19 +45,6 @@ block header
             font-size:1.55em;
             color:black;
         }
-        @media screen and (max-width:640px) {
-            .tabs{
-                text-align:left;
-                padding:0;
-            }
-            .tabs a{
-                min-width:3em;
-                font-size:0.7em;
-            }
-            #userInfo button{
-                font-size:0.95em;
-            }
-        }
         .user-name-with-icon {
             margin:0.6em;
             margin-bottom:0;
@@ -79,6 +66,46 @@ block header
             right:0.5em;
             bottom:0.5em;
         }
+        .user-follower-box{
+            position:absolute;
+            bottom:4.5em;
+            right:0.5em;
+            display:inline-block;
+            width:auto;
+            font-size:0.8em;
+        }
+        .user-follower-box .fa{
+            margin-right:0.2em;
+        }
+        @media screen and (max-width:640px) {
+            .tabs{
+                text-align:left;
+                padding:0;
+            }
+            .tabs a{
+                min-width:3em;
+                font-size:0.7em;
+            }
+            #userInfo button{
+                font-size:0.95em;
+            }
+            #userInfo{
+                text-align:left;
+            }
+            .user-name-with-icon{
+                margin:0;
+            }
+            .user-name-with-icon img{
+                position:absolute;
+                right:0.5em;
+                top:-1.2em;
+                width:4.6em;
+                height:4.6em;
+            }
+            .user-name-with-icon h1{
+                margin:0.6em 0;
+            }
+        }
 block content
     .panel#userInfo
         .user-name
@@ -96,5 +123,9 @@ block content
                 span= user.followingCount
             a(href="/u/"+user.screenName+"/followers") フォロワー
                 span= user.followersCount
+        if user.isFollowers
+            .user-follower-box
+                i.fa.fa-heart
+                | フォローされています
         button#follow(style="width:auto;") フォローする
     br
