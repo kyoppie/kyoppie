@@ -9,7 +9,7 @@
     margin-bottom:1px;
     position:relative;
     padding-left:4em;
-    padding-bottom:2em;
+    padding-bottom:2.5em;
 }
 .post:first-child{
     margin-top:0;
@@ -69,10 +69,9 @@
 .post-actions{
     position:absolute;
     right:0.5em;
-    left:5em;
+    left:4em;
     bottom:0.5em;
     text-align:left;
-    font-size:0.85em;
 }
 .post-actions button{
     display:inline;
