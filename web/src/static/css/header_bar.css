@@ -20,15 +20,13 @@ body{
 #headerBar ul li{
     display:inline-block;
     font-size:20px;
-    padding:0;
 }
 #headerBar a{
     display:inline-block;
-    padding:10px;
+    height:40px;
+    line-height:40px;
+    padding: 0px 10px;
     text-decoration:none !important;
-}
-#headerBar ul li a span{
-    display:none;
 }
 #headerBarLeftItems li:first-child{
     padding-left:10px;
@@ -45,10 +43,6 @@ body{
         display:inline-block;
         font-size:0.75em;
         margin-left:0.25em;
-        text-transform:uppercase;
-    }
-    #headerBar ul li a span::first-letter{
-        font-size:1.125em;
     }
 }
 #fuckie{
