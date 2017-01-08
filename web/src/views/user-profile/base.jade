@@ -15,12 +15,14 @@ block header
         $(function(){
             $("#follow").click(function(){
                 $.api.post("users/follow",{id:$("meta[name='user-id']").attr("content")}).then(function(res){
-                    $.showNotify("フォローしました！");
-                    setTimeout($.hideNotify,1500)
+                    location.reload()
                 },function(_){
                     console.log(arguments)
                     alert(_.responseJSON.error)
                 })
+            })
+            $("#unfollow").click(function(){
+                alert("未実装")
             })
         })
     style.
@@ -61,7 +63,7 @@ block header
             position:relative;
             margin-bottom:0.5em;
         }
-        #follow{
+        #follow, #unfollow{
             position:absolute;
             right:0.5em;
             bottom:0.5em;
@@ -106,6 +108,9 @@ block header
                 margin:0.6em 0;
             }
         }
+        #unfollow {
+            background:rgba(255,255,255,0);
+        }
 block content
     .panel#userInfo
         .user-name
@@ -127,5 +132,8 @@ block content
             .user-follower-box
                 i.fa.fa-heart
                 | フォローされています
-        button#follow(style="width:auto;") フォローする
+        if user.isFollowing
+            button#unfollow(style="width:auto;").outline フォロー解除
+        else
+            button#follow(style="width:auto;") フォローする
     br

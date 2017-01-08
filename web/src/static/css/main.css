@@ -32,14 +32,20 @@ label{
 input[type="submit"],button{
     font-size:1.1em;
     background:#f40;
-    color:white;
     border:none;
+    color:white;
     padding:0.5em;
     text-align:center;
     display:block;
     width:100%;
     border-radius:0.5em;
     -webkit-appearance:none;
+}
+input[type="submit"].outline,button.outline{
+    border: solid 1px #f40;
+    color:#f40;
+    background: white;
+    background: rgba(255,255,255,0.8);
 }
 [type="submit"]:disabled > .no_disabled{
     display:none;
