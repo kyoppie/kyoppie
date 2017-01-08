@@ -28,6 +28,9 @@ body{
     padding: 0px 10px;
     text-decoration:none !important;
 }
+#headerBar ul li a span {
+    display:none;
+}
 #headerBarLeftItems li:first-child{
     padding-left:10px;
 }
