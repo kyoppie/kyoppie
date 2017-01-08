@@ -56,7 +56,7 @@
             $("#postForm>textarea").keydown(function(event){
                 // Ctrl+Enter判定
                 if(event.keyCode !== 13) return;
-                if(event.ctrlKey){
+                if(event.ctrlKey || event.metaKey){
                     $form.submit();
                 }
             })
