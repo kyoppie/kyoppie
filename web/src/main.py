@@ -88,5 +88,6 @@ def rulesAgreePage():
     return render_template("rules_agree.jade")
 if(__name__ == "__main__"):
     app.run(
+        host="0.0.0.0",
         port=config.web["port"]
     )

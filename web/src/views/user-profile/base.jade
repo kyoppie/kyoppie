@@ -22,7 +22,12 @@ block header
                 })
             })
             $("#unfollow").click(function(){
-                alert("未実装")
+                $.api.post("users/unfollow",{id:$("meta[name='user-id']").attr("content")}).then(function(res){
+                    location.reload()
+                },function(_){
+                    console.log(arguments)
+                    alert(_.responseJSON.error)
+                })
             })
         })
     style.
