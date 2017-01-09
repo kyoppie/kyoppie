@@ -22,6 +22,7 @@ block header
                 })
             })
             $("#unfollow").click(function(){
+                if(!confirm("このユーザーをフォロー解除してもよろしいですか？")) return
                 $.api.post("users/unfollow",{id:$("meta[name='user-id']").attr("content")}).then(function(res){
                     location.reload()
                 },function(_){
