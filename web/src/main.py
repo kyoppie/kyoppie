@@ -83,7 +83,7 @@ def logout():
     session.clear()
     return utils.redirect("/")
 @app.route('/rules_agree')
-@utils.login_required
+@utils.login_required(rulesAgree=False)
 def rulesAgreePage():
     return render_template("rules_agree.jade")
 if(__name__ == "__main__"):
