@@ -25,7 +25,7 @@ def login_required(f=None,rulesAgree=True):
                 my = my["response"]
                 if(my["isSuspended"]):
                     return redirect("/suspend")
-                if(rulesAgree and not my["rulesAgree"]):
+                if(rulesAgree and not my.get("rulesAgree",False)):
                     if(api.get("web/rules_agree_period")["result"]):
                         return redirect("/rules_agree")
                 return f(*args,**kwargs)
