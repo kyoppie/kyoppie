@@ -18,6 +18,8 @@ html
         script!="var CONFIG="+config.web_config_json
         script(src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js")
         script(src="//cdnjs.cloudflare.com/ajax/libs/nunjucks/3.0.0/nunjucks.min.js")
+        script(src="//cdnjs.cloudflare.com/ajax/libs/riot/3.0.7/riot+compiler.min.js")
+        script(src="//cdnjs.cloudflare.com/ajax/libs/jade/1.11.0/jade.min.js")
         script(src="/static/js/api.js")
         script(src="/static/js/notify.js")
         script(src="/static/js/relative-time.js")
@@ -48,3 +50,8 @@ html
                 | 2016年12月5日から利用規約に則った運用が開始されます。ご確認ください。
             block content
         #notify
+        script.
+            riot.compile(function(){
+                riot.mount('*')
+                console.log("hoge")
+            })

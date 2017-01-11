@@ -1,0 +1,15 @@
+extends ./base
+
+block header
+    script(type="riot/tag",template="jade",data-src="/static/tags/user-search.tag")
+block content
+    h1 トーク
+    a(href="/help/talks") トークとは？
+    .panel
+        kyoppie-user-search
+    if rooms|length
+        .panel
+            h2 最近のトーク
+            ul
+                for room in rooms
+                    li: a(href="/talks/room/"+room.id) #{room.name} (#{room.users|length}人)
