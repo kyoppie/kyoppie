@@ -1,12 +1,13 @@
 kyoppie-user-search
-    input.input(type="text",name="query",placeholder="ユーザーを検索",onchange="{edit}",onkeyup="{edit}")
+    input.input(type="text",name="query",placeholder="ユーザーを検索",onchange="{edit}",onkeyup="{edit}",autocomplete="off")
     kyoppie-suggest(show="{users.length}")
         ul(show="{text.length}")
-            li(each="{ users }")
-                img(src="{ avatarUrl }")
-                span { name }
-                span.screenName { "@"+screenName }
-    .empty-message(show="{text.length == 0}") 上のテキストボックスにユーザー名を入力して、検索しましょう！
+            li(each="{users}")
+                a(href="/u/{screenName}")
+                    img(src="{ avatarUrl }")
+                    span {name}
+                    span.screenName @{screenName}
+    .empty-message(show="{this.text.length == 0}") 上のテキストボックスにユーザー名を入力して、検索しましょう！
     .notfound-message(show="{users.length == 0 && text.length}") ユーザーが見つかりませんでした！別の名前などで検索してみてください。
     style.
         kyoppie-user-search{
@@ -17,22 +18,25 @@ kyoppie-user-search
             padding: 0.5em;
             list-style-type:none;
         }
-        kyoppie-suggest li{
+        kyoppie-suggest li a{
+            display:block;
+            margin:0;
             height:2em;
             padding:0.5em 1em;
+            text-decoration:none;
         }
-        kyoppie-suggest li:hover{
+        kyoppie-suggest li a:hover{
             background: #f52;
             color:white
         }
-        kyoppie-suggest li:hover .screenName{
+        kyoppie-suggest li a:hover .screenName{
             color:#888;
             color:rgba(255,255,255,0.5)
         }
         kyoppie-suggest img {
             height:2em;
             width:2em;
-            border-radius:100%;
+            border-radius:1em;
             vertical-align: middle;
             margin-right:0.5em;
         }
@@ -49,13 +53,16 @@ kyoppie-user-search
     script.
         this.users = []
         this.text = ""
+        var now_request = 0
 
         edit(e) {
-            if(this.text === e.target.value) return
+            if(this.text == e.target.value) return
             this.text = e.target.value
             if(this.text == "") return
+            var my_request = ++now_request
             _this = this
-            now_request = $.api.get("users/search",{text:this.text}).then(function(res){
+            $.api.get("users/search",{text:this.text}).then(function(res){
+                if(my_request != now_request) return console.log("cancel search:"+e.target.value)
                 _this.users = res.response
                 _this.update()
             })
