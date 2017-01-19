@@ -1,10 +1,10 @@
 kyoppie-user-search
     input.input(type="text",name="query",placeholder="ユーザーを検索",onchange="{edit}",onkeyup="{edit}",autocomplete="off")
-    kyoppie-suggest(show="{users.length}")
+    .kyoppie-suggest(show="{users.length}")
         ul(show="{text.length}")
             li(each="{users}")
                 a(href="/u/{screenName}")
-                    img(src="{ avatarUrl }")
+                    img(src="{avatarUrl}")
                     span {name}
                     span.screenName @{screenName}
     .empty-message(show="{this.text.length == 0}") 上のテキストボックスにユーザー名を入力して、検索しましょう！
@@ -13,34 +13,34 @@ kyoppie-user-search
         kyoppie-user-search{
             display:block;
         }
-        kyoppie-suggest ul {
+        .kyoppie-suggest ul {
             margin: -1em;
             padding: 0.5em;
             list-style-type:none;
         }
-        kyoppie-suggest li a{
+        .kyoppie-suggest li a{
             display:block;
             margin:0;
-            height:2em;
+            height:2.5em;
             padding:0.5em 1em;
             text-decoration:none;
         }
-        kyoppie-suggest li a:hover{
+        .kyoppie-suggest li a:hover{
             background: #f52;
             color:white
         }
-        kyoppie-suggest li a:hover .screenName{
+        .kyoppie-suggest li a:hover .screenName{
             color:#888;
             color:rgba(255,255,255,0.5)
         }
-        kyoppie-suggest img {
-            height:2em;
-            width:2em;
-            border-radius:1em;
+        .kyoppie-suggest img {
+            height:2.5em;
+            width:2.5em;
+            border-radius:1.25em;
             vertical-align: middle;
             margin-right:0.5em;
         }
-        kyoppie-suggest .screenName {
+        .kyoppie-suggest .screenName {
             margin-left:0.5em;
             color:#888;
             color:rgba(0,0,0,0.5)
