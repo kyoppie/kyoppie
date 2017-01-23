@@ -31,6 +31,11 @@ body{
 #headerBar ul li a span {
     display:none;
 }
+#headerBarContainer{
+    margin:0 auto;
+    position:relative;
+    max-width:660px;
+}
 #headerBarLeftItems li:first-child{
     padding-left:10px;
 }
