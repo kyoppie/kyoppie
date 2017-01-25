@@ -60,7 +60,7 @@ def apiV1Upload():
     print(filename)
     # ファイルの種類を判断する
     path = "../files"
-    mimetype = magic.Magic(mime=True).from_file(filename).decode("utf-8")
+    mimetype = magic.Magic(mime=True).from_file(filename)
     print(mimetype)
     img = None
     res_obj = {
