@@ -4,6 +4,11 @@ block content
     .panel
         ul
             li: a(href="/") トップ
+            li: a(href="/public") Public Timeline
+            li: a(href="/users") ユーザー一覧
+            li: a(href="/rules") 利用規約
+        hr
+        ul
             if session.access_token
                 li: a(href="/dev/") 開発者センター
                 li 設定
@@ -15,7 +20,9 @@ block content
             else
                 li: a(href="/login") ログイン
                 li: a(href="/register") 新規登録
+
+        hr
+        ul
+            li: a(href="https://twitter.com/kyoppieofficial") 公式Twitterアカウント
             li: a(href="https://github.com/kyoppie/kyoppie/issues") Feedback (GitHubアカウントが必要)
-            li: a(href="/public") Public Timeline
-            li: a(href="/users") ユーザー一覧
-            li: a(href="/rules") 利用規約
+            li: a(href="https://status.kyoppie.net/") kyoppie.net/kyoppie.tk 稼働状況
