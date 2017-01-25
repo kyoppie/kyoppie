@@ -95,8 +95,12 @@ def apiV1Upload():
         return {"result":False,"error":"invalid-file"},400
     if(img):
         img.thumbnail(utils.get_resize_size(img.size))
-        img.save(path+new_filename+".thumbnail.jpg","jpeg",quality=75)
-        res_obj["thumbnail"] = new_filename+".thumbnail.jpg"
+        if("".join(img.getbands())):
+            img.save(path+new_filename+".thumbnail.png","png")
+            res_obj["thumbnail"] = new_filename+".thumbnail.png"
+        else:
+            img.save(path+new_filename+".thumbnail.jpg","jpeg",quality=75)
+            res_obj["thumbnail"] = new_filename+".thumbnail.jpg"
     return res_obj,200
     
 app.run(host="0.0.0.0",port=config.file["port"],threaded=True,debug=config.file["is_debug"])
