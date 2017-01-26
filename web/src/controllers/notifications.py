@@ -1,4 +1,5 @@
-from flask import Blueprint,render_template,redirect
+from flask import Blueprint,redirect
+from utils import render_template
 import api
 import utils
 app = Blueprint(__name__,"notifications",url_prefix="/notifications")

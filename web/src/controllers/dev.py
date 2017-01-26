@@ -1,4 +1,5 @@
-from flask import Blueprint,render_template
+from flask import Blueprint
+from utils import render_template
 import utils
 import api
 app = Blueprint(__name__,"dev",url_prefix="/dev")

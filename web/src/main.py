@@ -10,7 +10,8 @@ import controllers.settings
 import controllers.admin
 import controllers.help
 import controllers.notifications
-from flask import Flask,render_template,redirect,session,request
+from flask import Flask,redirect,session,request
+from utils import render_template
 from datetime import timedelta
 app = Flask(__name__)
 app.template_folder = "views"

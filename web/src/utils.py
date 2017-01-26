@@ -2,6 +2,7 @@ from functools import wraps
 from flask import request,url_for,session,Response
 import api
 import urllib.parse
+import flask
 def redirect(path,next_path=None):
     print(next_path)
     if(next_path):
@@ -35,3 +36,5 @@ def login_required(f=None,rulesAgree=True):
     if(f):
         wrap_ = wrap_(f)
     return wrap_
+def render_template(*wargs,**kwargs):
+    return flask.render_template(*wargs,**kwargs)
