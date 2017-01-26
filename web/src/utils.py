@@ -1,5 +1,5 @@
 from functools import wraps
-from flask import request,url_for,session,Response
+from flask import request,url_for,session,Response,g
 import api
 import urllib.parse
 import flask
@@ -19,11 +19,8 @@ def login_required(f=None,rulesAgree=True):
     def wrap_(f):
         @wraps(f)
         def df(*args,**kwargs):
-            if(session.get("access_token")):
-                my = api.get("account/show",login=True)
-                if(my["result"] == False):
-                    return my["error"]
-                my = my["response"]
+            if g.get("my"):
+                my = g.my
                 if(my["isSuspended"]):
                     return redirect("/suspend")
                 if(rulesAgree and not my.get("rulesAgree",False)):
@@ -37,4 +34,8 @@ def login_required(f=None,rulesAgree=True):
         wrap_ = wrap_(f)
     return wrap_
 def render_template(*wargs,**kwargs):
+    if g.get("my"):
+        kwargs["my"]=g.my
+    else:
+        kwargs["my"]=None
     return flask.render_template(*wargs,**kwargs)

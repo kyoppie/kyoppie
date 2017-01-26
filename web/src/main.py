@@ -10,7 +10,7 @@ import controllers.settings
 import controllers.admin
 import controllers.help
 import controllers.notifications
-from flask import Flask,redirect,session,request
+from flask import Flask,redirect,session,request,g
 from utils import render_template
 from datetime import timedelta
 app = Flask(__name__)
@@ -34,7 +34,11 @@ app.register_blueprint(controllers.help.app)
 app.register_blueprint(controllers.notifications.app)
 @app.before_request
 def beforeRequest():
-        session.permanent = True
+    session.permanent = True
+    if(session.get("access_token")):
+        my = api.get("account/show",login=True)
+        if(my["result"]):
+            g.my = my["response"]
 @app.route('/')
 @utils.login_required
 def indexPage():
