@@ -15,6 +15,15 @@ block header
                     location.reload(true);
                 })
             })
+            $("#screenNameChange").click(function(){
+                var screenName = $("#screenNameText").val();
+                var screenNameRetype = $("#screenNameRetype").val();
+                if(screenName !== screenNameRetype) return alert("パスワードが一致していません！");
+                if(!confirm("@"+sn+"のスクリーンネームを@"+screenName+"に変更します。よろしいですか？")) return;
+                $.api.post("admin/users/change_screen_name",{id:id,newScreenName:screenName}).then(function(){
+                    location.reload(true);
+                })
+            })
             $("#iconDeleteButton").click(function(){
                 if(!confirm("@"+sn+"のアイコンを削除します。よろしいですか？")) return;
                 $.api.post("admin/users/remove_icon",{id:id}).then(function(res){
@@ -53,3 +62,8 @@ block content
             else
                 dt 凍結解除
                 dd: button#unSuspendButton 凍結解除する
+            dt スクリーンネーム変更
+            dd
+                input.input#screenNameText(type="text",placeholder="新しいスクリーンネーム")
+                input.input#screenNameRetype(type="text",placeholder="新しいスクリーンネーム（再入力）")
+                button#screenNameChange 変更する
