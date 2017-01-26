@@ -7,6 +7,7 @@ pages = [
     {"name":"アカウントの凍結","file":"suspend"},
     {"name":"Internet Explorerについて","file":"internet-explorer"},
     {"name":"JavaScriptを有効にしてください","file":"noscript"}
+    {"name":"予約されたスクリーンネームについて","file":"reserved-screen-name"},
 ]
 
 index = {}
