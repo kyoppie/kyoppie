@@ -6,6 +6,7 @@
             button#postAddFile
                 i.fa.fa-image
             span#postFileName
+            progress(max=1000,value=0)#postFileProgress アップロード中
             button(type="submit")
                 i.fa.fa-paper-plane
                 |  投稿
@@ -33,15 +34,30 @@
             overflow:hidden;
             white-space:nowrap;
         }
+        #postFileProgress{
+            display:none;
+            width:6em;
+        }
     script.
         $(function(){
             var $form = $("#postForm");
             function fileUpload(file,filename){
                 if(filename === undefined) filename="貼り付けたファイル";
-                $("#postFileName").html('<i class="fa fa-spin"></i>アップロード中...');
-                $.api.upload(file).then(function(res){
+                $("#postFileName").html('<i class="fa fa-spin"></i>');
+                $("#postFileProgress").show()
+                $.api.upload(file, function(ev){
+                    console.log(ev.loaded,ev.total)
+                    $("#postFileProgress").val((ev.loaded/ev.total)*1000)
+                }).then(function(res){
+                    $("#postFileProgress").hide()
                     $("#postForm input[name='files']").val(res.response.id);
+                    $("#postFile").val("");
                     $("#postFileName").text(filename);
+                },function(){
+                    $("#postFileProgress").hide()
+                    $("#postForm input[name='files']").val("");
+                    $("#postFile").val("");
+                    $("#postFileName").text("アップロード失敗");
                 })
             }
             $form.submit(function(ev){
