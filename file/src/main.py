@@ -95,7 +95,7 @@ def apiV1Upload():
         return {"result":False,"error":"invalid-file"},400
     if(img):
         img.thumbnail(utils.get_resize_size(img.size))
-        if("".join(img.getbands())):
+        if("".join(img.getbands()) == "RGBA"):
             img.save(path+new_filename+".thumbnail.png","png")
             res_obj["thumbnail"] = new_filename+".thumbnail.png"
         else:
