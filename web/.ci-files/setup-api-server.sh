@@ -1,4 +1,6 @@
 #!/bin/sh
+nvm install 7.4.0
+nvm use 7.4.0
 cd ~
 git clone https://github.com/kyoppie/kyoppie-api
 cd kyoppie-api
