@@ -5,4 +5,4 @@ services:
     - mongodb
     - redis-server
 before_install:
-    - .ci_files/setup-api-server.sh
+    - ./.ci_files/setup-api-server.sh
