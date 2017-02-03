@@ -1,6 +1,8 @@
 language: python
 python:
     - "3.6"
+nvm:
+    - "7.4.0"
 services:
     - mongodb
     - redis-server
