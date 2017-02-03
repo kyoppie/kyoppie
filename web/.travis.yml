@@ -8,3 +8,6 @@ services:
     - redis-server
 script:
     - .ci-files/setup-api-server.sh
+    - cp .ci_files/web.json config/
+    - pip3 install flask pyjade requests
+    - forever start -c "python3"

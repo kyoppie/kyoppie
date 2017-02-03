@@ -2,10 +2,11 @@
 source ~/.nvm/nvm.sh
 nvm install 7.4.0
 nvm use 7.4.0
-cd ~
 git clone https://github.com/kyoppie/kyoppie-api
 cd kyoppie-api
 npm install
 npm run migrate
 npm install -g forever
 forever start -c "node --harmony" src/main.js
+cd ..
+cp kyoppie-api/web_config.json config/api.json
