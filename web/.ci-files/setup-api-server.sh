@@ -1,4 +1,6 @@
 #!/bin/sh
+git clone git://github.com/creationix/nvm.git ~/.nvm
+source ~/.nvm/nvm.sh
 nvm install 7.4.0
 nvm use 7.4.0
 cd ~
