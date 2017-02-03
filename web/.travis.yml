@@ -1,0 +1,8 @@
+language: python
+python:
+    - "3.6"
+services:
+    - mongodb
+    - redis-server
+before_install:
+    - .ci_files/setup-api-server.sh
