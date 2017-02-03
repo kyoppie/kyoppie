@@ -4,5 +4,5 @@ python:
 services:
     - mongodb
     - redis-server
-before_install:
+script:
     - ./.ci_files/setup-api-server.sh
