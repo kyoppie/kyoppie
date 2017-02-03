@@ -5,4 +5,4 @@ services:
     - mongodb
     - redis-server
 script:
-    - ./.ci_files/setup-api-server.sh
+    - .ci-files/setup-api-server.sh
