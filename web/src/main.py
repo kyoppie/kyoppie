@@ -11,7 +11,8 @@ import controllers.admin
 import controllers.help
 import controllers.notifications
 import controllers.talks
-from flask import Flask,render_template,redirect,session,request
+from flask import Flask,redirect,session,request,g
+from utils import render_template
 from datetime import timedelta
 app = Flask(__name__)
 app.template_folder = "views"
@@ -35,7 +36,11 @@ app.register_blueprint(controllers.notifications.app)
 app.register_blueprint(controllers.talks.app)
 @app.before_request
 def beforeRequest():
-        session.permanent = True
+    session.permanent = True
+    if(session.get("access_token")):
+        my = api.get("account/show",login=True)
+        if(my["result"]):
+            g.my = my["response"]
 @app.route('/')
 @utils.login_required
 def indexPage():

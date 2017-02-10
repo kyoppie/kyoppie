@@ -14,6 +14,9 @@ block header
                     } else if(res.status == "ng"){
                         var message = res.message;
                         switch(res.message){
+                            case "this-screen-name-is-reserved":
+                                message="このスクリーンネームは公式アカウント用に予約されています。\n詳しくは\n"+location.origin+"/help/reserved-screen-name\nをごらんください。";
+                                break;
                         }
                         alert(message);
                     } else if(res.status != "ok"){

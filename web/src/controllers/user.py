@@ -1,4 +1,5 @@
-from flask import Blueprint,render_template
+from flask import Blueprint
+from utils import render_template
 import api
 app = Blueprint(__name__,"user",url_prefix="/u")
 

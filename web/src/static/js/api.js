@@ -29,11 +29,12 @@ $.extend({
             })
             return ws
         },
-        upload:function(file){
+        upload:function(file, progress_callback){
             if(!window.FormData) {
                 alert("もうちょっと新しいブラウザを使ってください。。。");
                 return;
             }
+            if(!progress_callback) progress_callback=function(){}
             // ファイルがどのタイプかを判別
             if(file instanceof FormData) {
                 return $.ajax({
@@ -42,6 +43,16 @@ $.extend({
                     data:file,
                     processData:false,
                     contentType:false,
+                    xhr:function(){
+                        var xhr = $.ajaxSettings.xhr()
+                        console.log(xhr)
+                        xhr.upload.onprogress=function(e){
+                            console.log(e)
+                            progress_callback(e)
+                            console.log(e)
+                        }
+                        return xhr
+                    },
                     headers:{
                         "X-Kyoppie-Access-Token":$.api.get_access_token()
                     }
@@ -50,11 +61,11 @@ $.extend({
                 // ファイルのinputがなかったら帰る
                 if(!file.file) return;
                 var fd = new FormData(file);
-                return $.api.upload(fd);
+                return $.api.upload(fd, progress_callback);
             } else if(file instanceof Blob){ // blob
                 var fd = new FormData();
                 fd.append("file",file);
-                return $.api.upload(fd);
+                return $.api.upload(fd, progress_callback);
             } else {
                 console.error("invalid file");
             }

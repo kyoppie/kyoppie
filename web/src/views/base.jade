@@ -32,15 +32,20 @@ html
         block header
     body
         #headerBar
-            ul#headerBarLeftItems
-                li: a(href="/")
-                    i.fa.fa-home
-                    span Home
-                li: a(href="/notifications/")
-                    i.fa.fa-bell
-                    span Notifications
-            ul#headerBarRightItems
-                li: a(href="/menu"): i.fa.fa-bars
+            #headerBarContainer
+                ul#headerBarLeftItems
+                    li: a(href="/")
+                        i.fa.fa-home
+                        span Home
+                    li: a(href="/notifications/")
+                        i.fa.fa-bell
+                        span Notifications
+                ul#headerBarRightItems
+                    li: a(href="/menu")
+                        if my
+                            img(src=my.avatarThumbnailUrl,title="@"+my.screenName).headerBarIcon
+                        else
+                            i.fa.fa-bars
         .container
             noscript: a(href="/help/noscript").top-notify-bar
                 | kyoppieはJavaScriptが有効なブラウザーでないとご利用いただけません。詳しくはここをクリックしてください。
