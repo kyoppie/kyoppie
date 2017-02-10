@@ -3,7 +3,7 @@ kyoppie-user-search
     .kyoppie-suggest(show="{users.length}")
         ul(show="{text.length}")
             li(each="{users}")
-                a(href="/u/{screenName}")
+                a(href="{base_url}{screenName}")
                     img(src="{avatarUrl}")
                     span {name}
                     span.screenName @{screenName}
@@ -54,6 +54,7 @@ kyoppie-user-search
         this.users = []
         this.text = ""
         var now_request = 0
+        this.base_url=opts.base_url || "/u/"
 
         edit(e) {
             if(this.text == e.target.value) return

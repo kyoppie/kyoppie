@@ -6,10 +6,10 @@ block content
     h1 トーク
     a(href="/help/talks") トークとは？
     .panel
-        kyoppie-user-search
+        kyoppie-user-search(base_url="/talks/user/")
     if rooms|length
         .panel
-            h2 最近のトーク
+            h2 自分が参加しているルーム一覧
             ul
                 for room in rooms
                     li: a(href="/talks/room/"+room.id) #{room.name} (#{room.users|length}人)
