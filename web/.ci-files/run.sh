@@ -17,6 +17,7 @@ cp .ci-files/web.json config/
 pip3 install flask pyjade requests
 cd src
 forever start -c "python3" main.py
-until curl localhost:4006 > /dev/null 2> /dev/null do
-    sleep 1
+until curl localhost:4006 > /dev/null 2> /dev/null
+do
+sleep 1
 done
