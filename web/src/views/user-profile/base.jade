@@ -30,6 +30,12 @@ block header
                     alert(_.responseJSON.error)
                 })
             })
+            $("#showMore").click(function(){
+                $("#userMoreActions").toggleClass("noHeight")
+            })
+            $("#userMoreActions .close").click(function(){
+                $("#userMoreActions").addClass("noHeight")
+            })
         })
     style.
         .panel{
@@ -131,16 +137,24 @@ block header
         }
         #userMoreActions{
             display:block;
+            overflow:hidden;
             position:absolute;
             right:0em;
             list-style-type:none;
             padding-left:0;
             margin-top:-0.5em;
             margin-top:calc(-0.5em + 1px);
+            transition:all 500ms 0s ease;
+            height:auto;
+            z-index:5;
+            box-shadow: 0px 10px 20px rgba(0,0,0,0.3);
         }
         #userMoreActions li > *{
             width:360px;
             background:white;
+            background:rgba(255,255,255,0.95);
+            -webkit-backdrop-filter: blur(12px)
+            backdrop-filter: blur(12px);
             max-width:100vw;
             padding:0.75em;
             padding-right:0;
@@ -150,23 +164,29 @@ block header
             color:black;
             text-decoration:none;
         }
-        #userMoreActions li:hover *{
+        #userMoreActions li:hover > *{
             background:#f62;
+            background:rgba(255,96,32,0.9);
+        }
+        #userMoreActions li:hover *{
             color:white;
         }
         #userMoreActions .close{
             text-align:center;
         }
+        .noHeight{
+            height:0 !important;
+        }
         @media screen and (max-width:640px) {
             #userMoreActions li > * {
                 margin-top:1px;
                 width:100vw;
-                width:calc(100vw - 1.75em);
+                width:calc(100vw - 2.75em);
             }
         }
         @media screen and (max-width:480px) {
             #userMoreActions li > * {
-                width:calc(100vw - 0.75em);
+                width:calc(100vw - (0.25em * 2));
             }
             #userMoreActions{
                 right:-0.5em;
@@ -200,7 +220,7 @@ block content
                 |  解除
         else
             button#follow(style="width:auto;") フォロー
-    ul#userMoreActions
+    ul#userMoreActions.noHeight
         li: a(href="/talks/user/"+user.screenName)
             i.fa.fa-comments
             span この人とトーク
