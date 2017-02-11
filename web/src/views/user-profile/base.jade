@@ -32,6 +32,9 @@ block header
             })
         })
     style.
+        .panel{
+            position:relative;
+        }
         #userInfo{
             text-align:center;
             position:relative;
@@ -74,6 +77,11 @@ block header
             right:0.5em;
             bottom:0.5em;
         }
+        #showMore{
+            position:absolute;
+            right:6em;
+            bottom:0.5em;
+        }
         .user-follower-box{
             position:absolute;
             bottom:4.5em;
@@ -84,6 +92,10 @@ block header
         }
         .user-follower-box .fa{
             margin-right:0.2em;
+        }
+        #follow,#unfollow{
+            display:inline;
+            width:5em !important;
         }
         @media screen and (max-width:640px) {
             .tabs{
@@ -117,6 +129,49 @@ block header
         #unfollow {
             background:rgba(255,255,255,0);
         }
+        #userMoreActions{
+            display:block;
+            position:absolute;
+            right:0em;
+            list-style-type:none;
+            padding-left:0;
+            margin-top:-0.5em;
+            margin-top:calc(-0.5em + 1px);
+        }
+        #userMoreActions li > *{
+            width:360px;
+            background:white;
+            max-width:100vw;
+            padding:0.75em;
+            padding-right:0;
+            display:inline-block;
+        }
+        #userMoreActions li *{
+            color:black;
+            text-decoration:none;
+        }
+        #userMoreActions li:hover *{
+            background:#f62;
+            color:white;
+        }
+        #userMoreActions .close{
+            text-align:center;
+        }
+        @media screen and (max-width:640px) {
+            #userMoreActions li > * {
+                margin-top:1px;
+                width:100vw;
+                width:calc(100vw - 1.75em);
+            }
+        }
+        @media screen and (max-width:480px) {
+            #userMoreActions li > * {
+                width:calc(100vw - 0.75em);
+            }
+            #userMoreActions{
+                right:-0.5em;
+            }
+        }
 block content
     .panel#userInfo
         .user-name
@@ -138,8 +193,16 @@ block content
             .user-follower-box
                 i.fa.fa-heart
                 | フォローされています
+        button#showMore(style="width:auto;"): i.fa.fa-chevron-down
         if user.isFollowing
-            button#unfollow(style="width:auto;").outline フォロー解除
+            button#unfollow(style="width:auto;").outline
+                i.fa.fa-minus
+                |  解除
         else
-            button#follow(style="width:auto;") フォローする
+            button#follow(style="width:auto;") フォロー
+    ul#userMoreActions
+        li: a(href="/talks/user/"+user.screenName)
+            i.fa.fa-comments
+            span この人とトーク
+        li.close: i.fa.fa-chevron-up
     br
