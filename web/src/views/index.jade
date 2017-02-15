@@ -3,6 +3,16 @@ block header
     script(src="/_/tojinja/post")
     script.
         $(function(){
+            var isActive = true;
+            var unreadCount = 0;
+            $(window).blur(function () {
+                isActive = false;
+            })
+            $(window).focus(function () {
+                isActive = true;
+                unreadCount = 0;
+                document.title = "kyoppie";
+            })
             function newWebSocketConnection(){
                 $.showNotify("ストリーミングに接続しています...");
                 var ws = $.api.websocket("posts/timeline");
@@ -15,7 +25,10 @@ block header
                 ws.onmessage = function(e){
                     e = JSON.parse(e.data);
                     var post = e.response;
-                    console.log(post)
+                    if (! isActive) {
+                        unreadCount++;
+                        document.title = "(" + unreadCount + ") kyoppie";
+                    }
                     $("#timeline").prepend(template_post({post:post}));
                 }
                 ws.onclose = function(){
