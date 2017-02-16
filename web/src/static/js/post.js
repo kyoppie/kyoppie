@@ -10,7 +10,8 @@ $(function(){
         alert("未実装");
     })
     $(document).on("click",".post-reply",function(){
-        var message = prompt("reply message")
+        var message = prompt("reply message","@"+$(this).parents(".post").data("user-screen-name")+" ")
+        if (message === null) return
         $.api.post("posts/create",{
             text:message,
             replyTo:$(this).data("post-id")
