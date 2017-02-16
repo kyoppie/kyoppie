@@ -94,9 +94,11 @@
 .post-replyTo{
     opacity:0.75;
     margin:0.25em 0;
-    margin-right:1em;
     padding-bottom:0.5em;
     position:relative;
     font-size:0.75em;
     line-height: 1.2;
+}
+.post-replyTo time{
+    right:0;
 }
