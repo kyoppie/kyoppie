@@ -1,4 +1,16 @@
 .post
+    if post.replyTo
+        .post-replyTo
+            a(href="/u/{{post.replyTo.user.screenName|escape}}")
+                img.post-user-icon(src="{{post.replyTo.user.avatarThumbnailUrl}}",alt="@{{post.replyTo.user.screenName}}",title="@{{post.replyTo.user.screenName}}")
+            .post-user
+                a(href="/u/{{post.replyTo.user.screenName|escape}}")= post.replyTo.user.name
+                    if post.replyTo.user.isVerified
+                        i.fa.fa-check-circle(title="本人確認済みマーク")
+                small @#{post.replyTo.user.screenName}
+            a(href="/p/{{post.replyTo.id}}",title="{{post.replyTo.user.name|escape}}@{{post.replyTo.user.screenName|escape}}さんの投稿 - “{{post.replyTo.text|escape}}” -kyoppie")
+                time.relative_time(datetime="{{post.replyTo.createdAt}}",title="{{post.replyTo.createdAt}}")= post.createdAt
+            .post-text!= post.replyTo.html
     a(href="/u/{{post.user.screenName|escape}}")
         img.post-user-icon(src="{{post.user.avatarThumbnailUrl}}",alt="@{{post.user.screenName}}",title="@{{post.user.screenName}}")
     .post-user

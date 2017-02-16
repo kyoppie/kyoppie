@@ -10,6 +10,10 @@ $(function(){
         alert("未実装");
     })
     $(document).on("click",".post-reply",function(){
-        alert("未実装")
+        var message = prompt("reply message")
+        $.api.post("posts/create",{
+            text:message,
+            replyTo:$(this).data("post-id")
+        })
     })
 })
