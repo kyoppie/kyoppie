@@ -38,4 +38,5 @@ def render_template(*wargs,**kwargs):
         kwargs["my"]=g.my
     else:
         kwargs["my"]=None
+    kwargs["git_commit"]=open("../.git/FETCH_HEAD","r").read(10)
     return flask.render_template(*wargs,**kwargs)
