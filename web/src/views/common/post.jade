@@ -1,4 +1,14 @@
-.post(data-user-screen-name="{{post.user.screenName}}")
+.post(data-user-screen-name="{{post.user.screenName}}",data-user-name="{{post.user.name|escape}}",data-is-repost="{{(post.repostTo != null)|int}}")
+    if post.repostTo
+        .post-repostUser
+            a(href="/u/{{post.user.screenName|escape}}")
+                img.post-user-icon(src="{{post.user.avatarThumbnailUrl}}",alt="@{{post.user.screenName}}",title="@{{post.user.screenName}}")
+                a(href="/u/{{post.user.screenName|escape}}")= post.user.name
+                    if post.user.isVerified
+                        i.fa.fa-check-circle(title="本人確認済みマーク")
+                small @#{post.user.screenName}
+                | さんがRePost
+            | {% set post = post.repostTo %}
     if post.replyTo
         .post-replyTo
             a(href="/u/{{post.replyTo.user.screenName|escape}}")
@@ -36,10 +46,9 @@
             button.post-repost.post-reposted(data-post-id="{{post.id}}"): i.fa.fa-retweet
         else
             button.post-repost(data-post-id="{{post.id}}"): i.fa.fa-retweet
-        span.post-count
+        span.post-count= post.repostCount
         if post.isFavorited
             button.post-favorite.post-favorited(data-post-id="{{post.id}}"): i.fa.fa-star
         else
             button.post-favorite(data-post-id="{{post.id}}"): i.fa.fa-star-o
-
         span.post-count= post.favoriteCount

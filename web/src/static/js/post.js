@@ -7,7 +7,10 @@ $(function(){
         $(this).next().text((parseInt($(this).next().text())||0)+1);
     })
     $(document).on("click",".post-repost",function(){
-        alert("未実装");
+        if(!confirm("この投稿をRePostしますか?")) return
+        $.api.post("posts/repost",{id:$(this).data("post-id")})
+        $(this).addClass("post-reposted")
+        $(this).next().text((parseInt($(this).next().text())||0)+1);
     })
     $(document).on("click",".post-reply",function(){
         var message = prompt("reply message","@"+$(this).parents(".post").data("user-screen-name")+" ")

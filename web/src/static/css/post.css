@@ -81,7 +81,7 @@
     width:1em;
 }
 .post-actions .post-favorited{
-    color:rgb(255,205,79);
+    color:rgb(255,192,128);
 }
 .post-actions .post-count{
     display:inline-block;
@@ -101,4 +101,14 @@
 }
 .post-replyTo time{
     right:0;
+}
+.post-repostUser{
+    padding-bottom:1em;
+    background:rgba(0,255,0,0.1);
+}
+.post-repostUser .post-user-icon{
+    font-size:0.75em;
+}
+.post-actions .post-reposted{
+    color:rgb(128,192,128);
 }
