@@ -30,9 +30,27 @@ def fileShow(filename):
     path = "../files/"+filename
     if(not os.path.exists(path)):
         return "Not Found",404
-    if(flask.request.headers.get("If-None-Match")):
-        if(gen_etag(path) == flask.request.headers.get("If-None-Match")):
+    etag = gen_etag(path)
+    if flask.request.headers.get("If-None-Match"):
+        match_etags = flask.request.headers.get("If-None-Match").replace(" ","").split(",")
+        match_etag_flag = False
+        for match_etag in match_etags:
+            if match_etag == "*":
+                match_etag_flag=True
+            elif match_etag == etag:
+                match_etag_flag=True
+        if match_etag_flag:
             return "",304
+    if flask.request.headers.get("If-Match"):
+        match_etags = flask.request.headers.get("If-Match").replace(" ","").split(",")
+        match_etag_flag = False
+        for match_etag in match_etags:
+            if match_etag == "*":
+                match_etag_flag=True
+            elif match_etag == etag:
+                match_etag_flag=True
+        if not match_etag_flag:
+            return "",412
     sc = 200
     sb = 0
     all_l = None
