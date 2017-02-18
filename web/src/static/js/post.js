@@ -16,11 +16,7 @@ $(function(){
         if(!confirm("この投稿をRePostしますか?")) return
         $.api.post("posts/repost",{id:$this.data("post-id")}).then(function(res){
             if(res.result){
-                // TODO
-                // $this.next().text(res.response.repostTo.repostCount)
-                $.api.get("posts/show",{id:$this.data("post-id")}).then(function(res){
-                    $this.next().text(res.response.repostCount);
-                })
+                $this.next().text(res.response.repostTo.repostCount)
             }
         })
         $this.addClass("post-reposted")
