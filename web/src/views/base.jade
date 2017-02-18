@@ -5,12 +5,12 @@ html
         meta(name="viewport",content="width=device-width")
         meta(http-equiv="X-UA-Compatible",content="IE=edge")
         link(rel="dns-prefetch",href=config.web_config.api)
-        link(rel="dns-prefetch",href="//maxcdn.bootstrapcdn.com")
+        link(rel="dns-prefetch",href="//cdnjs.bootstrapcdn.com")
         link(rel="dns-prefetch",href="//ajax.googleapis.com")
         link(rel="stylesheet",href="/static/"+git_commit+"/css/main.css")
         link(rel="stylesheet",href="/static/"+git_commit+"/css/header_bar.css")
         link(rel="stylesheet",href="/static/"+git_commit+"/css/post.css")
-        link(rel="stylesheet",href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css")
+        link(rel="stylesheet",href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
         if session["access_token"]
             meta(name="access_token",content=session["access_token"])
         block title
