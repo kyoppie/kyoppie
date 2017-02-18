@@ -1,6 +1,7 @@
 $(function(){
     $(document).on("click",".post-favorite",function(){
-        if($(this).hasClass("post-favorited")) return
+        var $this=$(this)
+        if($this.hasClass("post-favorited")) return
         $.api.post("posts/favorite",{id:$(this).data("post-id")}).then(function(res){
             if(res.result){
                 $this.next().text(res.result.favoriteCount)
