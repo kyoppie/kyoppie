@@ -7,6 +7,7 @@ import utils
 import magic
 import PIL.Image
 import config
+import os
 app = flask.Flask(__name__)
 app.config["MAX_CONTENT_LENGTH"] = 40*1024*1024 #40M
 def api(f):
@@ -17,6 +18,8 @@ def api(f):
         r.headers["Content-Type"] = "application/json"
         return r,c
     return wrap
+def gen_etag(path):
+    return '"'+hex(int(os.path.getmtime(path)))[2:]+"-"+hex(os.path.getsize(path))[2:]+'"'
 @app.route('/')
 def indexPage():
     return "kyoppie file server with python"
@@ -27,6 +30,9 @@ def fileShow(filename):
     path = "../files/"+filename
     if(not os.path.exists(path)):
         return "Not Found",404
+    if(flask.request.headers.get("If-None-Match")):
+        if(gen_etag(path) == flask.request.headers.get("If-None-Match")):
+            return "",304
     sc = 200
     sb = 0
     all_l = None
@@ -43,6 +49,7 @@ def fileShow(filename):
     if(sc == 206):
         r.headers["Content-Range"] = "bytes "+str(sb)+"-"+str(eb)+"/"+str(all_l)
         r.headers["Content-Length"] = str(eb-sb+1)
+    r.headers["ETag"]=gen_etag(path)
     return r,sc
 @app.route('/api/v1/upload',methods=["POST"])
 @api
