@@ -42,7 +42,6 @@ def beforeRequest():
             g.my = my["response"]
 @app.route('/static/<git_commit>/<path:path>')
 def staticFile(git_commit,path):
-    print("staticFile")
     return app.send_static_file(path)
 @app.route('/')
 @utils.login_required
