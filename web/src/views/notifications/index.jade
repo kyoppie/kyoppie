@@ -84,8 +84,8 @@ block content
                         a(href="/u/"+notification.targetUser.screenName)= notification.targetUser.name
                         | さんからのリプライです:
                         a(href="/notifications/"+notification.id+"/post").notification_post
-                            strong= notification.targetUser.name
-                            |  @#{notification.targetUser.screenName}
+                            strong= notification.targetPost.user.name
+                            |  @#{notification.targetPost.user.screenName}
                             time.relative_time(datetime=notification.targetPost.createdAt,title=notification.targetPost.createdAt)= notification.targetPost.createdAt
                             br
                             = notification.targetPost.text
@@ -95,8 +95,8 @@ block content
                             a(href="/u/"+notification.targetUser.screenName)= notification.targetUser.name
                             | さんにふぁぼられました:
                             a(href="/notifications/"+notification.id+"/post").notification_post
-                                strong= notification.targetUser.name
-                                |  @#{notification.targetUser.screenName}
+                                strong= notification.targetPost.user.name
+                                |  @#{notification.targetPost.user.screenName}
                                 time.relative_time(datetime=notification.targetPost.createdAt,title=notification.targetPost.createdAt)= notification.targetPost.createdAt
                                 br
                                 = notification.targetPost.text
