@@ -58,6 +58,7 @@ block header
             $(".readflag").click(function(){
                 var $this = $(this)
                 var id = $this.data("id")
+                $this.find("i.fa").removeClass("fa-check").addClass("fa-spinner").addClass("fa-pulse")
                 $.api.post("notifications/read",{id:id}).then(function(){
                     $this.parents(".notification").animate({
                         height:0,
