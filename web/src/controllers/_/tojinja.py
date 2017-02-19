@@ -2,10 +2,11 @@ from flask import Blueprint,request,jsonify,session,Response
 import pyjade.utils
 import pyjade.ext.jinja
 import config
+import utils
 app = Blueprint(__name__,"tojinja",url_prefix="/_/tojinja")
 
 def tojinja(name):
-    path = "./views/common/"+name+".jade"
+    path = utils.SRC_DIR+"/views/common/"+name+".jade"
     html = pyjade.utils.process(
         open(path,"r",encoding="utf-8").read(),
         compiler=pyjade.ext.jinja.Compiler,

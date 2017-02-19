@@ -3,6 +3,8 @@ from flask import request,url_for,session,Response,g
 import api
 import urllib.parse
 import flask
+import os
+SRC_DIR=os.path.dirname(os.path.realpath(__file__))
 def redirect(path,next_path=None):
     print(next_path)
     if(next_path):
@@ -38,5 +40,5 @@ def render_template(*wargs,**kwargs):
         kwargs["my"]=g.my
     else:
         kwargs["my"]=None
-    kwargs["git_commit"]=open("../.git/FETCH_HEAD","r").read(10)
+    kwargs["git_commit"]=open(SRC_DIR+"/../.git/FETCH_HEAD","r").read(10)
     return flask.render_template(*wargs,**kwargs)
