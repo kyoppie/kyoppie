@@ -4,7 +4,7 @@ block header
         $(function(){
             $("#changeForm").submit(function(ev){
                 ev.preventDefault();
-                $.api.post("account/update_name",$(this).serialize()).then(function(res){
+                $.api.post("account/update/name",$(this).serialize()).then(function(res){
                     location.href="/";
                 })
             })
