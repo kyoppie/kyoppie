@@ -9,7 +9,7 @@ import PIL.Image
 import config
 import os
 app = flask.Flask(__name__)
-app.config["MAX_CONTENT_LENGTH"] = 40*1024*1024 #40M
+app.config["MAX_CONTENT_LENGTH"] = 100*1024*1024 #100M
 def api(f):
     def wrap():
         r = f()
