@@ -77,7 +77,12 @@ def usersPage():
 @app.route('/p/<postId>')
 def postShow(postId):
     res = api.get("posts/show",{"id":postId})["response"]
-    return render_template("post.jade",post=res)
+    return render_template("post/index.jade",post=res)
+
+@app.route('/p/<postId>/video_player')
+def postVideoPlayer(postId):
+    res = api.get("posts/show",{"id":postId})["response"]
+    return render_template("post/video_player.jade",post=res)
 
 @app.route('/rules')
 def rulesShow():
