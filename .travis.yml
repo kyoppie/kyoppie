@@ -9,6 +9,7 @@ cache:
         - api/node_modules/
         - ~/.nvm/versions/node/$NODEJS
         - ~/.cache/pip/
+        - ~/.cache/yarn/
 services:
     - mongodb
     - redis
