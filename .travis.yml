@@ -6,7 +6,7 @@ python:
     - "3.6"
 cache:
     directories:
-        - node_modules/
+        - api/node_modules/
         - $(npm config get prefix)
 services:
     - mongodb
@@ -16,6 +16,7 @@ before_install:
     - nvm install $NODEJS
     - nvm use $NODEJS
     - pip3 install flask pyjade requests
+    - cd api && npm install && cd ..
 before_script:
     - npm install -g forever
 script:
