@@ -1,0 +1,23 @@
+extends ./base
+block header
+    script.
+        $(function(){
+            $("#changeForm").submit(function(ev){
+                ev.preventDefault();
+                $.api.post("account/update_name",$(this).serialize()).then(function(res){
+                    location.href="/";
+                })
+            })
+        })
+block content
+    h1 名前変更
+    .panel
+        form#changeForm
+            input.input(name="name",placeholder="名前",type="text",value=user.name)
+            button(type="submit")
+                .no_disabled
+                    i.fa.fa-paper-plane
+                    | 変更
+                .yes_disabled
+                    i.fa.fa-spinner.fa-pulse
+                    | 変更中

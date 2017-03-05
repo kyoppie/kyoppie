@@ -1,0 +1,78 @@
+extends ./base
+block header
+    script(src="/static/js/query_string.js")
+    script.
+        $(function(){
+            $("#loginForm").submit(function(ev){
+                ev.preventDefault();
+                var $this = $(this);
+                $this.find('[type="submit"]').prop("disabled",true);
+                $.post("/_/ajax/register",$(this).serialize()).then(function(res){
+                    $this.find('[type="submit"]').prop("disabled",false);
+                    if(!res.status){
+                        alert("未知のレスポンスです。\nリロードしてみてください");
+                    } else if(res.status == "ng"){
+                        var message = res.message;
+                        switch(res.message){
+                            case "this-screen-name-is-reserved":
+                                message="このスクリーンネームは公式アカウント用に予約されています。\n詳しくは\n"+location.origin+"/help/reserved-screen-name\nをごらんください。";
+                                break;
+                        }
+                        alert(message);
+                    } else if(res.status != "ok"){
+                        alert("未知のレスポンスです。\nリロードしてみてください");
+                    } else {
+                        // 絶対にOK
+                        var nextUrl = $.getUrlVar("next");
+                        if(nextUrl) {
+                            nextUrl=decodeURIComponent(nextUrl);
+                            location.href=nextUrl;
+                        } else {
+                            location.href="/";
+                        }
+                    }
+                },function(err){
+                    $this.find('[type="submit"]').prop("disabled",false);
+                    alert("サーバーでエラーが発生しました。\nしばらく待ってからもう一度ログインしてみてください。");
+                })
+            })
+        })
+    style.
+        #mainPanel{
+            text-align:center;
+        }
+        .container > div{
+            margin-bottom:2em;
+        }
+        #loginForm{
+            text-align:left;
+        }
+        .container{
+            text-align:center;
+        }
+block content
+    h1 kyoppie
+    div kyoppieはオープンソースなゆるーいSNSです。
+    .panel#mainPanel
+        h2 アカウント作成
+        form#loginForm(action="/error/nojs")
+            label
+                input.input(type="texxt",name="name",placeholder="名前",required)
+            label
+                input.input(type="text",name="screenName",placeholder="スクリーンネーム",required)
+            label
+                input.input(type="password",name="password",placeholder="パスワード",required)
+            p
+                a(href="/rules") 利用規約
+                | に同意した上で、
+            br
+            button.block(type="submit")
+                span.no_disabled#login_default
+                    i.fa.fa-sign-in
+                    |  新規登録
+                span.yes_disabled
+                    i.fa.fa-spinner.fa-pulse
+                    |  登録中...
+        br
+        | もしくは、
+        a(href="/login") ログインする

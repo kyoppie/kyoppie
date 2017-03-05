@@ -1,0 +1,228 @@
+extends ./base
+block title
+    title #{user.name}@#{user.screenName}さんのプロフィール - kyoppie
+block header
+    meta(name="user-id",content=user.id)
+    meta(name="twitter:card",content="summary")
+    meta(name="twitter:site",content="@kyoppieofficial")
+    meta(name="twitter:title",content=user.name+"(@"+user.screenName+")さんのプロフィール - kyoppie")
+    if(user.description)
+        meta(name="twitter:description",content=user.description)
+    else
+        meta(name="twitter:description",content=user.name+"さんはkyoppieを利用しています。kyoppieにアクセスして、"+user.name+"さんのプロフィールを閲覧しましょう。")
+    script(src="/_/tojinja/post")
+    script.
+        $(function(){
+            $("#follow").click(function(){
+                $.api.post("users/follow",{id:$("meta[name='user-id']").attr("content")}).then(function(res){
+                    location.reload()
+                },function(_){
+                    console.log(arguments)
+                    alert(_.responseJSON.error)
+                })
+            })
+            $("#unfollow").click(function(){
+                if(!confirm("このユーザーをフォロー解除してもよろしいですか？")) return
+                $.api.post("users/unfollow",{id:$("meta[name='user-id']").attr("content")}).then(function(res){
+                    location.reload()
+                },function(_){
+                    console.log(arguments)
+                    alert(_.responseJSON.error)
+                })
+            })
+            $("#showMore").click(function(){
+                $("#userMoreActions").toggleClass("noHeight")
+            })
+            $("#userMoreActions .close").click(function(){
+                $("#userMoreActions").addClass("noHeight")
+            })
+        })
+    style.
+        .panel{
+            position:relative;
+        }
+        #userInfo{
+            text-align:center;
+            position:relative;
+        }
+        .tabs{
+            padding: 0 0.25em;
+        }
+        .tabs a{
+            display:inline-block;
+            text-align:center;
+            padding:0.25em 0.25em;
+            font-size:0.8em;
+            color:rgba(0,0,0,0.6);
+            text-decoration:none;
+            min-width:5em;
+        }
+        .tabs a span{
+            display:block;
+            font-size:1.55em;
+            color:black;
+        }
+        .user-name-with-icon {
+            margin:0.6em;
+            margin-bottom:0;
+        }
+        .user-name-with-icon img{
+            width:6em;
+            height:6em;
+            border-radius:3em;
+        }
+        .user-name-with-icon h1{
+            margin:0;
+        }
+        .user-name{
+            position:relative;
+            margin-bottom:0.5em;
+        }
+        #follow, #unfollow{
+            position:absolute;
+            right:0.5em;
+            bottom:0.5em;
+        }
+        #showMore{
+            position:absolute;
+            right:6em;
+            bottom:0.5em;
+        }
+        .user-follower-box{
+            position:absolute;
+            bottom:4.5em;
+            right:0.5em;
+            display:inline-block;
+            width:auto;
+            font-size:0.8em;
+        }
+        .user-follower-box .fa{
+            margin-right:0.2em;
+        }
+        #follow,#unfollow{
+            display:inline;
+            width:5em !important;
+        }
+        @media screen and (max-width:640px) {
+            .tabs{
+                text-align:left;
+                padding:0;
+            }
+            .tabs a{
+                min-width:3em;
+                font-size:0.7em;
+            }
+            #userInfo button{
+                font-size:0.95em;
+            }
+            #userInfo{
+                text-align:left;
+            }
+            .user-name-with-icon{
+                margin:0;
+            }
+            .user-name-with-icon img{
+                position:absolute;
+                right:0.5em;
+                top:-1.2em;
+                width:4.6em;
+                height:4.6em;
+            }
+            .user-name-with-icon h1{
+                margin:0.6em 0;
+            }
+        }
+        #unfollow {
+            background:rgba(255,255,255,0);
+        }
+        #userMoreActions{
+            display:block;
+            overflow:hidden;
+            position:absolute;
+            right:0em;
+            list-style-type:none;
+            padding-left:0;
+            margin-top:-0.5em;
+            margin-top:calc(-0.5em + 1px);
+            transition:all 500ms 0s ease;
+            height:auto;
+            z-index:5;
+            box-shadow: 0px 10px 20px rgba(0,0,0,0.3);
+        }
+        #userMoreActions li > *{
+            width:360px;
+            background:white;
+            background:rgba(255,255,255,0.95);
+            -webkit-backdrop-filter: blur(12px)
+            backdrop-filter: blur(12px);
+            max-width:100vw;
+            padding:0.75em;
+            padding-right:0;
+            display:inline-block;
+        }
+        #userMoreActions li *{
+            color:black;
+            text-decoration:none;
+        }
+        #userMoreActions li:hover > *{
+            background:#f62;
+            background:rgba(255,96,32,0.9);
+        }
+        #userMoreActions li:hover *{
+            color:white;
+        }
+        #userMoreActions .close{
+            text-align:center;
+        }
+        .noHeight{
+            height:0 !important;
+        }
+        @media screen and (max-width:640px) {
+            #userMoreActions li > * {
+                margin-top:1px;
+                width:100vw;
+                width:calc(100vw - 2.75em);
+            }
+        }
+        @media screen and (max-width:480px) {
+            #userMoreActions li > * {
+                width:calc(100vw - (0.25em * 2));
+            }
+            #userMoreActions{
+                right:-0.5em;
+            }
+        }
+block content
+    .panel#userInfo
+        .user-name
+            if user.avatarUrl
+                div.user-name-with-icon
+                    img(src=user.avatarThumbnailUrl)
+                    h1= user.name
+            else
+                h1= user.name
+            small @#{user.screenName}
+        .tabs
+            a(href="/u/"+user.screenName) 投稿
+                span= user.postsCount
+            a(href="/u/"+user.screenName+"/following") フォロー
+                span= user.followingCount
+            a(href="/u/"+user.screenName+"/followers") フォロワー
+                span= user.followersCount
+        if user.isFollowers
+            .user-follower-box
+                i.fa.fa-heart
+                | フォローされています
+        button#showMore(style="width:auto;"): i.fa.fa-chevron-down
+        if user.isFollowing
+            button#unfollow(style="width:auto;").outline
+                i.fa.fa-minus
+                |  解除
+        else
+            button#follow(style="width:auto;") フォロー
+    ul#userMoreActions.noHeight
+        li: a(href="/talks/user/"+user.screenName)
+            i.fa.fa-comments
+            span この人とトーク
+        li.close: i.fa.fa-chevron-up
+    br

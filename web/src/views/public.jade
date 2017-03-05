@@ -1,0 +1,32 @@
+extends ./base
+block header
+    script(src="/_/tojinja/post")
+    script.
+        $(function(){
+            function newWebSocketConnection(){
+                $.showNotify("ストリーミングに接続しています...");
+                var ws = $.api.websocket("posts/public_timeline");
+                ws.onopen = function(){
+                    $.showNotify("ストリーミングに接続しました！")
+                    setTimeout(function(){
+                        $.hideNotify();
+                    },500)
+                }
+                ws.onmessage = function(e){
+                    e = JSON.parse(e.data);
+                    var post = e.response;
+                    console.log(post)
+                    $("#timeline").prepend(template_post({post:post}));
+                }
+                ws.onclose = function(){
+                    newWebSocketConnection();
+                }
+            }
+            newWebSocketConnection();
+        })
+block content
+    include common/post_form
+    br
+    .posts#timeline
+        for post in posts
+            include ./common/post

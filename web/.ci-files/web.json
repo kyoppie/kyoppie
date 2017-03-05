@@ -1,0 +1,6 @@
+{
+    "url":"http://localhost:4006",
+    "api":"http://localhost:4005",
+    "port":4006,
+    "is_debug":false
+}
