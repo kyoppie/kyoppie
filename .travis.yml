@@ -7,7 +7,8 @@ python:
 cache:
     directories:
         - api/node_modules/
-        - $(npm config get prefix)
+        - ~/.nvm/versions/node/$NODEJS
+        - ~/.cache/pip/
 services:
     - mongodb
     - redis
