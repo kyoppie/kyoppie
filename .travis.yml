@@ -1,8 +1,7 @@
 language: python
 env:
-    matrix:
-        - NODEJS=7.0.0
-        - NODEJS=7.4.0
+    - NODEJS=7.0.0
+    - NODEJS=7.4.0
 python:
     - "3.6"
 cache:
