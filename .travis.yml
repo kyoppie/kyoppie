@@ -16,11 +16,10 @@ before_install:
     - source ~/.nvm/nvm.sh
     - nvm install $NODEJS
     - nvm use $NODEJS
+    - npm install -g forever yarn
 install:
     - pip3 install flask pyjade requests
     - cd api && yarn install && cd ..
-before_script:
-    - npm install -g forever
 script:
     - cd api
     - npm run lint
