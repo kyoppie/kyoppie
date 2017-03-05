@@ -9,7 +9,6 @@ cache:
         - api/node_modules/
         - ~/.nvm/versions/node/$NODEJS
         - ~/.cache/pip/
-        - ~/.cache/yarn/
 services:
     - mongodb
     - redis
@@ -17,10 +16,10 @@ before_install:
     - source ~/.nvm/nvm.sh
     - nvm install $NODEJS
     - nvm use $NODEJS
-    - npm install -g forever yarn
+    - npm install -g forever
 install:
     - pip3 install flask pyjade requests
-    - cd api && yarn install && cd ..
+    - cd api && npm install && cd ..
 script:
     - cd api
     - npm run lint
