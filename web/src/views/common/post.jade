@@ -1,0 +1,54 @@
+.post(data-user-screen-name="{{post.user.screenName}}",data-user-name="{{post.user.name|escape}}",data-is-repost="{{(post.repostTo != null)|int}}")
+    if post.repostTo
+        .post-repostUser
+            a(href="/u/{{post.user.screenName|escape}}")
+                img.post-user-icon(src="{{post.user.avatarThumbnailUrl}}",alt="@{{post.user.screenName}}",title="@{{post.user.screenName}}")
+                a(href="/u/{{post.user.screenName|escape}}")= post.user.name
+                    if post.user.isVerified
+                        i.fa.fa-check-circle(title="本人確認済みマーク")
+                small @#{post.user.screenName}
+                | さんがRePost
+            | {% set post = post.repostTo %}
+    if post.replyTo
+        .post-replyTo
+            a(href="/u/{{post.replyTo.user.screenName|escape}}")
+                img.post-user-icon(src="{{post.replyTo.user.avatarThumbnailUrl}}",alt="@{{post.replyTo.user.screenName}}",title="@{{post.replyTo.user.screenName}}")
+            .post-user
+                a(href="/u/{{post.replyTo.user.screenName|escape}}")= post.replyTo.user.name
+                    if post.replyTo.user.isVerified
+                        i.fa.fa-check-circle(title="本人確認済みマーク")
+                small @#{post.replyTo.user.screenName}
+            a(href="/p/{{post.replyTo.id}}",title="{{post.replyTo.user.name|escape}}@{{post.replyTo.user.screenName|escape}}さんの投稿 - “{{post.replyTo.text|escape}}” -kyoppie")
+                time.relative_time(datetime="{{post.replyTo.createdAt}}",title="{{post.replyTo.createdAt}}")= post.createdAt
+            .post-text!= post.replyTo.html
+    a(href="/u/{{post.user.screenName|escape}}")
+        img.post-user-icon(src="{{post.user.avatarThumbnailUrl}}",alt="@{{post.user.screenName}}",title="@{{post.user.screenName}}")
+    .post-user
+        a(href="/u/{{post.user.screenName|escape}}")= post.user.name
+            if post.user.isVerified
+                i.fa.fa-check-circle(title="本人確認済みマーク")
+        small @#{post.user.screenName}
+    a(href="/p/{{post.id}}",title="{{post.user.name|escape}}@{{post.user.screenName|escape}}さんの投稿 - “{{post.text|escape}}” -kyoppie")
+        time.relative_time(datetime="{{post.createdAt}}",title="{{post.createdAt}}")= post.createdAt
+    .post-text!= post.html
+    .post-files
+        | {% for file in post.files %}
+        if file.type == "image"
+            a(href="{{file.url}}",target="_blank")
+                img(src="{{file.thumbnailUrl}}")
+        if file.type == "video"
+            video(src="{{file.url}}",controls,preload="metadata",poster="{{file.thumbnailUrl}}")
+        - endfor
+    .post-actions
+        button.post-reply(data-post-id="{{post.id}}"): i.fa.fa-reply
+        span.post-count
+        if post.isReposted
+            button.post-repost.post-reposted(data-post-id="{{post.id}}"): i.fa.fa-retweet
+        else
+            button.post-repost(data-post-id="{{post.id}}"): i.fa.fa-retweet
+        span.post-count= post.repostCount
+        if post.isFavorited
+            button.post-favorite.post-favorited(data-post-id="{{post.id}}"): i.fa.fa-star
+        else
+            button.post-favorite(data-post-id="{{post.id}}"): i.fa.fa-star-o
+        span.post-count= post.favoriteCount
