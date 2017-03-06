@@ -81,7 +81,7 @@
     width:1em;
 }
 .post-actions .post-favorited{
-    color:rgb(255,205,79);
+    color:rgb(255,192,128);
 }
 .post-actions .post-count{
     display:inline-block;
@@ -90,4 +90,25 @@
     min-width:1em;
     padding-left:0.5em;
     padding-right:2em;
+}
+.post-replyTo{
+    opacity:0.75;
+    margin:0.25em 0;
+    padding-bottom:0.5em;
+    position:relative;
+    font-size:0.75em;
+    line-height: 1.2;
+}
+.post-replyTo time{
+    right:0;
+}
+.post-repostUser{
+    padding-bottom:1em;
+    color:#7b4;
+}
+.post-repostUser .post-user-icon{
+    font-size:0.75em;
+}
+.post-actions .post-reposted{
+    color:rgb(128,192,128);
 }

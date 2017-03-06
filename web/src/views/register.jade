@@ -1,6 +1,6 @@
 extends ./base
 block header
-    script(src="/static/js/query_string.js")
+    script(src="/static/"+git_commit+"/js/query_string.js")
     script.
         $(function(){
             $("#loginForm").submit(function(ev){

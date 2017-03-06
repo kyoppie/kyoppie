@@ -78,7 +78,7 @@ app.use(async function (ctx, next) {
 app.use(async function (ctx, next) {
     if (ctx.request.method !== "POST") return await next()
     var log = new models.logs()
-    log.ipaddr = ctx.request.header['x-forwarded-for'] || ctx.socket.remoteAddress
+    log.ipaddr = (ctx.request.header['x-forwarded-for'] ? ctx.request.header['x-forwarded-for']+ ", " : "") + ctx.socket.remoteAddress
     log.path = ctx.path
     await next()
     log.response = JSON.stringify(ctx.body)
@@ -125,6 +125,10 @@ routes.rest.forEach(function(route) {
     var handler = require("./handlers/web"+path)
     app.use(_[method](path,async function(ctx) {
         await handler.bind(ctx)(ctx)
+    }))
+    app.use(_.all(path,async function(ctx) {
+        ctx.status = 405
+        ctx.body = {result:false,error:"invalid-method"}
     }))
 })
 // WebSocket APIのrouter

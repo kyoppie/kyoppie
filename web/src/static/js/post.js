@@ -1,15 +1,32 @@
 $(function(){
     $(document).on("click",".post-favorite",function(){
-        if($(this).hasClass("post-favorited")) return;
-        $.api.post("posts/favorite",{id:$(this).data("post-id")})
-        $(this).addClass("post-favorited")
-        $(this).children("i.fa").removeClass("fa-star-o").addClass("fa-star")
-        $(this).next().text((parseInt($(this).next().text())||0)+1);
+        var $this = $(this)
+        if($this.hasClass("post-favorited")) return
+        $.api.post("posts/favorite",{id:$(this).data("post-id")}).then(function(res){
+            if(res.result){
+                $this.next().text(res.response.favoriteCount)
+            }
+        })
+        $this.addClass("post-favorited")
+        $this.children("i.fa").removeClass("fa-star-o").addClass("fa-star")
     })
     $(document).on("click",".post-repost",function(){
-        alert("未実装");
+        var $this = $(this)
+        if($this.hasClass("post-reposted")) return
+        if(!confirm("この投稿をRePostしますか?")) return
+        $.api.post("posts/repost",{id:$this.data("post-id")}).then(function(res){
+            if(res.result){
+                $this.next().text(res.response.repostTo.repostCount)
+            }
+        })
+        $this.addClass("post-reposted")
     })
     $(document).on("click",".post-reply",function(){
-        alert("未実装")
+        var message = prompt("reply message","@"+$(this).parents(".post").data("user-screen-name")+" ")
+        if (message === null) return
+        $.api.post("posts/create",{
+            text:message,
+            replyTo:$(this).data("post-id")
+        })
     })
 })

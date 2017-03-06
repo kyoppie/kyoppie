@@ -5,6 +5,7 @@ module.exports = async function (token,id) {
     var post = await models.posts.findById(id).populate("user")
     if (!post) throw "post-not-found"
     if (post.user.isSuspended) throw "post-not-found"
+    if (post.repostTo) throw "no-favorite-repost"
     // 重複チェック
     if (await models.favorites.findOne({post:post.id,user:token.user.id})) throw "already-favorite"
     var favorite = new models.favorites()
@@ -24,5 +25,5 @@ module.exports = async function (token,id) {
     } catch (e) {
         console.log("notification-error")
     }
-    return {status:"ok"}
+    return post
 }

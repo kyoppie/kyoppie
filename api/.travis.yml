@@ -7,7 +7,13 @@ cache:
         - node_modules/
 services:
     - mongodb
+    - redis
+before_script:
+    - npm install -g forever
 script:
     - npm run lint
     - npm run docs-check
     - npm run migrate
+    - forever start -c "node --harmony" --minUptime 5000 src/main.js
+    - sleep 5
+    - npm run test

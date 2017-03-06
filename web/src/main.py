@@ -15,6 +15,7 @@ from flask import Flask,redirect,session,request,g
 from utils import render_template
 from datetime import timedelta
 app = Flask(__name__)
+app.static_url_path=''
 app.template_folder = "views"
 app.jinja_env.add_extension("pyjade.ext.jinja.PyJadeExtension")
 app.jinja_env.auto_reload=config.web["is_debug"]
@@ -41,6 +42,9 @@ def beforeRequest():
         my = api.get("account/show",login=True)
         if(my["result"]):
             g.my = my["response"]
+@app.route('/static/<git_commit>/<path:path>')
+def staticFile(git_commit,path):
+    return app.send_static_file(path)
 @app.route('/')
 @utils.login_required
 def indexPage():
@@ -75,7 +79,12 @@ def usersPage():
 @app.route('/p/<postId>')
 def postShow(postId):
     res = api.get("posts/show",{"id":postId})["response"]
-    return render_template("post.jade",post=res)
+    return render_template("post/index.jade",post=res)
+
+@app.route('/p/<postId>/video_player')
+def postVideoPlayer(postId):
+    res = api.get("posts/show",{"id":postId})["response"]
+    return render_template("post/video_player.jade",post=res)
 
 @app.route('/rules')
 def rulesShow():

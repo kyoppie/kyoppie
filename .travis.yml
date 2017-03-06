@@ -1,0 +1,32 @@
+language: python
+env:
+    - NODEJS=7.0.0
+    - NODEJS=7.4.0
+python:
+    - "3.6"
+cache:
+    directories:
+        - api/node_modules/
+        - ~/.nvm/versions/node/$NODEJS
+        - ~/.cache/pip/
+services:
+    - mongodb
+    - redis
+before_install:
+    - source ~/.nvm/nvm.sh
+    - nvm install $NODEJS
+    - nvm use $NODEJS
+    - npm install -g forever
+install:
+    - pip3 install flask pyjade requests
+    - cd api && npm install && cd ..
+script:
+    - cd api
+    - npm run lint
+    - npm run docs-check
+    - npm run migrate
+    - forever start -c "node --harmony" --minUptime 5000 src/main.js
+    - sleep 5
+    - npm run test
+    - cd ../web
+    - .ci-files/run.sh

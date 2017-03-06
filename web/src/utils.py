@@ -3,6 +3,8 @@ from flask import request,url_for,session,Response,g
 import api
 import urllib.parse
 import flask
+import os
+SRC_DIR=os.path.dirname(os.path.realpath(__file__))
 def redirect(path,next_path=None):
     print(next_path)
     if(next_path):
@@ -38,4 +40,11 @@ def render_template(*wargs,**kwargs):
         kwargs["my"]=g.my
     else:
         kwargs["my"]=None
+    git_head=open(SRC_DIR+"/../.git/HEAD","r").read()
+    if 'ref:' in git_head:
+        git_ref=git_head.split()[1]
+        git_commit=open(SRC_DIR+"/../.git/"+git_ref).read()
+    else:
+        git_commit=git_head
+    kwargs["git_commit"]=git_commit[:7]
     return flask.render_template(*wargs,**kwargs)
