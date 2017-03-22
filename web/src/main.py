@@ -2,6 +2,7 @@ import config
 import json
 import utils
 import api
+import urllib.parse
 import controllers._.ajax
 import controllers._.tojinja
 import controllers.dev
@@ -10,7 +11,7 @@ import controllers.settings
 import controllers.admin
 import controllers.help
 import controllers.notifications
-from flask import Flask,redirect,session,request,g
+from flask import Flask,redirect,session,request,g,jsonify
 from utils import render_template
 from datetime import timedelta
 app = Flask(__name__)
@@ -100,6 +101,21 @@ def logout():
 @utils.login_required(rulesAgree=False)
 def rulesAgreePage():
     return render_template("rules_agree.jade")
+
+@app.route('/oembed')
+def oembed():
+    url_obj = urllib.parse.urlparse(request.args.get("url",""))
+    ret_obj = {
+        "provider_name":"kyoppie",
+        "provider_url":config.public["url"],
+        "type":"ritch"
+    }
+    print(url_obj)
+    if len(url_obj.path) == 0 or url_obj.path[0] != "/":
+        return "Not Found",404
+    if url_obj.path[0:3] == "/p/":
+        url_type=""
+    return jsonify(**ret_obj)
 if(__name__ == "__main__"):
     app.run(
         host="0.0.0.0",
