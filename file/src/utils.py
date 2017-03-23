@@ -16,16 +16,17 @@ def get_random_str(length,pattern="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghi
 def get_temp_save_filename():
     date = datetime.now()
     return date.strftime('%Y%m%d_%H%M%S') + "_" + get_random_str(32)
-def get_filename(ext):
+def get_dirname():
     date = datetime.now()
     path = "../files/"
     dirname = date.strftime('%Y%m%d')
     if(not os.path.exists(path+dirname)):
         os.mkdir(path+dirname)
-    filename = dirname+"/"+get_random_str(16)+"."+ext
+    filename = dirname+"/"+get_random_str(16)
     if(os.path.exists(path+filename)):
-        return get_filename(ext)
-    return "/"+filename
+        return get_dirname()
+    os.mkdir(path+filename)
+    return "/"+filename+"/"
 def get_resize_size(orig,max=640):
     if(orig[0] > orig[1]):
         if(orig[0] < max):
@@ -43,8 +44,8 @@ def calc_framerate(string):
     if(re.match("^[0-9]+(\.[0-9]+)?/1$",string)):
         return float(string[:-2])
     return 30
-def video_encode(filename):
-    new_filename = get_filename("mp4")
+def video_encode(filename, dirname):
+    new_filename = dirname+"video.mp4"
     # 情報を取得
     output = json.loads(subprocess.check_output([
         "ffprobe",
@@ -121,7 +122,7 @@ def video_encode(filename):
     res = subprocess.run(args)
     if(res.returncode != 0):
         return
-    return new_filename,PIL.Image.open(thumb_tori)
+    return new_filename, PIL.Image.open(thumb_tori)
     print(output)
 def range_header(l,headers):
     range_header = headers.get("Range")
