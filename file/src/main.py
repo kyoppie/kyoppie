@@ -108,7 +108,7 @@ def apiV1Upload():
             img.save(path+dirname+"image.png","png")
             res_obj["url"] = new_filename
         else:
-            img = utils.video_encode(filename,dirname)
+            new_filename, img = utils.video_encode(filename,dirname)
             res_obj["type"] = "video"
             res_obj["url"] = new_filename
     elif(mimetype == "video/mp4" or mimetype == "video/quicktime"):
