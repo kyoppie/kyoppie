@@ -58,9 +58,9 @@ module.exports = function(mongoose) {
             obj.isFollowers = !!(await mongoose.model("follows").findOne({toUser:token.user.id,fromUser:obj.id}))
         }
         if (isAprilFool(2017)) {
-            obj.postsCount = 5000000000000000
-            obj.followersCount = 5000000000000000
-            obj.followingCount = 5000000000000000
+            obj.postsCount += 5000000000000000
+            obj.followersCount += 5000000000000000
+            obj.followingCount += 5000000000000000
         }
         return obj
     }

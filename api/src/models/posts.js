@@ -63,8 +63,8 @@ module.exports = function(mongoose) {
             delete obj.repostCount
         }
         if (isAprilFool(2017)) {
-            obj.repostCount = 5000000000000000
-            obj.favoriteCount = 5000000000000000
+            obj.repostCount += 5000000000000000
+            obj.favoriteCount += 5000000000000000
         }
         return obj
     }
