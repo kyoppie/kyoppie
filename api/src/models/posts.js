@@ -1,3 +1,4 @@
+var isAprilFool = require("../utils/isAprilFool")
 module.exports = function(mongoose) {
     var schema = new mongoose.Schema({
         text:String,
@@ -60,6 +61,10 @@ module.exports = function(mongoose) {
         if (obj.repostTo) {
             delete obj.favoriteCount
             delete obj.repostCount
+        }
+        if (isAprilFool(2017)) {
+            obj.repostCount = 5000000000000000
+            obj.favoriteCount = 5000000000000000
         }
         return obj
     }
