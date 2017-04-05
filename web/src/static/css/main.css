@@ -53,10 +53,10 @@ input[type="submit"].outline,button.outline{
     background: white;
     background: rgba(255,255,255,0.8);
 }
-[type="submit"]:disabled > .no_disabled{
+[type="submit"]:disabled > .no_disabled, button:disabled > .no_disabled{
     display:none;
 }
-[type="submit"]:enabled > .yes_disabled{
+[type="submit"]:enabled > .yes_disabled, button:enabled > .yes_disabled{
     display:none;
 }
 a{

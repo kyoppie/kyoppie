@@ -1,7 +1,15 @@
 kyoppie-talk-room
     kyoppie-load-splash(show="{loading === true}")
-    textarea(ref="text")
-    button(onclick="{send}")
+    a(href="https://github.com/kyoppie/kyoppie/issues/23",target="_blank") この画面のデザインのフィードバック受付中！
+    .panel
+        textarea.input(ref="text",onkeydown="{textarea}")
+        button(onclick="{send}")
+            span.no_disabled
+                i.fa.fa-paper-plane
+                |  送信
+            span.yes_disabled
+                i.fa.fa-spinner.fa-pulse
+                |  送信中
     .messages
         kyoppie-talk-message(each="{messages}", message="{this}")
     script.
@@ -17,8 +25,19 @@ kyoppie-talk-room
             self.update()
         })
         send(e) {
+            e.target.disabled = true
             var text = this.refs.text.value
             $.api.post("talks/rooms/say",{id:this.room.id, text:text}).then(function(res){
-                alert("sended!")
+                self.refs.text.value = ""
+                e.target.disabled = false
+            }).catch(function(err){
+                console.log(err)
+                if(err.responseJSON && err.responseJSON.error) alert(err.responseJSON.error)
+                e.target.disabled = false
             })
+        }
+        textarea(e) {
+            if((e.metaKey || e.ctrlKey) && e.keyCode === 13) { // (Ctrl|Cmd)+Enter
+                $(e.target).parent().find("button").click()
+            }
         }
