@@ -2,6 +2,8 @@ kyoppie-talk-room
     kyoppie-load-splash(show="{loading === true}")
     textarea(ref="text")
     button(onclick="{send}")
+    .messages
+        kyoppie-talk-message(each="{messages}", message="{this}")
     script.
         this.room_id = opts.room_id
         this.loading = true
