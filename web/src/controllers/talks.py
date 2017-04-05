@@ -14,3 +14,8 @@ def talkTop():
 def talkUserRedirect(username):
     room=api.get("talks/rooms/from_user",{"screenName":username})["response"]
     return redirect("/talks/room/"+room["id"])
+
+@app.route('/room/<id>')
+@utils.login_required
+def talkRoomShow(id):
+    return render_template("talks/room.jade",room_id=id)

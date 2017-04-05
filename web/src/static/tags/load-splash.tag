@@ -1,0 +1,21 @@
+kyoppie-load-splash
+    i.fa.fa-spinner.fa-pulse
+    style.
+        kyoppie-load-splash{
+            position:fixed;
+            top:40px;
+            bottom:0;
+            left:0;
+            right:0;
+            z-index:9999999;
+            background:rgba(255,255,255,0.5);
+            font-size:10em;
+        }
+        i{
+            display:block;
+            position:absolute;
+            top:50%;
+            left:50%;
+            margin-left:-0.5em;
+            margin-top:-0.5em;
+        }
