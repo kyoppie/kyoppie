@@ -1,5 +1,6 @@
 var getHashedPassword = require("../utils/getHashedPassword")
 var newPasswordHash = require("../utils/newPasswordHash")
+var isAprilFool = require("../utils/isAprilFool")
 module.exports = function(mongoose) {
     var schema = new mongoose.Schema({
         name:{type:String,default:"no name"},
@@ -55,6 +56,11 @@ module.exports = function(mongoose) {
         if (token) {
             obj.isFollowing = !!(await mongoose.model("follows").findOne({fromUser:token.user.id,toUser:obj.id}))
             obj.isFollowers = !!(await mongoose.model("follows").findOne({toUser:token.user.id,fromUser:obj.id}))
+        }
+        if (isAprilFool(2017)) {
+            obj.postsCount += 5000000000000000
+            obj.followersCount += 5000000000000000
+            obj.followingCount += 5000000000000000
         }
         return obj
     }

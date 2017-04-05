@@ -91,41 +91,38 @@ def apiV1Upload():
     res_obj = {
         "type":mimetype.split("/")[0]
     }
+    dirname = utils.get_dirname()
     if(mimetype == "image/png" or mimetype == "image/bmp"): #可逆圧縮な画像ファイル
-        new_filename = utils.get_filename("png")
         img = PIL.Image.open(filename)
-        img.save(path+new_filename,"png")
+        img.save(path+dirname+"image.png","png")
         res_obj["url"] = new_filename
     elif(mimetype == "image/jpeg" or mimetype == "image/jpg"):
-        new_filename = utils.get_filename("jpg")
         img = PIL.Image.open(filename)
-        img.save(path+new_filename,"jpeg",quality=80)
+        img.save(path+dirname+"image.jpg","jpeg",quality=80)
         res_obj["url"] = new_filename
     elif(mimetype == "image/gif"):
-        new_filename = utils.get_filename("png")
         img = PIL.Image.open(filename)
         try:
             img.seek(1)
         except EOFError:
-            img.save(path+new_filename,"png")
+            img.save(path+dirname+"image.png","png")
             res_obj["url"] = new_filename
         else:
-            new_filename,img = utils.video_encode(filename)
+            new_filename, img = utils.video_encode(filename,dirname)
             res_obj["type"] = "video"
             res_obj["url"] = new_filename
     elif(mimetype == "video/mp4" or mimetype == "video/quicktime"):
-        new_filename,img = utils.video_encode(filename)
+        new_filename,img = utils.video_encode(filename, dirname)
         res_obj["url"] = new_filename
     else:
         return {"result":False,"error":"invalid-file"},400
     if(img):
         img.thumbnail(utils.get_resize_size(img.size))
+        img.save(path+dirname+"thumbnail.jpg","jpeg",quality=75)
+        res_obj["thumbnail"] = dirname+"thumbnail.jpg"
         if("".join(img.getbands()) == "RGBA"):
-            img.save(path+new_filename+".thumbnail.png","png")
-            res_obj["thumbnail"] = new_filename+".thumbnail.png"
-        else:
-            img.save(path+new_filename+".thumbnail.jpg","jpeg",quality=75)
-            res_obj["thumbnail"] = new_filename+".thumbnail.jpg"
+            img.save(path+dirname+"thumbnail.png","png")
+            res_obj["thumbnail"] = dirname+"thumbnail.png"
     return res_obj,200
-    
-app.run(host="0.0.0.0",port=config.file["port"],threaded=True,debug=config.file["is_debug"])
+
+app.run(host="0.0.0.0",port=int(config.file["port"]),threaded=True,debug=config.file["is_debug"])

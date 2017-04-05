@@ -5,17 +5,21 @@ import sys
 import re
 import json
 import base64
+import shutil
 config_dir = os.path.abspath(os.path.dirname(__file__)+os.sep+".."+os.sep+"config"+os.sep)
 web={}
 api={}
 # APIのコンフィグがあるか確認
 if(not os.path.exists(config_dir+os.sep+"api.json")):
-    print("APIのコンフィグ(config/api.json)が存在しません。APIのweb_config.jsonをconfig/api.jsonにコピーしてください。")
-    sys.exit(1)
-else:
-    f = open(config_dir+os.sep+"api.json","r")
-    api = json.load(f)
-    f.close()
+    if(os.path.exists(config_dir+os.sep+".."+os.sep+".."+os.sep+"api"+os.sep+"web_config.json")):
+        shutil.copy(config_dir+os.sep+".."+os.sep+".."+os.sep+"api"+os.sep+"web_config.json", config_dir+os.sep+"api.json")
+        print("APIのコンフィグを../../api/web_config.jsonからコピーします。")
+    else:
+        print("APIのコンフィグ(config/api.json)が存在しません。APIのweb_config.jsonをconfig/api.jsonにコピーしてください。")
+        sys.exit(1)
+f = open(config_dir+os.sep+"api.json","r")
+api = json.load(f)
+f.close()
 # Web特有コンフィグがあるか確認(更新される可能性もあるので)
 configSchema = [
     {
