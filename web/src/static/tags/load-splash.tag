@@ -8,8 +8,9 @@ kyoppie-load-splash
             left:0;
             right:0;
             z-index:9999999;
-            background:rgba(255,255,255,0.5);
+            background:rgba(255,255,255,0.7);
             font-size:10em;
+            opacity:0.8;
         }
         i{
             display:block;
