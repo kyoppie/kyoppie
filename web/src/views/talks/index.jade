@@ -1,7 +1,7 @@
 extends ./base
 
 block header
-    script(type="riot/tag",template="jade",data-src="/static/tags/user-search.tag")
+    script(type="riot/tag",template="jade",data-src="/static/"+git_commit+"/tags/user-search.tag")
 block content
     h1 トーク
     a(href="/help/talks") トークとは？

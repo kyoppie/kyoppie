@@ -1,6 +1,7 @@
-from flask import Blueprint,render_template,redirect
+from flask import Blueprint,redirect
 import api
 import utils
+from utils import render_template
 app = Blueprint(__name__,"talks",url_prefix="/talks")
 
 @app.route('/')

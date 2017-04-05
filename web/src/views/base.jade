@@ -16,8 +16,10 @@ html
         block title
             title kyoppie
         script!="var CONFIG="+config.web_config_json
-        script(src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js")
-        script(src="//cdnjs.cloudflare.com/ajax/libs/nunjucks/3.0.0/nunjucks.min.js")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/nunjucks/3.0.0/nunjucks.min.js")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/riot/3.4.0/riot+compiler.min.js")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/jade/1.11.0/jade.min.js")
         script(src="/static/"+git_commit+"/js/api.js")
         script(src="/static/"+git_commit+"/js/notify.js")
         script(src="/static/"+git_commit+"/js/relative-time.js")
