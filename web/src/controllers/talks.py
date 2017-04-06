@@ -7,7 +7,8 @@ app = Blueprint(__name__,"talks",url_prefix="/talks")
 @app.route('/')
 @utils.login_required
 def talkTop():
-    return render_template("talks/index.jade")
+    rooms=api.get("talks/rooms/list")["response"]
+    return render_template("talks/index.jade",rooms=rooms)
 
 @app.route('/user/<username>')
 @utils.login_required
