@@ -32,6 +32,10 @@ module.exports = async function (token,id,text,files) {
             await files[i].save()
         }
     }
+    if (room.isUsed === false) {
+        room.isUsed = true
+        await room.save()
+    }
     // stream
     var redis = getRedisConnection()
     redis.publish("kyoppie:talks-room-timeline:"+room.id,message.id)
