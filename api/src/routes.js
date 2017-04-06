@@ -70,6 +70,7 @@ module.exports = {
         {name:"/talks/rooms/from_user",method:"get"},
         {name:"/talks/rooms/timeline",method:"get"},
         {name:"/talks/rooms/say",method:"post"},
+        {name:"/talks/rooms/show_message",method:"get"},
     ],
     websocket:[
         {name:"/posts/timeline"},
