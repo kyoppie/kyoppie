@@ -17,10 +17,7 @@ block header
                 $.showNotify("ストリーミングに接続しています...");
                 var ws = $.api.websocket("posts/timeline");
                 ws.onopen = function(){
-                    $.showNotify("ストリーミングに接続しました！")
-                    setTimeout(function(){
-                        $.hideNotify();
-                    },500)
+                    $.showNotify("ストリーミングに接続しました！",500)
                 }
                 ws.onmessage = function(e){
                     e = JSON.parse(e.data);
