@@ -2,6 +2,7 @@ extends ./base
 
 block header
     script(type="riot/tag",template="jade",data-src="/static/"+git_commit+"/tags/user-search.tag")
+    script(type="riot/tag",template="jade",data-src="/static/"+git_commit+"/tags/users.tag")
 block content
     h1 トーク
     a(href="/help/talks") トークとは？
@@ -9,7 +10,10 @@ block content
         kyoppie-user-search(base_url="/talks/user/")
     if rooms|length
         .panel
-            h2 自分が参加しているルーム一覧
+            h2 自分が参加しているトーク一覧
+            a(href="/talks/new_room") ルーム作成
             ul
                 for room in rooms
-                    li: a(href="/talks/room/"+room.id) #{room.name} (#{room.users|length}人)
+                    li: a(href="/talks/room/"+room.id) #{room.name}
+                        if not room.isOneToOne
+                            | (#{room.users|length}人)

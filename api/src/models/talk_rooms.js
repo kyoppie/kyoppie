@@ -28,6 +28,11 @@ module.exports = function(mongoose) {
                 obj.users[i] = await this.users[i].toResponseObject(token)
             }
         }
+        if (this.isOneToOne) {
+            this.users.forEach(function(user) {
+                if (user.id != token.user.id) obj.name = user.name+"(@"+user.screenName+")さんとのトーク"
+            })
+        }
         return obj
     }
     return mongoose.model("talk_rooms",schema)
