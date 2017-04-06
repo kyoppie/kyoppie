@@ -5,6 +5,6 @@ module.exports = async function (token,id) {
     if (!~room.users.indexOf(token.user.id)) throw "room-not-found"
     var messages = await models.talk_messages.find({
         room:room.id,
-    }).sort("-createdAt").limit(100)
+    }).populate("app user files room").sort("-createdAt").limit(100)
     return messages
 }
