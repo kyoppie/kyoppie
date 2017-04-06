@@ -1,4 +1,4 @@
-kyoppie-talk-message(data-is-me="{opts.message.user.isMe ? 1 : 0}")
+kyoppie-talk-message(data-is-me="{opts.message.user.isMe ? 1 : 0}",id="{opts.message.id}")
     .message
         span {opts.message.text}
         time(datetime="{opts.message.createdAt}",ref="created_at") {moment(this.refs.created_at.getAttribute("datetime")).format("HH:mm")}
@@ -30,11 +30,12 @@ kyoppie-talk-message(data-is-me="{opts.message.user.isMe ? 1 : 0}")
             padding:0 0.5em;
             font-size:75%;
             bottom:0;
-            width:5em; /* とりあえず */
         }
         kyoppie-talk-message[data-is-me="1"]>.message time{
             right:100%;
+            padding-left:0;
         }
         kyoppie-talk-message[data-is-me="0"]>.message time{
             left:100%;
+            padding-right:0;
         }
