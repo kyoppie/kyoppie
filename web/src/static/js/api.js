@@ -19,8 +19,13 @@ $.extend({
         post:function(endpoint,params){
             return $.api.request("POST",endpoint,params);
         },
-        websocket:function(endpoint){
-            var ws = new WebSocket(CONFIG.api.replace("http","ws")+"/"+endpoint+"?access_token="+$.api.get_access_token());
+        websocket:function(endpoint,params){
+            if(!params) params = {}
+            params.access_token = $.api.get_access_token()
+            params = Object.keys(params).map(function(name){
+                return name+"="+encodeURIComponent(params[name])
+            }).join("&")
+            var ws = new WebSocket(CONFIG.api.replace("http","ws")+"/"+endpoint+"?"+params);
             var wsTimer = setInterval(function(){
                 ws.send(JSON.stringify({type:"ping"}))
             },20*1000);
