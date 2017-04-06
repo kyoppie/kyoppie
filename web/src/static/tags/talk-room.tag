@@ -41,3 +41,21 @@ kyoppie-talk-room
                 $(e.target).parent().find("button").click()
             }
         }
+        function newWebSocketConnection(){
+            $.showNotify("ストリーミングに接続しています...")
+            var ws = $.api.websocket("talks/rooms/timeline",{id:self.room_id});
+            ws.onopen = function(){
+                $.showNotify("ストリーミングに接続しました！",500)
+            }
+            ws.onmessage = function(e){
+                e = JSON.parse(e.data)
+                var message = e.response
+                $.addUnreadCount()
+                self.messages.unshift(message)
+                self.update()
+            }
+            ws.onclose = function(){
+                newWebSocketConnection();
+            }
+        }
+        newWebSocketConnection()
