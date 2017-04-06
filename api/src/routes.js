@@ -75,5 +75,6 @@ module.exports = {
     websocket:[
         {name:"/posts/timeline"},
         {name:"/posts/public_timeline",login:false},
+        {name:"/talks/rooms/timeline"},
     ]
 }
