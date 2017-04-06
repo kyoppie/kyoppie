@@ -5,8 +5,6 @@ module.exports = function(ws) {
     streaming.subscribe("kyoppie:talks-room-timeline:"+ws.query.id)
     streaming.on("message",async function(_,msg) {
         var message = await show(ws.token, msg)
-        console.log(message)
-        console.log(await message.toResponseObject(ws.token))
         ws.sendJSON({
             result:true,
             response:await message.toResponseObject(ws.token)
