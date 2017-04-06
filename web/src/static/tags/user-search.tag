@@ -7,7 +7,6 @@ kyoppie-user-search
                     img(src="{avatarUrl}")
                     span {name}
                     span.screenName @{screenName}
-    .empty-message(show="{this.text.length == 0}") 上のテキストボックスにユーザー名を入力して、検索しましょう！
     .notfound-message(show="{users.length == 0 && text.length}") ユーザーが見つかりませんでした！別の名前などで検索してみてください。
     style.
         kyoppie-user-search{
