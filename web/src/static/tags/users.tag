@@ -1,6 +1,6 @@
 kyoppie-users
-    ul(show="{users.length}")
-        li(each="{users}")
+    ul(show="{opts.users.length}")
+        li(each="{opts.users}")
             a(href="{base_url}{screenName}")
                 img(src="{avatarUrl}")
                 span {name}
