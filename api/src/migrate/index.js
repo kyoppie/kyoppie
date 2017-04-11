@@ -30,6 +30,7 @@ switch (process.argv[2]) {
             var file = files[loop]
             models.migrates.findOne({name:file},function(err,res) {
                 if (res) return next()
+                console.log("migrate start:"+file)
                 var migrate = require(__dirname+"/"+file)
                 migrate.up(models).then(function() {
                     var mobj = new models.migrates({name:file})
@@ -37,6 +38,10 @@ switch (process.argv[2]) {
                         console.log("migrate up:"+file)
                         next()
                     })
+                },function(err){
+                    console.log("migrate error!!!")
+                    console.log(err)
+                    process.exit(1)
                 })
             })
         }
