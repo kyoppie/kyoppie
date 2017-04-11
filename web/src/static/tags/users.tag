@@ -1,10 +1,12 @@
 kyoppie-users
     ul(show="{opts.users.length}")
-        li(each="{opts.users}")
-            a(href="{base_url}{screenName}")
-                img(src="{avatarUrl}")
-                span {name}
-                span.screenName @{screenName}
+        li(each="{user in opts.users}")
+            virtual(if="{!ignore_user_ids.indexOf(user.id)}")
+                a(href="{base_url}{user.screenName}",onclick="{click}")
+                    img(src="{user.avatarUrl}")
+                    span {user.name}
+                    span.screenName @{user.screenName}
+                    i(class="fa fa-{action_icon}",if="{action_icon}")
     style.
         ul {
             margin: -1em;
@@ -17,6 +19,7 @@ kyoppie-users
             height:2.5em;
             padding:0.5em 1em;
             text-decoration:none;
+            position:relative;
         }
         li a:hover{
             background: #f52;
@@ -38,3 +41,22 @@ kyoppie-users
             color:#888;
             color:rgba(0,0,0,0.5)
         }
+        i{
+            position:absolute;
+            right:1em;
+            top:50%;
+            margin-top:-0.5em;
+        }
+    script.
+        this.base_url = this.opts.base_url
+        this.action_icon = this.opts.action_icon
+        this.ignore_user_ids = this.opts.ignore_user_ids || []
+        this.on("update",function(){
+            this.base_url = this.opts.base_url
+            this.action_icon = this.opts.action_icon
+            this.ignore_user_ids = this.opts.ignore_user_ids || []
+        })
+        click(e){
+            this.trigger("clicked",e.item.user)
+        }
+        riot.observable(this.observe)
