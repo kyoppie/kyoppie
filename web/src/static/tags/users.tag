@@ -1,7 +1,7 @@
 kyoppie-users
     ul(show="{opts.users.length}")
         li(each="{user in opts.users}")
-            virtual(if="{!ignore_user_ids.indexOf(user.id)}")
+            virtual(if="{!~ignore_user_ids.indexOf(user.id)}")
                 a(href="{base_url}{user.screenName}",onclick="{click}")
                     img(src="{user.avatarUrl}")
                     span {user.name}
@@ -9,8 +9,9 @@ kyoppie-users
                     i(class="fa fa-{action_icon}",if="{action_icon}")
     style.
         ul {
-            margin: -1em;
-            padding: 0.5em;
+            margin: -0.5em;
+            padding: 0;
+            max-width:100vw;
             list-style-type:none;
         }
         li a{
@@ -46,6 +47,12 @@ kyoppie-users
             right:1em;
             top:50%;
             margin-top:-0.5em;
+        }
+        @media screen and (max-width:480px) {
+            li a{
+                margin:0;
+                padding:1em;
+            }
         }
     script.
         this.base_url = this.opts.base_url
