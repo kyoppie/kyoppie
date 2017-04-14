@@ -38,7 +38,7 @@ switch (process.argv[2]) {
                         console.log("migrate up:"+file)
                         next()
                     })
-                },function(err){
+                },function(err) {
                     console.log("migrate error!!!")
                     console.log(err)
                     process.exit(1)
