@@ -80,6 +80,7 @@ kyoppie-talk-room
             ws.onmessage = function(e){
                 e = JSON.parse(e.data)
                 var message = e.response
+                message._date = new Date(message.createdAt)
                 $.addUnreadCount()
                 self.messages.unshift(message)
                 self.update()
