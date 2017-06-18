@@ -11,7 +11,25 @@ kyoppie-talk-room
                 i.fa.fa-spinner.fa-pulse
                 |  送信中
     .messages
-        kyoppie-talk-message(each="{messages}", message="{this}")
+        virtual(each="{message, i in messages}")
+            kyoppie-talk-message(message="{message}")
+            .date(if="{i != messages.length-1 && dateNum(message._date) != dateNum(messages[i+1]._date)}")
+                hr
+                span {messages[i+1]._date.getMonth()+1}月 {messages[i+1]._date.getDay()}日
+    style.
+        .date {
+            text-align:center;
+        }
+        .date span {
+            background: rgba(0,0,0,0.6);
+            color:white;
+            font-size:0.75em;
+            padding: 0.5em;
+            border-radius: 0.5em;
+        }
+        .date hr {
+            border:1px solid rgba(0,0,0,0.8);
+        }
     script.
         this.room_id = opts.room_id
         this.loading = true
@@ -20,7 +38,10 @@ kyoppie-talk-room
             self.room = res.response
             return $.api.get("talks/rooms/timeline",{id:self.room.id})
         }).then(function(res){
-            self.messages = res.response
+            self.messages = res.response.map(function(message) {
+                message._date = new Date(message.createdAt)
+                return message
+            })
             self.loading = false
             self.update()
         })
@@ -40,6 +61,9 @@ kyoppie-talk-room
             if((e.metaKey || e.ctrlKey) && e.keyCode === 13) { // (Ctrl|Cmd)+Enter
                 $(e.target).parent().find("button").click()
             }
+        }
+        dateNum(date) {
+            return (date.getFullYear()*12*31) + (date.getMonth() * 31) + (date.getDay()-1)
         }
         function newWebSocketConnection(){
             $.showNotify("ストリーミングに接続しています...")

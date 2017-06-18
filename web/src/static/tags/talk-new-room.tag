@@ -3,7 +3,7 @@ kyoppie-talk-new-room
         input.input(ref="name_input",placeholder="ルーム名")
     .panel
         h2 メンバー
-        kyoppie-user-search(base_url="javascript://",action_icon="plus",ref="search",ignore_user_ids="{ignore_user_ids()}")
+        kyoppie-user-search(base_url="javascript://",action_icon="plus",ref="search",selectable=true)
     script.
         var self = this
         this.users = []
@@ -11,8 +11,14 @@ kyoppie-talk-new-room
             return this.users.map(function(user){return user.id})
         }
         this.on("mount",function(){
-            this.refs.search.on("clicked",function(user){
+            this.refs.search.on("clicked",function(user){ // ユーザー追加
                 self.users.push(user)
+                self.update()
+            })
+            this.refs.users.on("clicked",function(user){ // ユーザー削除
+                self.users = self.users.filter(function(user_){
+                    return user_.id != user.id
+                })
                 self.update()
             })
         })
