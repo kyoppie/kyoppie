@@ -1,5 +1,11 @@
 kyoppie-talk-room
     kyoppie-load-splash(show="{loading === true}")
+    h1(if="{room}") {room.name}
+    a(href="/talks/room/{room.id}/edit")
+        i.fa.fa-edit
+        |  編集
+    br
+    br
     a(href="https://github.com/kyoppie/kyoppie/issues/23",target="_blank") この画面のデザインのフィードバック受付中！
     .panel
         textarea.input(ref="text",onkeydown="{textarea}")
