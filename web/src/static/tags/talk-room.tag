@@ -1,27 +1,29 @@
 kyoppie-talk-room
     kyoppie-load-splash(show="{loading === true}")
-    h1(if="{room}") {room.name}
-    a(href="/talks/room/{room.id}/edit")
-        i.fa.fa-edit
-        |  編集
-    br
-    br
-    a(href="https://github.com/kyoppie/kyoppie/issues/23",target="_blank") この画面のデザインのフィードバック受付中！
-    .panel
-        textarea.input(ref="text",onkeydown="{textarea}")
-        button(onclick="{send}")
-            span.no_disabled
-                i.fa.fa-paper-plane
-                |  送信
-            span.yes_disabled
-                i.fa.fa-spinner.fa-pulse
-                |  送信中
-    .messages
-        virtual(each="{message, i in messages}")
-            kyoppie-talk-message(message="{message}")
-            .date(if="{i != messages.length-1 && dateNum(message._date) != dateNum(messages[i+1]._date)}")
-                hr
-                span {messages[i+1]._date.getMonth()+1}月 {messages[i+1]._date.getDay()}日
+    virtual(if="{room}")
+        h1(if="{room}") {room.name}
+        virtual(if="{!room.isOneToOne}")
+            a(href="/talks/room/{room.id}/edit",if="{!room.isOneToOne}")
+                i.fa.fa-edit
+                |  編集
+            br
+            br
+        a(href="https://github.com/kyoppie/kyoppie/issues/23",target="_blank") この画面のデザインのフィードバック受付中！
+        .panel
+            textarea.input(ref="text",onkeydown="{textarea}")
+            button(onclick="{send}")
+                span.no_disabled
+                    i.fa.fa-paper-plane
+                    |  送信
+                span.yes_disabled
+                    i.fa.fa-spinner.fa-pulse
+                    |  送信中
+        .messages
+            virtual(each="{message, i in messages}")
+                kyoppie-talk-message(message="{message}")
+                .date(if="{i != messages.length-1 && dateNum(message._date) != dateNum(messages[i+1]._date)}")
+                    hr
+                    span {messages[i+1]._date.getMonth()+1}月 {messages[i+1]._date.getDay()}日
     style.
         .date {
             text-align:center;

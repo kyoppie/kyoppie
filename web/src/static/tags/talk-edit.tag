@@ -25,8 +25,10 @@ kyoppie-talk-edit
         $.api.get("talks/rooms/show",{id:this.room_id}).then(function(res){
             self.loaded = true
             self.room = res.response
-            self.users = self.room.users
-            self.orig_users = [].concat(self.room.users) // copy
+            self.users = self.room.users.filter(function(user){
+                return user.id != ME.id
+            })
+            self.orig_users = [].concat(self.users) // copy
             self.update()
         })
         ignore_user_ids(){
