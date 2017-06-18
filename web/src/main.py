@@ -2,6 +2,7 @@ import config
 import json
 import utils
 import api
+import os
 import controllers._.ajax
 import controllers._.tojinja
 import controllers.dev
@@ -11,7 +12,7 @@ import controllers.admin
 import controllers.help
 import controllers.notifications
 import controllers.talks
-from flask import Flask,redirect,session,request,g
+from flask import Flask,redirect,session,request,g,Response
 from utils import render_template
 from datetime import timedelta
 app = Flask(__name__)
@@ -44,6 +45,12 @@ def beforeRequest():
             g.my = my["response"]
 @app.route('/static/<git_commit>/<path:path>')
 def staticFile(git_commit,path):
+    if path == "tags":
+        res = ""
+        p = './static/tags'
+        for file in os.listdir(p):
+            res += open(p+"/"+file,"r").read() + "\n"
+        return Response(res, mimetype="text/plain")
     return app.send_static_file(path)
 @app.route('/')
 @utils.login_required

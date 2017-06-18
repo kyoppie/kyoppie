@@ -1,8 +1,4 @@
 extends ./base
 
-block header
-    script(type="riot/tag",template="jade",data-src="/static/"+git_commit+"/tags/load-splash.tag")
-    script(type="riot/tag",template="jade",data-src="/static/"+git_commit+"/tags/talk-room.tag")
-    script(type="riot/tag",template="jade",data-src="/static/"+git_commit+"/tags/talk-message.tag")
 block content
     kyoppie-talk-room(room_id=room_id)
