@@ -1,13 +1,32 @@
 kyoppie-talk-message(data-is-me="{opts.message.user.isMe ? 1 : 0}",id="{opts.message.id}")
+    .user-info(hide="{opts.message.user.isMe}")
+        img.icon(src="{opts.message.user.avatarUrl}")
+        .user-name {opts.message.user.name}
     .message
-        span {opts.message.text}
+        span
+            kyoppie-text-render(text="{opts.message.text}")
         time(datetime="{opts.message.createdAt}",ref="created_at") {moment(this.refs.created_at.getAttribute("datetime")).format("HH:mm")}
     style.
         kyoppie-talk-message{
             display:block;
+            position:relative;
         }
         kyoppie-talk-message[data-is-me="1"]{
             text-align:right;
+        }
+        kyoppie-talk-message[data-is-me="0"]{
+            padding-left:2.5em;
+        }
+        .icon{
+            position:absolute;
+            width:2em;
+            height:2em;
+            bottom:0.5em;
+            left:0;
+        }
+        .user-name{
+            margin-bottom:-0.75em;
+            font-size:75%;
         }
         .message{
             border-radius:0.5em;
