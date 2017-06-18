@@ -8,6 +8,7 @@ module.exports = function(mongoose) {
         screenNameLower:{type:String,required:true},
         password:{type:String,required:true},
         passwordSalt:{type:String,required:true},
+        passwordVersion:{type:Number,default:1,required:true},
         postsCount:{type:Number,default:0},
         followersCount:{type:Number,default:0},
         followingCount:{type:Number,default:0},
@@ -49,6 +50,7 @@ module.exports = function(mongoose) {
         obj.__v = undefined
         obj.password = undefined
         obj.passwordSalt = undefined
+        obj.passwordVersion = undefined
         obj.push = undefined
         if (obj.avatar && obj.avatar.toResponseObject) {
             obj.avatar = await this.avatar.toResponseObject(token)
