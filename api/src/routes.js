@@ -14,6 +14,7 @@ module.exports = {
         {name:"/users/favorites",method:"get",login:false},
         {name:"/users/follow",method:"post"},
         {name:"/users/unfollow",method:"post"},
+        {name:"/users/search",method:"get",login:false},
 
         {name:"/auth/get_sigkey",method:"post",login:false},
         {name:"/auth/get_request_token",method:"post",login:false},
@@ -60,9 +61,20 @@ module.exports = {
         {name:"/files/upload",method:"post",file:true},
 
         {name:"/about/reserved_screen_name",method:"get",login:false},
+
+        {name:"/talks/rooms/create",method:"post"},
+        {name:"/talks/rooms/list",method:"get"},
+        {name:"/talks/rooms/show",method:"get"},
+        {name:"/talks/rooms/members/add",method:"post"},
+        {name:"/talks/rooms/members/remove",method:"post"},
+        {name:"/talks/rooms/from_user",method:"get"},
+        {name:"/talks/rooms/timeline",method:"get"},
+        {name:"/talks/rooms/say",method:"post"},
+        {name:"/talks/rooms/show_message",method:"get"},
     ],
     websocket:[
         {name:"/posts/timeline"},
         {name:"/posts/public_timeline",login:false},
+        {name:"/talks/rooms/timeline"},
     ]
 }

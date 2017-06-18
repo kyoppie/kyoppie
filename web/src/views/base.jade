@@ -10,21 +10,24 @@ html
         link(rel="stylesheet",href="/static/"+git_commit+"/css/main.css")
         link(rel="stylesheet",href="/static/"+git_commit+"/css/header_bar.css")
         link(rel="stylesheet",href="/static/"+git_commit+"/css/post.css")
-        link(rel="stylesheet",href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
+        link(rel="stylesheet",href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
         if session["access_token"]
             meta(name="access_token",content=session["access_token"])
         block title
             title kyoppie
         script!="var CONFIG="+config.web_config_json
-        script(src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js")
-        script(src="//cdnjs.cloudflare.com/ajax/libs/nunjucks/3.0.0/nunjucks.min.js")
-        script(src="/static/"+git_commit+"/js/api.js")
-        script(src="/static/"+git_commit+"/js/notify.js")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/nunjucks/3.0.0/nunjucks.min.js")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/riot/3.4.0/riot+compiler.min.js")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/jade/1.11.0/jade.min.js")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js")
+        script(src="/static/"+git_commit+"/js/utils.js")
         script(src="/static/"+git_commit+"/js/relative-time.js")
-        script(src="/static/"+git_commit+"/js/nunjucks-config.js")
         script(src="/static/"+git_commit+"/js/fuck-ie.js",async)
         script(src="/static/"+git_commit+"/js/top-bar.js")
         script(src="/static/"+git_commit+"/js/post.js")
+        script(src="/static/"+git_commit+"/js/title_notify.js")
+        script(type="riot/tag",template="jade",data-src="/static/"+git_commit+"/tags")
         != "<!--[if IE]><style>#fuckie{dislay:block !important;}</style><![endif]-->"
         block header
     body
@@ -37,6 +40,9 @@ html
                     li: a(href="/notifications/")
                         i.fa.fa-bell
                         span Notifications
+                    li: a(href="/talks/")
+                        i.fa.fa-comments
+                        span Talks
                 ul#headerBarRightItems
                     li: a(href="/menu")
                         if my
@@ -52,3 +58,8 @@ html
                 | 2016年12月5日から利用規約に則った運用が開始されます。ご確認ください。
             block content
         #notify
+        script.
+            riot.compile(function(){
+                riot.mount('*')
+                console.log("hoge")
+            })

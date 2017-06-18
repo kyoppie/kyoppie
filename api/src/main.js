@@ -147,6 +147,7 @@ wss.on("connection",function(ws) {
     ws.sendJSON = function(json) {
         ws.send(JSON.stringify(json))
     }
+    ws.query = location.query
     if (!ws_route[url]) {
         ws.sendJSON({result:false,error:"api-not-found"})
         ws.close()

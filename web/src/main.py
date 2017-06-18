@@ -2,6 +2,7 @@ import config
 import json
 import utils
 import api
+import os
 import controllers._.ajax
 import controllers._.tojinja
 import controllers.dev
@@ -10,7 +11,8 @@ import controllers.settings
 import controllers.admin
 import controllers.help
 import controllers.notifications
-from flask import Flask,redirect,session,request,g
+import controllers.talks
+from flask import Flask,redirect,session,request,g,Response
 from utils import render_template
 from datetime import timedelta
 app = Flask(__name__)
@@ -33,6 +35,7 @@ app.register_blueprint(controllers.settings.app)
 app.register_blueprint(controllers.admin.app)
 app.register_blueprint(controllers.help.app)
 app.register_blueprint(controllers.notifications.app)
+app.register_blueprint(controllers.talks.app)
 @app.before_request
 def beforeRequest():
     session.permanent = True
@@ -42,6 +45,12 @@ def beforeRequest():
             g.my = my["response"]
 @app.route('/static/<git_commit>/<path:path>')
 def staticFile(git_commit,path):
+    if path == "tags":
+        res = ""
+        p = './static/tags'
+        for file in os.listdir(p):
+            res += open(p+"/"+file,"r").read() + "\n"
+        return Response(res, mimetype="text/plain")
     return app.send_static_file(path)
 @app.route('/')
 @utils.login_required

@@ -56,6 +56,7 @@ module.exports = function(mongoose) {
         if (token) {
             obj.isFollowing = !!(await mongoose.model("follows").findOne({fromUser:token.user.id,toUser:obj.id}))
             obj.isFollowers = !!(await mongoose.model("follows").findOne({toUser:token.user.id,fromUser:obj.id}))
+            obj.isMe = token.user.id === this.id
         }
         if (isAprilFool(2017)) {
             obj.postsCount += 5000000000000000
