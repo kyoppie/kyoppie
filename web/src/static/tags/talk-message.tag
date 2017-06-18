@@ -1,6 +1,7 @@
 kyoppie-talk-message(data-is-me="{opts.message.user.isMe ? 1 : 0}",id="{opts.message.id}")
     .user-info(hide="{opts.message.user.isMe}")
-        img.icon(src="{opts.message.user.avatarUrl}")
+        a(href="/u/{opts.message.user.screenName}")
+            img.icon(src="{opts.message.user.avatarUrl}")
         .user-name {opts.message.user.name}
     .message
         span
@@ -27,6 +28,7 @@ kyoppie-talk-message(data-is-me="{opts.message.user.isMe ? 1 : 0}",id="{opts.mes
         .user-name{
             margin-bottom:-0.75em;
             font-size:75%;
+            padding-left:0.75em;
         }
         .message{
             border-radius:0.5em;
