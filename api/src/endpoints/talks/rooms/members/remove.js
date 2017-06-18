@@ -6,6 +6,6 @@ module.exports = async function (token,id,userId) {
     var user = await models.users.findById(userId)
     if (!user) throw "user-not-found"
     if (!~room.users.indexOf(user.id)) throw "already-removed"
-    room.users = room.users.filter(filter => filter !== user)
+    room.users = room.users.filter(filter => filter != user.id)
     return await room.save()
 }
