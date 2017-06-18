@@ -75,5 +75,32 @@ $.extend({
                 console.error("invalid file");
             }
         }
+    },
+    showNotify:function(str,millisec){
+        $("#notify").text(str);
+        $("#notify").addClass("active");
+        if(millisec) setTimeout($.hideNotify, millisec)
+    },
+    hideNotify:function(){
+        $("#notify").removeClass("active");
+    },
+    getUrlVars: function(){ // by http://jquery-howto.blogspot.jp/2009/09/get-url-parameters-values-with-jquery.html
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for(var i = 0; i < hashes.length; i++){
+            hash = hashes[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+        }
+        return vars;
+    },
+    getUrlVar: function(name){
+        return $.getUrlVars()[name];
     }
-})
+});
+// nunjucks config
+nunjucks.configure({ autoescape: false });
+
+String.prototype.replaceAll = function(target, dest) {
+    return this.split(target).join(dest)
+}
