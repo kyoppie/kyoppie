@@ -4,7 +4,6 @@ env:
     - NODEJS=7.4.0
     - NODEJS=7
     - NODEJS=8
-    - NODEJS=latest
 addons:
     apt:
         sources:
