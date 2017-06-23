@@ -1,7 +1,14 @@
 language: python
 env:
-    - NODEJS=7.0.0
+    - NODEJS=7.0.0 
     - NODEJS=7.4.0
+addons:
+    apt:
+        sources:
+            - ubuntu-toolchain-r-test 
+        packages:
+            - gcc-4.8
+            - g++-4.8
 python:
     - "3.6"
 cache:
@@ -19,7 +26,7 @@ before_install:
     - npm install -g forever
 install:
     - pip3 install flask pyjade requests
-    - cd api && npm install && cd ..
+    - cd api && CXX=g++-4.8 npm install && cd ..
 script:
     - cd api
     - npm run lint
