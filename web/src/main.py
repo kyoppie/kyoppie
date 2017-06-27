@@ -55,12 +55,10 @@ def staticFile(git_commit,path):
 @app.route('/')
 @utils.login_required
 def indexPage():
-    res = api.get("posts/timeline",login=True)["response"]
-    return render_template("index.jade",posts=res)
+    return render_template("index.jade")
 @app.route('/public')
 def publicTimeline():
-    res = api.get("posts/public_timeline")["response"]
-    return render_template("public.jade",posts=res)
+    return render_template("public.jade")
 
 @app.route('/login')
 def loginPage():
