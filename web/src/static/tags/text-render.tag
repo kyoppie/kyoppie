@@ -3,7 +3,8 @@ kyoppie-text-render
     script.
         render_html() {
             var text = opts.text
-            this.refs.html.innerHTML = text.replaceAll("<", "&lt;")
+            this.refs.html.innerHTML = text
+                .replaceAll("<", "&lt;")
                 .replaceAll(">", "&gt;")
                 .replaceAll("&", "&amp;")
                 .replaceAll("\n", "<br>")
