@@ -47,7 +47,7 @@ def beforeRequest():
 def staticFile(git_commit,path):
     if path == "tags":
         res = ""
-        p = './static/tags'
+        p = os.path.dirname(os.path.abspath(__file__))+'/static/tags'
         for file in os.listdir(p):
             res += open(p+"/"+file,"r").read() + "\n"
         return Response(res, mimetype="text/plain")
