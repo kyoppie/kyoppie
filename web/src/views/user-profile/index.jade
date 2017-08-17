@@ -1,31 +1,3 @@
 extends user-profile/base
-append header
-    script.
-        $(function(){
-            /*
-            function newWebSocketConnection(){
-                $.showNotify("ストリーミングに接続しています...");
-                var ws = $.api.websocket("posts/timeline");
-                ws.onopen = function(){
-                    $.showNotify("ストリーミングに接続しました！")
-                    setTimeout(function(){
-                        $.hideNotify();
-                    },500)
-                }
-                ws.onmessage = function(e){
-                    e = JSON.parse(e.data);
-                    var post = e.response;
-                    console.log(post)
-                    $("#timeline").prepend(template_post({post:post}));
-                }
-                ws.onclose = function(){
-                    newWebSocketConnection();
-                }
-            }
-            newWebSocketConnection();
-            */
-        })
 append content
-    .posts#timeline
-        for post in posts
-            include ./common/post
+    kyoppie-timeline(endpoint="users/timeline",query="{ {id:$('meta[name=user-id]').attr('content')}}")

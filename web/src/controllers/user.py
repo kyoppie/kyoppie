@@ -6,8 +6,7 @@ app = Blueprint(__name__,"user",url_prefix="/u")
 @app.route('/<screenName>')
 def userShow(screenName):
     res = api.get("users/show",{"screenName":screenName})["response"]
-    res2 = api.get("users/timeline",{"screenName":screenName})["response"]
-    return render_template("user-profile/index.jade",user=res,posts=res2)
+    return render_template("user-profile/index.jade",user=res)
 @app.route('/<screenName>/following')
 def userFollowingShow(screenName):
     res = api.get("users/show",{"screenName":screenName})["response"]

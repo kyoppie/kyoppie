@@ -30,6 +30,13 @@ module.exports = function(mongoose) {
         if (this.files && this.files.length) {
             for (let i=0;i<this.files.length;i++) {
                 if (!this.files[i].toResponseObject) {
+                    try {
+                        this.files[i] = await this.files[i].findById(this.files[i])
+                    } catch (e) {
+                        // スルー
+                    }
+                }
+                if (!this.files[i].toResponseObject) {
                     obj.files = []
                     break
                 }
