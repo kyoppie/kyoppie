@@ -2,3 +2,4 @@
 config/*.json
 __pycache_/
 node_modules/
+dist/

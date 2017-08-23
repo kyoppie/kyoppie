@@ -4,7 +4,7 @@ module.exports = {
     entry: "./src/static/tags/index",
     output: {
         path: __dirname+"/dist",
-        filename: "../src/static/bundle.js"
+        filename: "bundle.js"
     },
     plugins:[
         new webpack.ProvidePlugin({
