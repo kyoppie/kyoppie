@@ -1,6 +1,8 @@
 #!/bin/bash
 cp ../api/web_config.json config/api.json
 cp .ci-files/web.json config/
+npm install
+webpack
 cd src
 forever start -c "python3" main.py
 until curl localhost:4006 > /dev/null 2> /dev/null
