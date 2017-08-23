@@ -1,0 +1,21 @@
+{
+  "name": "kyoppie-web",
+  "version": "1.0.0",
+  "description": "kyoppie web",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "build": "webpack"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "pug": "^2.0.0-rc.3",
+    "riot": "^3.6.2",
+    "riot-tag-loader": "^1.0.0",
+    "webpack": "^3.5.5"
+  }
+}

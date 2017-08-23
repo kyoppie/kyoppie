@@ -39,6 +39,8 @@ kyoppie-talk-room
             border:1px solid rgba(0,0,0,0.8);
         }
     script.
+        import "./load-splash.tag"
+        import "./talk-message.tag"
         this.room_id = opts.room_id
         this.loading = true
         var self = this
@@ -53,7 +55,7 @@ kyoppie-talk-room
             self.loading = false
             self.update()
         })
-        send(e) {
+        this.send = function(e) {
             e.target.disabled = true
             var text = this.refs.text.value
             $.api.post("talks/rooms/say",{id:this.room.id, text:text}).then(function(res){
@@ -64,15 +66,15 @@ kyoppie-talk-room
                 if(err.responseJSON && err.responseJSON.error) alert(err.responseJSON.error)
                 e.target.disabled = false
             })
-        }
-        textarea(e) {
+        }.bind(this)
+        this.textarea = function(e) {
             if((e.metaKey || e.ctrlKey) && e.keyCode === 13) { // (Ctrl|Cmd)+Enter
                 $(e.target).parent().find("button").click()
             }
-        }
-        dateNum(date) {
+        }.bind(this)
+        this.dateNum = function(date) {
             return (date.getFullYear()*12*31) + (date.getMonth() * 31) + (date.getDay()-1)
-        }
+        }.bind(this)
         function newWebSocketConnection(){
             $.showNotify("ストリーミングに接続しています...")
             var ws = $.api.websocket("talks/rooms/timeline",{id:self.room_id});

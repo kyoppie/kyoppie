@@ -1,7 +1,7 @@
 kyoppie-text-render
     span(ref="html",base="{render_html()}")
     script.
-        render_html() {
+        this.render_html = function (){
             var text = opts.text
             this.refs.html.innerHTML = text
                 .replaceAll("<", "&lt;")

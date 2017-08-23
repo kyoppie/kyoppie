@@ -8,7 +8,7 @@ html
         link(rel="dns-prefetch",href="//cdnjs.bootstrapcdn.com")
         link(rel="dns-prefetch",href="//ajax.googleapis.com")
         link(rel="stylesheet",href="/static/"+git_commit+"/css/main.css")
-        link(rel="stylesheet",href="/static/"+git_commit+"/css/header_bar.css")
+        // link(rel="stylesheet",href="/static/"+git_commit+"/css/header_bar.css")
         link(rel="stylesheet",href="/static/"+git_commit+"/css/post.css")
         link(rel="stylesheet",href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
         if session["access_token"]
@@ -18,8 +18,6 @@ html
         script!="var CONFIG="+config.web_config_json
         script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js")
         script(src="https://cdnjs.cloudflare.com/ajax/libs/nunjucks/3.0.0/nunjucks.min.js")
-        script(src="https://cdnjs.cloudflare.com/ajax/libs/riot/3.4.0/riot+compiler.min.js")
-        script(src="https://cdnjs.cloudflare.com/ajax/libs/jade/1.11.0/jade.min.js")
         script(src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js")
         script(src="/static/"+git_commit+"/js/utils.js")
         script(src="/static/"+git_commit+"/js/relative-time.js")
@@ -27,28 +25,11 @@ html
         script(src="/static/"+git_commit+"/js/top-bar.js")
         script(src="/static/"+git_commit+"/js/post.js")
         script(src="/static/"+git_commit+"/js/title_notify.js")
-        script(type="riot/tag",template="jade",data-src="/static/"+git_commit+"/tags")
+        script(src="/static/"+git_commit+"/dist/bundle.js")
         != "<!--[if IE]><style>#fuckie{dislay:block !important;}</style><![endif]-->"
         block header
     body
-        #headerBar
-            #headerBarContainer
-                ul#headerBarLeftItems
-                    li: a(href="/")
-                        i.fa.fa-home
-                        span Home
-                    li: a(href="/notifications/")
-                        i.fa.fa-bell
-                        span Notifications
-                    li: a(href="/talks/")
-                        i.fa.fa-comments
-                        span Talks
-                ul#headerBarRightItems
-                    li: a(href="/menu")
-                        if my
-                            img(src=my.avatarThumbnailUrl,title="@"+my.screenName).headerBarIcon
-                        else
-                            i.fa.fa-bars
+        kyoppie-header-bar
         .container
             noscript: a(href="/help/noscript").top-notify-bar
                 | kyoppieはJavaScriptが有効なブラウザーでないとご利用いただけません。詳しくはここをクリックしてください。

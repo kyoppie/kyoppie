@@ -3,10 +3,11 @@ kyoppie-timeline
     virtual(each="{post in filterposts()}")
         kyoppie-post(post="{post}")
     script.
+        import './post.tag'
         var self = this
         this.loaded = false
         this.posts = []
-        filterposts(){
+        this.filterposts = function (){
             return this.posts.map(function(post){
                 if(post.repostTo){
                     var original = post
@@ -15,7 +16,7 @@ kyoppie-timeline
                 }
                 return post
             })
-        }
+        }.bind(this)
         this.on("mount",function(){
             var query = self.opts.query || {}
             query.limit = 20

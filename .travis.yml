@@ -1,13 +1,13 @@
 language: python
 env:
-    - NODEJS=7.0.0 
+    - NODEJS=7.0.0
     - NODEJS=7.4.0
     - NODEJS=7
     - NODEJS=8
 addons:
     apt:
         sources:
-            - ubuntu-toolchain-r-test 
+            - ubuntu-toolchain-r-test
         packages:
             - gcc-4.8
             - g++-4.8
@@ -16,6 +16,7 @@ python:
 cache:
     directories:
         - api/node_modules/
+        - web/node_modules/
         - ~/.nvm/versions/node/$NODEJS
         - ~/.cache/pip/
         - /var/cache/apt/archives
