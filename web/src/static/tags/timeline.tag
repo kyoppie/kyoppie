@@ -1,3 +1,4 @@
+| require("./post.tag")
 kyoppie-timeline
     span(if="{!loaded}") Loading...
     virtual(each="{post in filterposts()}")
@@ -6,7 +7,7 @@ kyoppie-timeline
         var self = this
         this.loaded = false
         this.posts = []
-        filterposts(){
+        filterposts = function (){
             return this.posts.map(function(post){
                 if(post.repostTo){
                     var original = post
@@ -15,7 +16,7 @@ kyoppie-timeline
                 }
                 return post
             })
-        }
+        }.bind(this)
         this.on("mount",function(){
             var query = self.opts.query || {}
             query.limit = 20

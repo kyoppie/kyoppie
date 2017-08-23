@@ -1,3 +1,5 @@
+| require("./user-search.tag")
+| require("./users.tag")
 kyoppie-talk-new-room
     h1 ルーム作成
     .panel

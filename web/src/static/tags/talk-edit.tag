@@ -1,3 +1,6 @@
+| require("./user-search.tag")
+| require("./users.tag")
+| require("./load-splash.tag")
 kyoppie-talk-edit
     kyoppie-load-splash(if="{!loaded}")
     .panel(show="{false && room && !room.isOneToOne}")
@@ -35,7 +38,7 @@ kyoppie-talk-edit
             var array = this.users.map(function(user){return user.id})
             return array
         }
-        name_update(e) {
+        this.name_update = function(e) {
             e.target.disabled = true
             $.api.post("talks/rooms/update_name",{
                 id: this.room_id,
@@ -43,8 +46,8 @@ kyoppie-talk-edit
             }).then(function(res){
                 location.href = "/talks/room/"+self.room_id
             })
-        }
-        user_update(e) {
+        }.bind(this)
+        this.user_update = function(e) {
             var new_user = []
             var del_user = []
             this.users.concat(this.orig_users).filter(function(item){
@@ -72,7 +75,7 @@ kyoppie-talk-edit
             promise.then(function(){
                 location.reload()
             })
-        }
+        }.bind(this)
         this.on("mount",function(){
             this.refs.search.on("clicked",function(user){ // ユーザー追加
                 self.users.push(user)

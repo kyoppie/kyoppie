@@ -1,3 +1,4 @@
+| require("./text-render.tag")
 kyoppie-talk-message(data-is-me="{opts.message.user.isMe ? 1 : 0}",id="{opts.message.id}")
     .user-info(hide="{opts.message.user.isMe}")
         a(href="/u/{opts.message.user.screenName}")

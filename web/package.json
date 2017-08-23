@@ -1,0 +1,26 @@
+{
+  "name": "kyoppie-web",
+  "version": "1.0.0",
+  "description": "kyoppie web",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "build": "webpack"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-es2015-riot": "^1.1.0",
+    "pug": "^2.0.0-rc.3",
+    "riot": "^3.6.2",
+    "riot-tag-loader": "^1.0.0",
+    "riotjs-loader": "^4.0.0",
+    "webpack": "^3.5.5"
+  }
+}

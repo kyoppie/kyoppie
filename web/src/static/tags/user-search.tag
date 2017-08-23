@@ -1,3 +1,4 @@
+| require("./users.tag")
 kyoppie-user-search
     input.input(type="text",name="query",placeholder="ユーザーを検索",onchange="{edit}",onkeyup="{edit}",autocomplete="off")
     kyoppie-users(base_url="{base_url}",users="{users}",action_icon="{action_icon}",ref="users",ignore_user_ids="{opts.ignore_user_ids}")
@@ -24,7 +25,7 @@ kyoppie-user-search
             })
         })
 
-        edit(e) {
+        this.edit = function(e) {
             if(this.text == e.target.value) return
             this.text = e.target.value
             var search_text = e.target.value
@@ -37,6 +38,6 @@ kyoppie-user-search
                 _this.users = res.response
                 _this.update()
             })
-        }
+        }.bind(this)
 
         this.edit({target:{value:""}})

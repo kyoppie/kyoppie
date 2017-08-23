@@ -18,8 +18,6 @@ html
         script!="var CONFIG="+config.web_config_json
         script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js")
         script(src="https://cdnjs.cloudflare.com/ajax/libs/nunjucks/3.0.0/nunjucks.min.js")
-        script(src="https://cdnjs.cloudflare.com/ajax/libs/riot/3.4.0/riot+compiler.min.js")
-        script(src="https://cdnjs.cloudflare.com/ajax/libs/jade/1.11.0/jade.min.js")
         script(src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js")
         script(src="/static/"+git_commit+"/js/utils.js")
         script(src="/static/"+git_commit+"/js/relative-time.js")
@@ -27,7 +25,7 @@ html
         script(src="/static/"+git_commit+"/js/top-bar.js")
         script(src="/static/"+git_commit+"/js/post.js")
         script(src="/static/"+git_commit+"/js/title_notify.js")
-        script(type="riot/tag",template="jade",data-src="/static/"+git_commit+"/tags")
+        script(src="/static/"+git_commit+"/bundle.js")
         != "<!--[if IE]><style>#fuckie{dislay:block !important;}</style><![endif]-->"
         block header
     body
