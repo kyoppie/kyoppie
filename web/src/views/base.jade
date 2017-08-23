@@ -8,7 +8,7 @@ html
         link(rel="dns-prefetch",href="//cdnjs.bootstrapcdn.com")
         link(rel="dns-prefetch",href="//ajax.googleapis.com")
         link(rel="stylesheet",href="/static/"+git_commit+"/css/main.css")
-        link(rel="stylesheet",href="/static/"+git_commit+"/css/header_bar.css")
+        // link(rel="stylesheet",href="/static/"+git_commit+"/css/header_bar.css")
         link(rel="stylesheet",href="/static/"+git_commit+"/css/post.css")
         link(rel="stylesheet",href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
         if session["access_token"]
@@ -29,24 +29,7 @@ html
         != "<!--[if IE]><style>#fuckie{dislay:block !important;}</style><![endif]-->"
         block header
     body
-        #headerBar
-            #headerBarContainer
-                ul#headerBarLeftItems
-                    li: a(href="/")
-                        i.fa.fa-home
-                        span Home
-                    li: a(href="/notifications/")
-                        i.fa.fa-bell
-                        span Notifications
-                    li: a(href="/talks/")
-                        i.fa.fa-comments
-                        span Talks
-                ul#headerBarRightItems
-                    li: a(href="/menu")
-                        if my
-                            img(src=my.avatarThumbnailUrl,title="@"+my.screenName).headerBarIcon
-                        else
-                            i.fa.fa-bars
+        kyoppie-header-bar
         .container
             noscript: a(href="/help/noscript").top-notify-bar
                 | kyoppieはJavaScriptが有効なブラウザーでないとご利用いただけません。詳しくはここをクリックしてください。

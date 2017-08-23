@@ -16,6 +16,8 @@ kyoppie-header-bar
                     img(src=my.avatarThumbnailUrl,title="@"+my.screenName).headerBarIcon
                 else
                     i.fa.fa-bars
+    script.
+        document.body.style.paddingTop = "40px"
     style.
         :scope{
             font-size:16px;
@@ -27,9 +29,6 @@ kyoppie-header-bar
             background:rgba(255,255,255,0.9);
             box-shadow:0px 1px 0px rgba(192,192,192,0.9);
             z-index:999;
-        }
-        body{
-            padding-top:40px;
         }
         :scope ul{
             display:inline-block;
