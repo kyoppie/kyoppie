@@ -1,5 +1,3 @@
-| require("./load-splash.tag")
-| require("./talk-message.tag")
 kyoppie-talk-room
     kyoppie-load-splash(show="{loading === true}")
     virtual(if="{room}")
@@ -41,6 +39,8 @@ kyoppie-talk-room
             border:1px solid rgba(0,0,0,0.8);
         }
     script.
+        import "./load-splash.tag"
+        import "./talk-message.tag"
         this.room_id = opts.room_id
         this.loading = true
         var self = this

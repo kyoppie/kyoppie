@@ -1,4 +1,3 @@
-| require("./text-render.tag")
 kyoppie-talk-message(data-is-me="{opts.message.user.isMe ? 1 : 0}",id="{opts.message.id}")
     .user-info(hide="{opts.message.user.isMe}")
         a(href="/u/{opts.message.user.screenName}")
@@ -8,6 +7,8 @@ kyoppie-talk-message(data-is-me="{opts.message.user.isMe ? 1 : 0}",id="{opts.mes
         span
             kyoppie-text-render(text="{opts.message.text}")
         time(datetime="{opts.message.createdAt}",ref="created_at") {moment(this.refs.created_at.getAttribute("datetime")).format("HH:mm")}
+    script.
+        import "./text-render.tag"
     style.
         kyoppie-talk-message{
             display:block;

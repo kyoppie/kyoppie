@@ -1,13 +1,13 @@
-| require("./post.tag")
 kyoppie-timeline
     span(if="{!loaded}") Loading...
     virtual(each="{post in filterposts()}")
         kyoppie-post(post="{post}")
     script.
+        import './post.tag'
         var self = this
         this.loaded = false
         this.posts = []
-        filterposts = function (){
+        this.filterposts = function (){
             return this.posts.map(function(post){
                 if(post.repostTo){
                     var original = post

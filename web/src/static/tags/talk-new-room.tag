@@ -1,5 +1,3 @@
-| require("./user-search.tag")
-| require("./users.tag")
 kyoppie-talk-new-room
     h1 ルーム作成
     .panel
@@ -12,6 +10,8 @@ kyoppie-talk-new-room
         i.fa.fa-plus
         |  ルームを作成
     script.
+        import "./user-search.tag"
+        import "./users.tag"
         var self = this
         this.users = []
         ignore_user_ids(){

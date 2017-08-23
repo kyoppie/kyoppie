@@ -1,6 +1,3 @@
-| require("./user-search.tag")
-| require("./users.tag")
-| require("./load-splash.tag")
 kyoppie-talk-edit
     kyoppie-load-splash(if="{!loaded}")
     .panel(show="{false && room && !room.isOneToOne}")
@@ -21,6 +18,9 @@ kyoppie-talk-edit
             .yes_disabled
                 | 変更中...
     script.
+        import "./user-search.tag"
+        import "./users.tag"
+        import "./load-splash.tag"
         this.room_id = opts.room_id
         this.users = []
         this.orig_users = []
