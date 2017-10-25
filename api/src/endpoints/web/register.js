@@ -2,6 +2,8 @@ var models = require("../../models")
 var isValidScreenName = require("../../utils/isValidScreenName")
 var reservedList = require("../../utils/reservedList")
 module.exports = async function (requestToken,name,screenName,password) {
+    throw "register-is-closed"
+    return
     // バリデーション
     if (!requestToken) throw "require-requestToken"
     if (!name || typeof name !== "string") throw "require-name"
